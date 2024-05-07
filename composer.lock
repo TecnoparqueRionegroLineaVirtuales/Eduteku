@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6278603ae0a94f75939e7f646d8ba2b",
+    "content-hash": "4348e252933be53f5cda9e9cf0010e6b",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1420,16 +1420,16 @@
         },
         {
             "name": "laravel/jetstream",
-            "version": "v5.0.0",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/jetstream.git",
-                "reference": "852e28aae80174dc839ffb91d402e853cede9c19"
+                "reference": "8bffd5336bfac4d6f0098b50ee7c3e3559714ddc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/jetstream/zipball/852e28aae80174dc839ffb91d402e853cede9c19",
-                "reference": "852e28aae80174dc839ffb91d402e853cede9c19",
+                "url": "https://api.github.com/repos/laravel/jetstream/zipball/8bffd5336bfac4d6f0098b50ee7c3e3559714ddc",
+                "reference": "8bffd5336bfac4d6f0098b50ee7c3e3559714ddc",
                 "shasum": ""
             },
             "require": {
@@ -1438,7 +1438,8 @@
                 "illuminate/support": "^11.0",
                 "laravel/fortify": "^1.20",
                 "mobiledetect/mobiledetectlib": "^4.8",
-                "php": "^8.2.0"
+                "php": "^8.2.0",
+                "symfony/console": "^7.0"
             },
             "require-dev": {
                 "inertiajs/inertia-laravel": "^1.0",
@@ -1482,7 +1483,7 @@
                 "issues": "https://github.com/laravel/jetstream/issues",
                 "source": "https://github.com/laravel/jetstream"
             },
-            "time": "2024-03-12T14:03:48+00:00"
+            "time": "2024-05-06T17:10:37+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -2126,16 +2127,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v3.4.10",
+            "version": "v3.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "6f90e2d7f8e80a97a7406c22a0fbc61ca1256ed9"
+                "reference": "54dd265c17f7b5200627eb9690590e7cbbad1027"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/6f90e2d7f8e80a97a7406c22a0fbc61ca1256ed9",
-                "reference": "6f90e2d7f8e80a97a7406c22a0fbc61ca1256ed9",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/54dd265c17f7b5200627eb9690590e7cbbad1027",
+                "reference": "54dd265c17f7b5200627eb9690590e7cbbad1027",
                 "shasum": ""
             },
             "require": {
@@ -2150,7 +2151,7 @@
             },
             "require-dev": {
                 "calebporzio/sushi": "^2.1",
-                "laravel/framework": "^10.0|^11.0",
+                "laravel/framework": "^10.15.0|^11.0",
                 "laravel/prompts": "^0.1.6",
                 "mockery/mockery": "^1.3.1",
                 "orchestra/testbench": "^8.21.0|^9.0",
@@ -2190,7 +2191,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v3.4.10"
+                "source": "https://github.com/livewire/livewire/tree/v3.4.12"
             },
             "funding": [
                 {
@@ -2198,7 +2199,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-02T14:22:50+00:00"
+            "time": "2024-05-02T17:10:37+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
