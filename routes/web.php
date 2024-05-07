@@ -3,14 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\MultimediaController;
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\QuehacetpController;
 use App\Models\Category;
 
-Route::get('/', function () {
-    return view('users.welcome');
-});
-Route::get('info', function () {
-    return view('users.info');
-});
+Route::resource('index', IndexController::class);
+Route::get('/', [IndexController::class, 'index']);
+Route::resource('info', QuehacetpController::class);
 Route::get('edt', function () {
     return view('users.edt');
 });
@@ -31,9 +31,7 @@ Route::middleware([
     })->name('dashboard');
     Route::resource('category', CategoryController::class);
     Route::resource('state', StateController::class);
-    Route::get('/multimedia', function () {
-        return view('admin.multimedia');
-    })->name('multimedia');
+    Route::resource('multimedia', MultimediaController::class);
     Route::get('/users', function () {
         return view('admin.users');
     })->name('users');

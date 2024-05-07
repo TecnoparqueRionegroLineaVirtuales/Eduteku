@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('multimedia', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 20);
-            $table->string('url', 100);
+            $table->string('name', 50);
+            $table->string('descripcion', 1000);
+            $table->string('url', 200);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('status_id');
