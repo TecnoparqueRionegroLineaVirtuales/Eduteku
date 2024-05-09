@@ -7,16 +7,15 @@ use App\Http\Controllers\MultimediaController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\QuehacetpController;
 use App\Http\Controllers\EdtController;
+use App\Http\Controllers\BulletinController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
 Route::get('/', [IndexController::class, 'index']);
 Route::resource('info', QuehacetpController::class);
 Route::resource('edt', EdtController::class);
+Route::resource('bulletin', BulletinController::class);
 
-Route::get('bulletin', function () {
-    return view('users.bulletin');
-});
 Route::get('teku', function () {
     return view('users.appTeku');
 });
