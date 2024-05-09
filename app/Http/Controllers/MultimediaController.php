@@ -6,6 +6,7 @@ use App\Models\multimedia;
 use App\Models\status;
 use App\Models\category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class MultimediaController extends Controller
@@ -38,10 +39,12 @@ class MultimediaController extends Controller
         'name' => 'required|string|max:255',
         'descripcion' => 'required|string',
         'url' => 'required',
+        'link' => 'required',
         'status_id' => 'required|exists:status,id',
         'category_id' => 'required|exists:category,id',
     ]);
-
+    $link = $datosValidados['link'];
+    $linkSave = Str::after($link, 'https://youtu.be/');
     
     $userId = Auth::id();
 
@@ -54,11 +57,15 @@ class MultimediaController extends Controller
         try {
             
             $rutaArchivo = $archivo->storeAs('public/img', $nombreArchivo);
+
+            
+
             
             $multimedia = new Multimedia();
             $multimedia->name = $datosValidados['name'];
             $multimedia->descripcion = $datosValidados['descripcion'];
             $multimedia->url = 'storage/img/' . $nombreArchivo;
+            $multimedia->link = $linkSave;
             $multimedia->user_id = $userId;
             $multimedia->status_id = $datosValidados['status_id'];
             $multimedia->category_id = $datosValidados['category_id'];

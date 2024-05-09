@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('descripcion', 1000);
             $table->string('url', 200);
+            $table->string('link', 300);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('status_id');

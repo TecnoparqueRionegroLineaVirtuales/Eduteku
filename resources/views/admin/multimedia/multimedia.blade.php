@@ -137,6 +137,14 @@
                                                         </div>
                                                         <div class="-mx-3 md:flex mb-6">
                                                           <div class="md:w-full px-3">
+                                                              <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
+                                                                URL
+                                                              </label>
+                                                              <textarea class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" name="link" id="application-link" placeholder="Link"></textarea>
+                                                          </div>
+                                                        </div>
+                                                        <div class="-mx-3 md:flex mb-6">
+                                                          <div class="md:w-full px-3">
                                                             <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
                                                               Estado
                                                             </label>

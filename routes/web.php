@@ -6,14 +6,14 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\MultimediaController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\QuehacetpController;
+use App\Http\Controllers\EdtController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
 Route::get('/', [IndexController::class, 'index']);
 Route::resource('info', QuehacetpController::class);
-Route::get('edt', function () {
-    return view('users.edt');
-});
+Route::resource('edt', EdtController::class);
+
 Route::get('bulletin', function () {
     return view('users.bulletin');
 });
