@@ -48,18 +48,24 @@
                                         <th scope="col" class="px-6 py-4">#</th>
                                         <th scope="col" class="px-6 py-4">Correo</th>
                                         <th scope="col" class="px-6 py-4">Mensaje</th>
+                                        <th scope="col" class="px-6 py-4">Fecha</th>
                                         <th scope="col" class="px-6 py-4">Accion</th>
                                       </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach ($messages as $message)
                                       <tr class="border-b border-neutral-200">
-                                        <td class="whitespace-nowrap px-6 py-4 font-medium">1</td>
-                                        <td class="whitespace-nowrap px-6 py-4">Mark</td>
-                                        <td class="whitespace-nowrap px-6 py-4">Mensaje de prueba</td>
+                                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $message->id }}</td>
+                                        <td class="whitespace-nowrap px-6 py-4">{{ $message->meil }}</td>
+                                        <td class="whitespace-nowrap px-6 py-4 w-1/3 overflow-hidden max-w-xs">
+                                            <div class="text-ellipsis">{{ $message->message }}</div>
+                                        </td>
+                                        <td class="whitespace-nowrap px-6 py-4">{{ $message->date }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">
                                             <button class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-eye"></i></button>
                                         </td>
                                       </tr>
+                                    @endforeach
                                     </tbody>
                                   </table>
                                 </div>
