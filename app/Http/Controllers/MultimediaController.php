@@ -34,53 +34,53 @@ class MultimediaController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $datosValidados = $request->validate([
-        'name' => 'required|string|max:255',
-        'descripcion' => 'required|string',
-        'url' => 'required',
-        'link' => 'required',
-        'status_id' => 'required|exists:status,id',
-        'category_id' => 'required|exists:category,id',
-    ]);
-    $link = $datosValidados['link'];
-    $linkSave = Str::after($link, 'https://youtu.be/');
-    
-    $userId = Auth::id();
-
-    if ($request->hasFile('url')) {
-        
-        $archivo = $request->file('url');
-        $extension = $archivo->getClientOriginalExtension();
-        $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
-
-        try {
+        {
+            $datosValidados = $request->validate([
+                'name' => 'required|string|max:255',
+                'descripcion' => 'required|string',
+                'url' => 'required',
+                'link' => 'required',
+                'status_id' => 'required|exists:status,id',
+                'category_id' => 'required|exists:category,id',
+            ]);
+            $link = $datosValidados['link'];
+            $linkSave = Str::after($link, 'https://youtu.be/');
             
-            $rutaArchivo = $archivo->storeAs('public/img', $nombreArchivo);
+            $userId = Auth::id();
 
-            
+            if ($request->hasFile('url')) {
+                
+                $archivo = $request->file('url');
+                $extension = $archivo->getClientOriginalExtension();
+                $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
 
-            
-            $multimedia = new Multimedia();
-            $multimedia->name = $datosValidados['name'];
-            $multimedia->descripcion = $datosValidados['descripcion'];
-            $multimedia->url = 'storage/img/' . $nombreArchivo;
-            $multimedia->link = $linkSave;
-            $multimedia->user_id = $userId;
-            $multimedia->status_id = $datosValidados['status_id'];
-            $multimedia->category_id = $datosValidados['category_id'];
-            $multimedia->save();
+                try {
+                    
+                    $rutaArchivo = $archivo->storeAs('public/img', $nombreArchivo);
 
-            return redirect()->route('multimedia.index')->with('success', 'Archivo creado correctamente.');
-        } catch (\Exception $e) {
+                    
 
-           
-            return back()->withErrors(['error' => $e->getMessage()]);
+                    
+                    $multimedia = new Multimedia();
+                    $multimedia->name = $datosValidados['name'];
+                    $multimedia->descripcion = $datosValidados['descripcion'];
+                    $multimedia->url = 'storage/img/' . $nombreArchivo;
+                    $multimedia->link = $linkSave;
+                    $multimedia->user_id = $userId;
+                    $multimedia->status_id = $datosValidados['status_id'];
+                    $multimedia->category_id = $datosValidados['category_id'];
+                    $multimedia->save();
+
+                    return redirect()->route('multimedia.index')->with('success', 'Archivo creado correctamente.');
+                } catch (\Exception $e) {
+
+                
+                    return back()->withErrors(['error' => $e->getMessage()]);
+                }
+            }
+
+            return back()->withErrors(['error' => 'Error al subir el archivo.']);
         }
-    }
-
-    return back()->withErrors(['error' => 'Error al subir el archivo.']);
-}
 
 
 

@@ -29,7 +29,7 @@
                 <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4" src="{{ asset($boletins->url) }}">
                 <div class="w-full">
                     <h2 class="title-font font-medium text-lg text-gray-900">{{ $boletins->name }}</h2>
-                    <h3 class="text-gray-500 mb-3"><a href="{{ $boletins->link }}" >Descarga el boletin</a></h3>
+                    <h3 class="text-blue-500 font-bold mb-3"><a href="{{ $boletins->link }}" target="_blank">Descarga el boletin</a></h3>
                     <p class="mb-4">{{ $boletins->descripcion }}</p>
                     <span class="inline-flex">
                     <a class="text-gray-500">

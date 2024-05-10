@@ -34,7 +34,7 @@
                             <img class="w-full h-40 object-cover" src="{{ asset($linea->url) }}" alt="{{ $linea->name }}"> 
                             <div class="absolute inset-0 bg-black opacity-50"></div> 
                         </div>
-                        <div class="relative z-10 text-justify bg-white h-[400px] p-2 w-4/5"> 
+                        <div class="relative z-10 text-justify w-full bg-white h-[400px] p-2 w-4/5 overflow-y-auto"> 
                             <h2 class="text-lg sm:text-xl text-gray-800 font-medium title-font mb-2">{{ $linea->name }}</h2>
                             <p class="leading-relaxed text-gray-600 text-base mb-4">{{ $linea->descripcion }}</p>
                             <a class="text-green-500 inline-flex items-center" href="https://redtecnoparque.com/lineas/">Conoce más...
