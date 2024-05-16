@@ -60,8 +60,10 @@ class MessagesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(messages $messages)
+    public function destroy(messages $message)
     {
-        //
+        $message->delete();
+
+        return redirect()->route('messages.index')->with('error', 'Mensaje eliminado correctamente.');
     }
 }

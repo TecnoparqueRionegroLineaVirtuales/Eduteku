@@ -84,8 +84,12 @@
                                           <td class="whitespace-nowrap px-6 py-4">{{ $multimedias->category_id}}</td>
                                           <td class="whitespace-nowrap px-6 py-4"><img src="{{ asset($multimedias->url) }}" alt="Imagen" class="max-w-16 max-h-16"></td>
                                           <td class="whitespace-nowrap px-6 py-4">
-                                              <button class="bg-red-400 text-white p-2 rounded"><i class="fa fa-trash"></i></button>
-                                              <button class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-pen"></i></button>
+                                          <form action="{{ route('multimedia.destroy', $multimedias->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="bg-red-400 text-white p-2 rounded" onclick="confirmarBorrado({{ $multimedias->id }})"><i class="fa fa-trash"></i></button>
+                                            <a href="{{ route('multimedia.edit', $multimedias->id) }}" class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-pen"></i></a>
+                                          </form>
                                           </td>
                                       </tr>
                                       @endforeach

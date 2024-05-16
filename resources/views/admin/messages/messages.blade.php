@@ -62,7 +62,11 @@
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $message->date }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            <button class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-eye"></i></button>
+                                            <form action="{{ route('messages.destroy', $message->id)}}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="bg-red-400 text-white p-2 rounded" onclick="confirmarBorrado({{ $message->id }})"><i class="fa fa-trash"></i></button>
+                                            </form>
                                         </td>
                                       </tr>
                                     @endforeach

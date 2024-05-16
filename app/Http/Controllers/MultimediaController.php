@@ -8,6 +8,8 @@ use App\Models\category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class MultimediaController extends Controller
 {
@@ -95,24 +97,70 @@ class MultimediaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(multimedia $multimedia)
+    public function edit($id)
     {
-        //
+        $multimedias = Multimedia::findOrFail($id);
+
+        $status = Status::all();
+        $category = Category::all();
+
+        return view('admin.multimedia.edit', compact('multimedias', 'status', 'category'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, multimedia $multimedia)
+    public function update(Request $request, Multimedia $multimedia)
     {
-        //
+        
+        $datosValidados = $request->validate([
+            'name' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'url' => 'nullable',
+            'link' => 'required',
+            'status_id' => 'required|exists:status,id',
+            'category_id' => 'required|exists:category,id',
+        ]);
+    
+        
+        $multimedia->name = $datosValidados['name'];
+        $multimedia->descripcion = $datosValidados['descripcion'];
+        $multimedia->link = $datosValidados['link'];
+        $multimedia->status_id = $datosValidados['status_id'];
+        $multimedia->category_id = $datosValidados['category_id'];
+    
+        
+        if ($request->hasFile('url')) {
+
+            $archivo = $request->file('url');
+            $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
+            $rutaArchivo = $archivo->storeAs('public/img', $nombreArchivo);
+            $multimedia->url = 'storage/img/' . $nombreArchivo;
+    
+            if ($multimedia->url) {
+                Storage::delete($multimedia->url);
+            }
+        }
+    
+        $link = $datosValidados['link'];
+        $linkSave = Str::after($link, 'https://youtu.be/');
+        $multimedia->link = $linkSave;
+    
+        $multimedia->save();
+    
+        return redirect()->route('multimedia.index')->with('success', 'La entidad se ha actualizado correctamente.');
     }
+    
+    
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(multimedia $multimedia)
     {
-        //
+        $multimedia->delete();
+
+        return redirect()->route('multimedia.index')->with('error', 'Multimedia eliminada correctamente.');
     }
 }
