@@ -35,7 +35,10 @@
                 </div>
 
                 <div class="pt-10 py-10 px-10">
+                  <a href="{{ route('register')}}">
                     <button id="openModal" class="inline-flex items-center bg-green-500 border-0 py-1 px-3 focus:outline-none hover:bg-green-600 text-white rounded text-base mt-4 md:mt-0">Agregar Usuario</button>
+                  </a>
+                    
                 </div>
                 
                 <div class="flex flex-wrap w-full py-20 px-12 lg:px-24 shadow-xl mb-24">

@@ -17,6 +17,12 @@
                 <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
                     <li class="flex-1 md:flex-none md:mr-3">
                         <div class="relative inline-block">
+                            <a href="{{ route('index.index') }}"><button class="inline-block py-2 px-4 text-current no-underline" type="submit"><i class="fas fa-globe fa-fw"></i>Regresar al portal web</button></a>
+                        </div>   
+                    </li>
+                    <li class="flex-1 md:flex-none md:mr-3">
+                        <div class="relative inline-block">
+                            
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button class="inline-block py-2 px-4 text-current no-underline" type="submit"><i class="fas fa-sign-out-alt fa-fw"></i>Cerrar sesión</button>

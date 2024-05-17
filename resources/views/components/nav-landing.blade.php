@@ -11,12 +11,34 @@
       <a class="mr-10 hover:text-gray-900" href="{{ url('bulletin') }}">Boletines tecnologicos</a>
       <a class="mr-10 hover:text-gray-900" href="{{ url('teku') }}">App Teku</a>
     </nav>
-    <a href="http://localhost:8080/login/index.php">
-      <button class="inline-flex items-center bg-green-500 border-0 py-1 px-3 focus:outline-none hover:bg-green-600 text-white rounded text-base mt-4 md:mt-0">Cursos tecnologicos
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-      </button>
-    </a>
+    @auth
+      @if(auth()->user()->hasRole('user'))
+        <a href="{{ route('login')}}">
+          <button class="inline-flex items-center bg-green-500 border-0 py-1 px-3 focus:outline-none hover:bg-green-600 text-white rounded text-base mt-4 md:mt-0">Ir al panel
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </a>
+      @endif
+      @if(auth()->user()->hasRole('admin'))
+      <a href="{{ route('login')}}">
+          <button class="inline-flex items-center bg-green-500 border-0 py-1 px-3 focus:outline-none hover:bg-green-600 text-white rounded text-base mt-4 md:mt-0">Ir al panel
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </a>
+    @endauth
+    @else
+      <a href="{{ route('login')}}">
+        <button class="inline-flex items-center bg-green-500 border-0 py-1 px-3 focus:outline-none hover:bg-green-600 text-white rounded text-base mt-4 md:mt-0">Iniciar sesión
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </a>
+    @endif
+    
   </div>
 </header>
