@@ -35,7 +35,7 @@
           <label for="message" class="leading-7 text-sm text-gray-600">Mensaje</label>
           <textarea id="message" name="message" class="w-full bg-white rounded border border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
         </div>
-        <button class="text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">Button</button>
+        <button class="text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">Enviar</button>
     </form>
       <p class="text-xs text-gray-500 mt-3">Diligencia el formulario y nos contactaremos con tigo.</p>
     </div>

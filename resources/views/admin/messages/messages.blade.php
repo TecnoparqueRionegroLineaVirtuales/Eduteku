@@ -27,7 +27,10 @@
         @include('components.nav-dashboard')
         <section class="w-full">
             <div id="main" class="main-content mt-12 md:mt-2 pb-24 md:pb-5">
-
+                @role('user')
+                    <h1>No tienes permisos para acceder a este sitio.</h1>
+                @endrole
+                @role('admin')
                 <div class="bg-gray-100 pt-3">
                     <div class="rounded-tl-3xl bg-gradient-to-r from-gray-100 to-green-600 p-4 shadow text-2xl text-current">
                         <h1 class="font-bold pl-2">Mensajes</h1>
@@ -116,5 +119,6 @@ document.getElementById('closeModal').addEventListener('click', function() {
 });
 
 </script>
+@endrole
 </body>
 </html>

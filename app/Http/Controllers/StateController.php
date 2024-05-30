@@ -32,6 +32,7 @@ class StateController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
+
         status::create($request->all());
         return redirect()->route('state.index')->with('success', 'Estado creada correctamente.');
     }

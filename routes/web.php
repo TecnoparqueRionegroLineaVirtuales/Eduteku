@@ -22,6 +22,9 @@ Route::resource('messagesclient', MessagesclientController::class);
 Route::get('teku', function () {
     return view('users.appTeku');
 });
+Route::get('ruta', function () {
+    return view('users.ruta');
+});
 
 Route::middleware([
     'auth:sanctum',

@@ -9,6 +9,7 @@
       <a class="mr-10 hover:text-gray-900" href="{{ url('info') }}">¿Que hacemos en tecnoparque?</a>
       <a class="mr-10 hover:text-gray-900" href="{{ url('edt') }}">Eventos de divulgacion tecnologica (EDT)</a>
       <a class="mr-10 hover:text-gray-900" href="{{ url('bulletin') }}">Boletines tecnologicos</a>
+      <a class="mr-10 hover:text-gray-900" href="{{ url('ruta') }}">Ruta</a>
       <a class="mr-10 hover:text-gray-900" href="{{ url('teku') }}">App Teku</a>
     </nav>
     @auth
