@@ -10,6 +10,8 @@ use App\Http\Controllers\EdtController;
 use App\Http\Controllers\BulletinController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\MessagesclientController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
@@ -31,15 +33,10 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('category', CategoryController::class);
     Route::resource('state', StateController::class);
     Route::resource('multimedia', MultimediaController::class);
     Route::resource('messages', MessagesController::class);
-    Route::get('/users', function () {
-        return view('admin.users');
-    })->name('users');
-    
+    Route::resource('user', UserController::class);
 });
