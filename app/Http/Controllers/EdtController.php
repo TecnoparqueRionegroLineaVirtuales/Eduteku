@@ -26,29 +26,22 @@ class EdtController extends Controller
      */
     public function toggleLike($edtId)
     {
-        // Verificar si el usuario está autenticado
         if (!Auth::check()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
-
-        // Verificar si ya existe un like para este EDT
         $like = Like::where('user_id', Auth::id())
                     ->where('multimedia_id', $edtId)
                     ->first();
-
-        // Si existe, eliminar el like (toggle)
         if ($like) {
             $like->delete();
-            $liked = false; // Indicar que el usuario ya no ha dado like
+            $liked = false;
         } else {
-            // Si no existe, crear el like
             Like::create([
                 'user_id' => Auth::id(),
                 'multimedia_id' => $edtId,
             ]);
-            $liked = true; // Indicar que el usuario ha dado like
+            $liked = true;
         }
-
         return response()->json(['liked' => $liked]);
     }
 }

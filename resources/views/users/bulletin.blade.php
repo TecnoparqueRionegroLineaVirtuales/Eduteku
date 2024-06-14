@@ -6,11 +6,9 @@
     @vite('resources/css/app.css')
     <link rel="icon" href="{{ asset('storage/img/logo.jpg') }}" type="image/x-icon">
     <title>Tecnoparque Rionegro</title>
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
-    
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="font-sans antialiased">
@@ -69,12 +67,11 @@
                 const likeIcon = document.querySelector(`i.like-icon`);
                 likeIcon.classList.toggle('fa-solid', data.liked);
                 likeIcon.classList.toggle('text-red-500', data.liked);
-                // Recargar la página después de cambiar el estado del like
                 window.location.reload();
             })
             .catch(error => {
                 console.error('Error:', error);
-                window.location.href = '/login'; // Redirigir al usuario al login si no está autenticado
+                window.location.href = '/login';
             });
         }
     </script>
