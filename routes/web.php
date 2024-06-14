@@ -12,6 +12,7 @@ use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\MessagesclientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LikeController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
@@ -39,4 +40,5 @@ Route::middleware([
     Route::resource('multimedia', MultimediaController::class);
     Route::resource('messages', MessagesController::class);
     Route::resource('user', UserController::class);
+    Route::post('/like/{multimedia}', [LikeController::class, 'toggleLike'])->name('like.toggle');
 });
