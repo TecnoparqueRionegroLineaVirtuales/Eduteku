@@ -1,33 +1,36 @@
 <header>
     <!--Nav-->
-    <nav aria-label="menu nav" class="bg-gray-100 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full top-0">
+    <nav aria-label="menu nav" class="bg-gray-100 pt-2 pb-1 px-1 mt-0 h-auto fixed w-full top-0">
 
-        <div class="flex flex-wrap items-center">
-            <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
+        <div class="flex flex-wrap items-center justify-between">
+            <!-- Logo -->
+            <div class="flex justify-center md:justify-center text-white">
                 <a href="{{ route('dashboard') }}" aria-label="Home">
                     <img class="h-14" src="{{ asset('storage/img/logosena.png') }}" alt="logo" />
                 </a>
             </div>
 
-            <div class="flex flex-1 md:w-1/3 justify-center md:justify-start text-current px-2">
-                
+            <!-- Placeholder div to keep the layout balanced -->
+            <div class="hidden md:flex flex-1 justify-center text-current px-2">
             </div>
 
-            <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
-                <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
-                    <li class="flex-1 md:flex-none md:mr-3">
-                        <div class="relative inline-block">
-                            <a href="{{ route('index.index') }}"><button class="inline-block py-2 px-4 text-current no-underline" type="submit"><i class="fas fa-globe fa-fw"></i>Regresar al portal web</button></a>
-                        </div>   
+            <!-- Menu Items -->
+            <div class="flex justify-center md:justify-end w-full md:w-auto pt-2 md:pt-0">
+                <ul class="flex flex-wrap justify-center md:justify-end items-center w-full">
+                    <li class="px-2">
+                        <a href="{{ route('index.index') }}">
+                            <button class="inline-block py-2 px-4 text-current no-underline" type="button">
+                                <i class="fas fa-globe fa-fw"></i> Regresar al portal web
+                            </button>
+                        </a>
                     </li>
-                    <li class="flex-1 md:flex-none md:mr-3">
-                        <div class="relative inline-block">
-                            
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button class="inline-block py-2 px-4 text-current no-underline" type="submit"><i class="fas fa-sign-out-alt fa-fw"></i>Cerrar sesión</button>
-                            </form>
-                        </div>
+                    <li class="px-2">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button class="inline-block py-2 px-4 text-current no-underline" type="submit">
+                                <i class="fas fa-sign-out-alt fa-fw"></i> Cerrar sesión
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>

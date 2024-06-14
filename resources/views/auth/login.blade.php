@@ -1,3 +1,5 @@
+<link rel="icon" href="{{ asset('storage/img/logo.jpg') }}" type="image/x-icon">
+<title>Tecnoparque Rionegro</title>
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
@@ -40,14 +42,14 @@
                 @endif
 
                 <x-button class="ms-4">
-                    {{ __('Iniciar sesion') }}
+                    {{ __('Iniciar sesión') }}
                 </x-button>
             </div>
         </form>
         <div class="flex items-center justify-end mt-4">
             <a href="{{ route('register')}}">
                 <x-button class="ms-4">
-                    {{ __('Registrate') }}
+                    {{ __('Regístrate') }}
                 </x-button>
             </a>
         </div>

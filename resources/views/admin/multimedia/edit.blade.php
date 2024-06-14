@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Categoria</title>
+    <title>Multimedia</title>
     <meta name="author" content="name">
     <meta name="description" content="description here">
     <meta name="keywords" content="keywords,here">
-
+	<link rel="icon" href="{{ asset('storage/img/logo.jpg') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
             <div id="modal-container" class="modal-container inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all ms:my-8 sm:align-middle sm:max-w-lg w-full">
                 <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pd-4">
                     <div class="modal-wrapper-flex sm:flex sm:item-start">
-                        <div class="modal-icon mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-500  sm:mx-0 sm:h-10 sm:w-10"><i class="fa fa-school fa-2x fa-inverse"></i></div>
+                        <div class="modal-icon mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-500  sm:mx-0 sm:h-10 sm:w-10"><i class="fa fa-chart-area fa-2x fa-inverse"></i></div>
                         <div class="modal-content text-center mt-3 sm:mt-0 sm:ml-4 sm:text-left">
-                            <h3 class="text-lg font-medium text-gray-900">Editar Entidad</h3>
+                            <h3 class="text-lg font-medium text-gray-900">Editar Multimedia</h3>
                             <div class="modal-text">             
                             <form action="{{ route('multimedia.update', $multimedias->id) }}" method="post" enctype="multipart/form-data">
                                 @csrf
@@ -99,7 +99,7 @@
                                     </div>
                                     <div class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                         <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-green-500 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Guardar Cambios</button>
-                                        <a href="{{ route('messages.index') }}" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-red-400 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancelar</a>
+                                      	<a href="{{ route('multimedia.index') }}" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-red-400 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancelar</a>
                                     </div>
                                 </div>
                             </form>

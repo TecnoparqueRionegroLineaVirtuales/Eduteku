@@ -23,8 +23,8 @@
                       </span>
                   </div>
               @endif
-      <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Envianos un mensaje</h2>
-      <p class="leading-relaxed mb-5 text-gray-600">¿Quieres mas informacion? ecribenos un mensaje.</p>
+      <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Envíanos un mensaje </h2>
+      <p class="leading-relaxed mb-5 text-gray-600">¿Quieres más información? Envíanos un mensaje.</p>
       <form action="{{ route('messagesclient.store') }}" method="post">
       @csrf
         <div class="relative mb-4">
@@ -37,7 +37,7 @@
         </div>
         <button class="text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">Enviar</button>
     </form>
-      <p class="text-xs text-gray-500 mt-3">Diligencia el formulario y nos contactaremos con tigo.</p>
+      <p class="text-xs text-gray-500 mt-3">Diligencia el formulario y te contactaremos.</p>
     </div>
   </div>
 </section>

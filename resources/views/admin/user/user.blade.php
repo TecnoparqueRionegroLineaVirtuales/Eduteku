@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Usuarios</title>
+  	<link rel="icon" href="{{ asset('storage/img/logo.jpg') }}" type="image/x-icon">
     <meta name="author" content="name">
     <meta name="description" content="description here">
     <meta name="keywords" content="keywords,here">
@@ -37,7 +38,7 @@
                                       <tr>
                                         <th scope="col" class="px-6 py-4">#</th>
                                         <th scope="col" class="px-6 py-4">Nombre</th>
-                                        <th scope="col" class="px-6 py-4">Correo</th>
+                                        <th scope="col" class="px-6 py-4">Apellido</th>
                                         <th scope="col" class="px-6 py-4">Correo</th>
                                       </tr>
                                     </thead>

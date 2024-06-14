@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @vite('resources/css/app.css')
-        <title>Laravel</title>
-
+        <link rel="icon" href="{{ asset('storage/img/logo.jpg') }}" type="image/x-icon">
+        <title>Tecnoparque Rionegro</title>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -20,7 +20,7 @@
             @foreach ($multimedia as $multimedias)
                 <h2 class="text-xs text-green-500 tracking-widest font-medium title-font mb-1">Tecnoparque Nodo Rionegro</h2>
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $multimedias->name }}</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base text-justify p-20">{{ $multimedias->descripcion }}</p>
+                <p class="mb-8 leading-relaxed text-justify">{{ $multimedias->descripcion }}</p>
                 <div class="max-w-xl max-h-xl mx-auto">
                     <img class="object-cover object-center rounded" alt="hero" src="{{ asset($multimedias->url) }}">
                 </div>                
@@ -51,7 +51,7 @@
             
             
             <div class="flex flex-col text-center w-full mb-20">
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Si tienes una idea, registrala en red tecnoparque colombia.</p>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Si tienes una idea, regístrala en red Tecnoparque Colombia.</p>
                 <a href="https://tecnoparque.com.co/registro"><button class="flex mx-auto mt-16 text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Registra tu idea</button></a>
             </div>
         </div>

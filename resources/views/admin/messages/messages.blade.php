@@ -8,21 +8,15 @@
     <meta name="author" content="name">
     <meta name="description" content="description here">
     <meta name="keywords" content="keywords,here">
-
+	<link rel="icon" href="{{ asset('storage/img/logo.jpg') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/> <!--Replace with your tailwind.css once created-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
 </head>
-
 <body class="bg-gray-100 font-sans leading-normal tracking-normal mt-12">
-
     @include('components.nav-header-dashboard')
-
-
 <main>
-
     <div class="flex flex-col md:flex-row">
         @include('components.nav-dashboard')
         <section class="w-full">
@@ -52,7 +46,7 @@
                                         <th scope="col" class="px-6 py-4">Correo</th>
                                         <th scope="col" class="px-6 py-4">Mensaje</th>
                                         <th scope="col" class="px-6 py-4">Fecha</th>
-                                        <th scope="col" class="px-6 py-4">Accion</th>
+                                        <th scope="col" class="px-6 py-4">Acción</th>
                                       </tr>
                                     </thead>
                                     <tbody>

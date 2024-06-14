@@ -18,7 +18,7 @@ class MultimediaController extends Controller
      */
     public function index()
     {
-        $multimedia  = multimedia::all();
+        $multimedia = Multimedia::with('category')->paginate(3);
         $status  = status::all();
         $category  = category::all();
         return view('admin.multimedia.multimedia', compact('multimedia', 'status', 'category'));
@@ -114,7 +114,6 @@ class MultimediaController extends Controller
      */
     public function update(Request $request, Multimedia $multimedia)
     {
-        
         $datosValidados = $request->validate([
             'name' => 'required|string|max:255',
             'descripcion' => 'required|string',
@@ -152,16 +151,17 @@ class MultimediaController extends Controller
     
         return redirect()->route('multimedia.index')->with('success', 'La entidad se ha actualizado correctamente.');
     }
-    
-    
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(multimedia $multimedia)
-    {
-        $multimedia->delete();
 
-        return redirect()->route('multimedia.index')->with('error', 'Multimedia eliminada correctamente.');
+
+
+        /**
+         * Remove the specified resource from storage.
+         */
+        public function destroy(multimedia $multimedia)
+        {
+            $multimedia->delete();
+
+            return redirect()->route('multimedia.index')->with('error', 'Multimedia eliminada correctamente.');
+        }
     }
-}

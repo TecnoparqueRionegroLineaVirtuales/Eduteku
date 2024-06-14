@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @vite('resources/css/app.css')
-        <title>Laravel</title>
-
+        <link rel="icon" href="{{ asset('storage/img/logo.jpg') }}" type="image/x-icon">
+		<title>Tecnoparque Rionegro</title>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -22,20 +22,19 @@
             <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $multimedias->descripcion }}</p>
         @endforeach
             </div>
-            
             <div class="flex flex-wrap -m-4">
-                @foreach($boletin as $boletins)
-                    <div class="p-4 lg:w-1/4 md:w-1/2">
-                        <div class="h-full flex flex-col items-center text-center">
-                        <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4" src="{{ asset($boletins->url) }}">
-                        <div class="w-full">
-                            <h2 class="title-font font-medium text-lg text-gray-900">{{ $boletins->name }}</h2>
-                            <h3 class="text-blue-500 font-bold mb-3"><a href="{{ $boletins->link }}" target="_blank">Descarga el boletin</a></h3>
-                            <p class="mb-4">{{ $boletins->descripcion }}</p>
-                        </div>
-                        </div>
-                    </div> 
-                @endforeach
+              @foreach($boletin as $boletins)
+                <div class="p-4 lg:w-1/4 md:w-1/2 w-full">
+                  <div class="h-full flex flex-col items-center text-center border rounded-lg overflow-hidden">
+                    <img alt="team" class="flex-shrink-0 w-full h-56 object-cover object-center mb-4" src="{{ asset($boletins->url) }}">
+                    <div class="w-full px-4 py-6">
+                      <h2 class="title-font font-medium text-lg text-gray-900">{{ $boletins->name }}</h2>
+                      <h3 class="text-blue-500 font-bold mb-3"><a href="{{ $boletins->link }}" target="_blank">Descarga el boletin</a></h3>
+                      <p class="mb-4">{{ $boletins->descripcion }}</p>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
             </div>
         </div>
         </section>

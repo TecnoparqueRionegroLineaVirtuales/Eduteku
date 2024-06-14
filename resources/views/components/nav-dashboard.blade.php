@@ -6,7 +6,7 @@
                 @role('admin')
                 <li class="mr-3 flex-1">
                     <a href="{{ route('category.index') }}" class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
-                        <i class="fa fa-layer-group pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-current md:text-current block md:inline-block">Categorias</span>
+                        <i class="fa fa-layer-group pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-current md:text-current block md:inline-block">Categorías</span>
                     </a>
                 </li>
                 <li class="mr-3 flex-1">
@@ -37,13 +37,9 @@
                     </a>
                 </li>
                 <li class="mr-3 flex-1">
-                    <form action="https://moodle.eduteku.com/login/index.php" method="post" id="login">
-                        <input type="hidden" name="username" id="username" value="{{ $user->email }}">
-                        <input type="hidden" name="password" id="password" value="{{ $user->password }}">
                         <button type="submit" id="loginbtn">
                             <i class="fa fa-chalkboard-teacher pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-current md:text-current block md:inline-block">Realizar cursos</span>
                         </button>
-                    </form>
                 </li>
                 @endrole
             </ul>

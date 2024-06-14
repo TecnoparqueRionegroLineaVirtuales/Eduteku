@@ -4,12 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @vite('resources/css/app.css')
-        <title>Laravel</title>
-
+      	<link rel="icon" href="{{ asset('storage/img/logo.jpg') }}" type="image/x-icon">
+        <title>Tecnoparque Rionegro</title>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body class="font-sans antialiased">
@@ -26,7 +25,11 @@
             </h1>
             <p class="mb-8 leading-relaxed text-justify">{{ $multimedias->descripcion }}</p>
         <div class="flex justify-center">
-            <button class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">Registrate</button>
+           <a href="{{ route('register') }}"> 
+           	<button class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">
+                Regístrate
+            </button>
+          </a>
         </div>
         </div>
         <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
