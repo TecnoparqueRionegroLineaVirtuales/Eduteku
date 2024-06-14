@@ -69,10 +69,12 @@
                 const likeIcon = document.querySelector(`i.like-icon`);
                 likeIcon.classList.toggle('fa-solid', data.liked);
                 likeIcon.classList.toggle('text-red-500', data.liked);
+                // Recargar la página después de cambiar el estado del like
+                window.location.reload();
             })
             .catch(error => {
                 console.error('Error:', error);
-                window.location.href = '/login';
+                window.location.href = '/login'; // Redirigir al usuario al login si no está autenticado
             });
         }
     </script>
