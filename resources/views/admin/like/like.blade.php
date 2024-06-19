@@ -19,7 +19,7 @@
         <section class="w-full">
             <div id="main" class="main-content mt-12 md:mt-2 pb-24 md:pb-5">
                 <div class="bg-gray-100 pt-3">
-                    <div class="rounded-tl-3xl bg-gradient-to-r from-gray-100 to-green-600 p-4 shadow text-2xl text-current">
+                    <div class="rounded-tl-3xl bg-gradient-to-r from-gray-100 to-green-500 p-4 shadow text-2xl text-current">
                         <h1 class="font-bold pl-2">Mis like</h1>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                 <div class="flex flex-wrap w-full">
                 @foreach ($likes as $like)
                     @if ($like->multimedia->category_id == 5)
-                        <div class="lg:w-1/3 sm:w-full p-4 relative">
+                        <div class="lg:w-1/3 sm:w-full z-0 p-4 relative">
                             <div class="flex relative h-full card-content">
                                 <iframe class="absolute inset-0 w-full h-full object-cover object-center" src="https://www.youtube.com/embed/{{ $like->multimedia->link }}" title="EDTS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                 <div class="overlay px-8 py-10 w-full relative z-10" style="background: linear-gradient(to bottom right, rgba(229, 231, 235, 0.8), rgba(209, 213, 219, 0.8));">

@@ -43,4 +43,6 @@ Route::middleware([
     Route::resource('user', UserController::class);
     Route::get('likeUser', [LikeUserController::class, 'index'])->name('likeUser');
     Route::post('/like/{multimedia}', [LikeController::class, 'toggleLike'])->name('like.toggle');
+  	Route::post('process-login', [DashboardController::class, 'processLogin'])->name('process-login');
+
 });

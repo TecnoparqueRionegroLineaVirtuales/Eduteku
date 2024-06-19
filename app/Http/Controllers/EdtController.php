@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Multimedia;
-use App\Models\Like;
+use App\Models\multimedia;
+use App\Models\like;
 use Illuminate\Support\Facades\Auth;
 
 class EdtController extends Controller
@@ -14,9 +14,9 @@ class EdtController extends Controller
      */
     public function index()
     {
-        $multimedia = Multimedia::where('category_id', '4')->get();
-        $edt = Multimedia::where('category_id', '5')->get();
-        $likes = Auth::check() ? Like::where('user_id', Auth::id())->pluck('multimedia_id')->toArray() : [];
+        $multimedia = multimedia::where('category_id', '4')->get();
+        $edt = multimedia::where('category_id', '5')->get();
+        $likes = Auth::check() ? like::where('user_id', Auth::id())->pluck('multimedia_id')->toArray() : [];
 
         return view('users.edt', compact('multimedia', 'edt', 'likes'));
     }
@@ -29,14 +29,14 @@ class EdtController extends Controller
         if (!Auth::check()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
-        $like = Like::where('user_id', Auth::id())
+        $like = like::where('user_id', Auth::id())
                     ->where('multimedia_id', $edtId)
                     ->first();
         if ($like) {
             $like->delete();
             $liked = false;
         } else {
-            Like::create([
+            like::create([
                 'user_id' => Auth::id(),
                 'multimedia_id' => $edtId,
             ]);

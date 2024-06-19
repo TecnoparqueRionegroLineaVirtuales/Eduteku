@@ -1,10 +1,10 @@
 <header>
     <!--Nav-->
-    <nav aria-label="menu nav" class="bg-gray-100 pt-2 pb-1 px-1 mt-0 h-auto fixed w-full top-0">
+    <nav aria-label="menu nav" class="bg-gray-100 z-10 pt-2 pb-1 px-1 mt-0 h-auto fixed w-full top-0">
 
-        <div class="flex flex-wrap items-center justify-between">
+        <div class="flex flex-wrap z-10 items-center justify-between">
             <!-- Logo -->
-            <div class="flex justify-center md:justify-center text-white">
+            <div class="flex flex-1 justify-center md:justify-start text-current">
                 <a href="{{ route('dashboard') }}" aria-label="Home">
                     <img class="h-14" src="{{ asset('storage/img/logosena.png') }}" alt="logo" />
                 </a>
@@ -15,7 +15,7 @@
             </div>
 
             <!-- Menu Items -->
-            <div class="flex justify-center md:justify-end w-full md:w-auto pt-2 md:pt-0">
+            <div class="flex flex-1 justify-center md:justify-end w-full md:w-auto pt-2 md:pt-0">
                 <ul class="flex flex-wrap justify-center md:justify-end items-center w-full">
                     <li class="px-2">
                         <a href="{{ route('index.index') }}">

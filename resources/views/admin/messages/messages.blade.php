@@ -10,7 +10,7 @@
     <meta name="keywords" content="keywords,here">
 	<link rel="icon" href="{{ asset('storage/img/logo.jpg') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/> <!--Replace with your tailwind.css once created-->
+    @vite('resources/css/app.css')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -26,7 +26,7 @@
                 @endrole
                 @role('admin')
                 <div class="bg-gray-100 pt-3">
-                    <div class="rounded-tl-3xl bg-gradient-to-r from-gray-100 to-green-600 p-4 shadow text-2xl text-current">
+                    <div class="rounded-tl-3xl bg-gradient-to-r from-gray-100 to-green-500 p-4 shadow text-2xl text-current">
                         <h1 class="font-bold pl-2">Mensajes</h1>
                     </div>
                 </div>

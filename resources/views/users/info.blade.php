@@ -18,7 +18,7 @@
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-col text-center w-full mb-20">
             @foreach ($multimedia as $multimedias)
-                <h2 class="text-xs text-green-500 tracking-widest font-medium title-font mb-1">Tecnoparque Nodo Rionegro</h2>
+                <h2 class="text-xs text-[#39A900] tracking-widest font-medium title-font mb-1">Tecnoparque Nodo Rionegro</h2>
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $multimedias->name }}</h1>
                 <p class="mb-8 leading-relaxed text-justify">{{ $multimedias->descripcion }}</p>
                 <div class="max-w-xl max-h-xl mx-auto">
@@ -37,7 +37,7 @@
                         <div class="relative z-10 text-justify w-full bg-white h-[400px] p-2 w-4/5 overflow-y-auto"> 
                             <h2 class="text-lg sm:text-xl text-gray-800 font-medium title-font mb-2">{{ $linea->name }}</h2>
                             <p class="leading-relaxed text-gray-600 text-base mb-4">{{ $linea->descripcion }}</p>
-                            <a class="text-green-500 inline-flex items-center" href="https://redtecnoparque.com/lineas/">Conoce más...
+                            <a class="text-[#39A900] inline-flex items-center" href="https://redtecnoparque.com/lineas/">Conoce más...
                                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                                 </svg>
@@ -47,12 +47,9 @@
                 </div>
                 @endforeach
             </div>
-            
-            
-            
             <div class="flex flex-col text-center w-full mb-20">
                 <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Si tienes una idea, regístrala en red Tecnoparque Colombia.</p>
-                <a href="https://tecnoparque.com.co/registro"><button class="flex mx-auto mt-16 text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Registra tu idea</button></a>
+                <a href="https://tecnoparque.com.co/registro"><button class="flex mx-auto mt-16 text-white bg-[#39A900] border-0 py-2 px-8 focus:outline-none hover:bg-[#00314D] rounded text-lg">Registra tu idea</button></a>
             </div>
         </div>
     </section>

@@ -26,7 +26,7 @@
             <p class="mb-8 leading-relaxed text-justify">{{ $multimedias->descripcion }}</p>
         <div class="flex justify-center">
            <a href="{{ route('register') }}"> 
-           	<button class="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg">
+           	<button class="inline-flex text-white bg-[#39A900] border-0 py-2 px-6 focus:outline-none hover:bg-[#00314D] rounded text-lg">
                 Regístrate
             </button>
           </a>

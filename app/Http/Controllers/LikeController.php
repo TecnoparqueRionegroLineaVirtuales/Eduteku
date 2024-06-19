@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Multimedia;
-use App\Models\Like;
+use App\Models\multimedia;
+use App\Models\like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    public function toggleLike(Multimedia $multimedia)
+    public function toggleLike(multimedia $multimedia)
     {
         if (!Auth::check()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
         $userId = Auth::id();
-        $like = Like::where('user_id', $userId)
+        $like = like::where('user_id', $userId)
                     ->where('multimedia_id', $multimedia->id)
                     ->first();
         
@@ -24,7 +24,7 @@ class LikeController extends Controller
             $like->delete();
             $liked = false;
         } else {
-            Like::create([
+            like::create([
                 'user_id' => $userId,
                 'multimedia_id' => $multimedia->id,
             ]);
