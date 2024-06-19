@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LikeUserController;
+use App\Http\Controllers\InicioController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
@@ -44,5 +45,5 @@ Route::middleware([
     Route::get('likeUser', [LikeUserController::class, 'index'])->name('likeUser');
     Route::post('/like/{multimedia}', [LikeController::class, 'toggleLike'])->name('like.toggle');
   	Route::post('process-login', [DashboardController::class, 'processLogin'])->name('process-login');
-
+    Route::resource('home', InicioController::class);
 });
