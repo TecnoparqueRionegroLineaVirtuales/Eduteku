@@ -82,7 +82,7 @@
                                                 @method('DELETE')
                                                 <input type="hidden" name="type" value="edt">
                                                 <button class="bg-red-400 text-white p-2 rounded" onclick="confirmarBorrado({{ $multimedias->id }})"><i class="fa fa-trash"></i></button>
-                                                <a href="{{ route('infoAdmin.edit', $multimedias->id) }}" class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-pen"></i></a>
+                                                <a href="{{ route('edtAdmin.edit', $multimedias->id) }}" class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-pen"></i></a>
                                             </form>
                                         </td>
                                     </tr>
@@ -107,9 +107,9 @@
                                         <div class="modal-wrapper-flex sm:flex sm:item-start">
                                             <div class="modal-icon mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-500 sm:mx-0 sm:h-10 sm:w-10"><i class="fa fa-chart-area fa-2x fa-inverse"></i></div>
                                             <div class="modal-content text-center mt-3 sm:mt-0 sm:ml-4 sm:text-left">
-                                                <h3 class="text-lg font-medium text-gray-900">Agregar ¿Qué hacemos en Tecnoparque?</h3>
+                                                <h3 class="text-lg font-medium text-gray-900">Agregar EDT</h3>
                                                 <div class="modal-text">
-                                                <form action="{{ route('infoAdmin.store') }}" method="post" enctype="multipart/form-data">
+                                                <form action="{{ route('edtAdmin.store') }}" method="post" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
                                                         <div class="-mx-3 md:flex mb-6">
@@ -130,10 +130,10 @@
                                                         </div>
                                                         <div class="-mx-3 md:flex mb-6">
                                                           <div class="md:w-full px-3">
-                                                            <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
-                                                              Archivo
-                                                            </label>
-                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="application-link" name="url" type="file" placeholder="Nombre">
+                                                              <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
+                                                                URL
+                                                              </label>
+                                                              <textarea class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" name="link" id="application-link" placeholder="Link"></textarea>
                                                           </div>
                                                         </div>
                                                         <div class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
