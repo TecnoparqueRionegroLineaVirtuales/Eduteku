@@ -74,12 +74,13 @@
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4"><img src="{{ asset($multimedias->url) }}" alt="Imagen" class="max-w-16 max-h-16"></td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                        <form action="{{ route('home.destroy', $multimedias->id) }}" method="POST" id="form-delete-{{ $multimedias->id }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="bg-red-400 text-white p-2 rounded" onclick="confirmarBorrado({{ $multimedias->id }})"><i class="fa fa-trash"></i></button>
-                                            <a href="{{ route('home.edit', $multimedias->id) }}" class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-pen"></i></a>
-                                        </form>
+                                        <form action="{{ route('multimedia.destroy', $multimedias->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="type" value="home">
+                                                <button class="bg-red-400 text-white p-2 rounded" onclick="confirmarBorrado({{ $multimedias->id }})"><i class="fa fa-trash"></i></button>
+                                                <a href="{{ route('home.edit', $multimedias->id) }}" class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-pen"></i></a>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach

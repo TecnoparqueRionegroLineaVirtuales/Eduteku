@@ -158,10 +158,21 @@ class MultimediaController extends Controller
         /**
          * Remove the specified resource from storage.
          */
-        public function destroy(multimedia $multimedia)
+        public function destroy(Request $request, multimedia $multimedia)
         {
-            $multimedia->delete();
+            $home = $request->input('type');
 
+            $multimedia->delete();
+            switch ($home) {
+                case 'home':
+                    return redirect()->route('home.index')->with('error', 'inicio eliminada correctamente.');
+                    break;
+                case 'info':
+                    return redirect()->route('infoAdmin.index')->with('error', 'inicio eliminada correctamente.');
+                    break;
+                default:
+                    return response()->json(['error' => 'Acción no válida'], 400);
+            }
             return redirect()->route('multimedia.index')->with('error', 'Multimedia eliminada correctamente.');
         }
     }

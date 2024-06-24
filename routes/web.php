@@ -15,6 +15,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LikeUserController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\InfoController;
+use App\Http\Controllers\EdtAdminController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
@@ -46,4 +48,6 @@ Route::middleware([
     Route::post('/like/{multimedia}', [LikeController::class, 'toggleLike'])->name('like.toggle');
   	Route::post('process-login', [DashboardController::class, 'processLogin'])->name('process-login');
     Route::resource('home', InicioController::class);
+    Route::resource('infoAdmin', InfoController::class);
+    Route::resource('edtAdmin', EdtAdminController::class);
 });

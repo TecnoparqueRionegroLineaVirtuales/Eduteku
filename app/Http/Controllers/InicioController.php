@@ -83,14 +83,7 @@ class InicioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit($id)
     {
         $multimedias = Multimedia::findOrFail($id);
@@ -103,21 +96,17 @@ class InicioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validación de datos
         $request->validate([
             'name' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'url' => 'nullable|file|mimes:jpg,jpeg,png,mp4', // Ejemplo de validación para archivos
+            'url' => 'nullable|file|mimes:jpg,jpeg,png,mp4',
         ]);
 
-        // Busca el multimedia por su ID
         $multimedia = Multimedia::findOrFail($id);
 
-        // Actualiza los campos
         $multimedia->name = $request->name;
         $multimedia->descripcion = $request->descripcion;
 
-        // Manejo de archivo adjunto (si se proporciona uno nuevo)
         if ($request->hasFile('url')) {
             $archivo = $request->file('url');
             $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
@@ -134,16 +123,4 @@ class InicioController extends Controller
         return redirect()->route('home.index')->with('success', 'Multimedia actualizado correctamente.');
     }
 
-
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(multimedia $multimedia)
-        {
-            $multimedia->delete();
-
-            return redirect()->route('multimedia.index')->with('error', 'Multimedia eliminada correctamente.');
-        }
 }
