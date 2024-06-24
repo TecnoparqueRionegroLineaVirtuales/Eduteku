@@ -170,6 +170,9 @@ class MultimediaController extends Controller
                 case 'info':
                     return redirect()->route('infoAdmin.index')->with('error', 'inicio eliminada correctamente.');
                     break;
+                case 'edt':
+                    return redirect()->route('edtAdmin.index')->with('error', 'inicio eliminada correctamente.');
+                    break;
                 default:
                     return response()->json(['error' => 'Acción no válida'], 400);
             }

@@ -62,7 +62,7 @@ class EdtAdminController extends Controller
     {
         $multimedias = Multimedia::findOrFail($id);
 
-        return view('admin.info.edit', compact('multimedias'));
+        return view('admin.edt.edit', compact('multimedias'));
     }
 
     /**
@@ -73,7 +73,7 @@ class EdtAdminController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'url' => 'nullable|file|mimes:jpg,jpeg,png,mp4',
+            'link' => 'required',
         ]);
 
         $multimedia = Multimedia::findOrFail($id);
@@ -81,19 +81,12 @@ class EdtAdminController extends Controller
         $multimedia->name = $request->name;
         $multimedia->descripcion = $request->descripcion;
 
-        if ($request->hasFile('url')) {
-            $archivo = $request->file('url');
-            $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
-            $rutaArchivo = $archivo->storeAs('public/img', $nombreArchivo);
-            $multimedia->url = 'storage/img/' . $nombreArchivo;
-    
-            if ($multimedia->url) {
-                Storage::delete($multimedia->url);
-            }
-        }
+        $link =  $request['link'];
+        $linkSave = Str::after($link, 'https://youtu.be/');
+        $multimedia->link = $linkSave;
 
         $multimedia->save();
 
-        return redirect()->route('infoAdmin.index')->with('success', 'Info actualizado correctamente.');
+        return redirect()->route('edtAdmin.index')->with('success', 'Info actualizado correctamente.');
     }
 }
