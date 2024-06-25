@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Storage;
 
 class infoController extends Controller
 {
+    public function panel()
+    {
+        return view('admin.info.panel');
+    }
     public function index()
     {
         $multimedia = Multimedia::with('category')->where('category_id', 2)->paginate(3);
@@ -20,7 +24,7 @@ class infoController extends Controller
 
         $category = Category::where('id', 2)->first();
 
-        return view('admin.info.info', compact('multimedia', 'status', 'category'));
+        return view('admin.info.info.info', compact('multimedia', 'status', 'category'));
     }
 
     public function store(Request $request)
@@ -71,7 +75,7 @@ class infoController extends Controller
     {
         $multimedias = Multimedia::findOrFail($id);
 
-        return view('admin.info.edit', compact('multimedias'));
+        return view('admin.info.info.edit', compact('multimedias'));
     }
 
     /**

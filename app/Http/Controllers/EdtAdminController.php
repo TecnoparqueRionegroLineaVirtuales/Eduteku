@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Storage;
 
 class EdtAdminController extends Controller
 {
+    public function panel()
+    {
+        return view('admin.Edt.panel');
+    }
+
     public function index()
     {
         $multimedia = Multimedia::with('category')->where('category_id', 5)->paginate(3);

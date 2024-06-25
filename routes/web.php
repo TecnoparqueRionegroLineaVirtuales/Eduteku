@@ -49,5 +49,7 @@ Route::middleware([
   	Route::post('process-login', [DashboardController::class, 'processLogin'])->name('process-login');
     Route::resource('home', InicioController::class);
     Route::resource('infoAdmin', InfoController::class);
+    Route::get('panelInfo', [InfoController::class, 'panel'])->name('panelInfo');
     Route::resource('edtAdmin', EdtAdminController::class);
+    Route::get('panelEdt', [EdtAdminController::class, 'panel'])->name('panelEdt');
 });
