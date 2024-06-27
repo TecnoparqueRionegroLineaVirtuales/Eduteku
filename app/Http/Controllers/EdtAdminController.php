@@ -25,7 +25,7 @@ class EdtAdminController extends Controller
 
         $category = Category::where('id', 5)->first();
 
-        return view('admin.Edt.edtAdmin', compact('multimedia', 'status', 'category'));
+        return view('admin.Edt.edt.edtAdmin', compact('multimedia', 'status', 'category'));
     }
 
     public function store(Request $request)
@@ -67,7 +67,7 @@ class EdtAdminController extends Controller
     {
         $multimedias = Multimedia::findOrFail($id);
 
-        return view('admin.edt.edit', compact('multimedias'));
+        return view('admin.Edt.edt.edit', compact('multimedias'));
     }
 
     /**

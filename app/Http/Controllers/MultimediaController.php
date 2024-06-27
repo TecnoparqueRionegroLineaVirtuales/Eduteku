@@ -160,10 +160,10 @@ class MultimediaController extends Controller
          */
         public function destroy(Request $request, multimedia $multimedia)
         {
-            $home = $request->input('type');
+            $multi = $request->input('type');
 
             $multimedia->delete();
-            switch ($home) {
+            switch ($multi) {
                 case 'home':
                     return redirect()->route('home.index')->with('error', 'inicio eliminada correctamente.');
                     break;
@@ -172,6 +172,12 @@ class MultimediaController extends Controller
                     break;
                 case 'edt':
                     return redirect()->route('edtAdmin.index')->with('error', 'inicio eliminada correctamente.');
+                    break;
+                case 'line':
+                    return redirect()->route('lines.index')->with('error', 'inicio eliminada correctamente.');
+                    break;
+                case 'infoEDT':
+                    return redirect()->route('edtInfoAdmin.index')->with('error', 'inicio eliminada correctamente.');
                     break;
                 default:
                     return response()->json(['error' => 'Acción no válida'], 400);

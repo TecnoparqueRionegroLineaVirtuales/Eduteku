@@ -47,7 +47,7 @@
                     </div>
                     <div class="w-full md:w-1/2 xl:w-1/3 p-5">
                         <!--Metric Card-->
-                        <a href="{{ route ('state.index') }}">
+                        <a href="{{ route ('lines.index') }}">
                             <div class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5">
                                 <div class="flex flex-row items-center">
                                     <div class="flex-shrink pr-4">
