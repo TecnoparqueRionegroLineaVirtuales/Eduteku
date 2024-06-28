@@ -47,7 +47,7 @@ Route::middleware([
     Route::resource('state', StateController::class);
     Route::resource('multimedia', MultimediaController::class);
     Route::resource('messages', MessagesController::class);
-    Route::resource('user', UserController::class);
+    Route::get('/users', [UserController::class, 'index'])->name('user.index');
     Route::get('likeUser', [LikeUserController::class, 'index'])->name('likeUser');
     Route::post('/like/{multimedia}', [LikeController::class, 'toggleLike'])->name('like.toggle');
   	Route::post('process-login', [DashboardController::class, 'processLogin'])->name('process-login');
@@ -61,4 +61,6 @@ Route::middleware([
     Route::resource('bulletinInfoAdmin', BulletinAdminInfoController::class);
     Route::resource('bulletinAdmin', BulletinAdminController::class);
     Route::get('panelBulletin', [BulletinAdminInfoController::class, 'panel'])->name('panelBulletin');
+    Route::post('/users/{user}/change-role', [UserController::class, 'changeRole'])->name('user.changeRole');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
