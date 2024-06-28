@@ -30,7 +30,7 @@
                     <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pd-4">
                         <div class="modal-wrapper-flex sm:flex sm:item-start">
                             <div class="modal-icon mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-500 sm:mx-0 sm:h-10 sm:w-10">
-                                <i class="fa fa-chart-area fa-2x fa-inverse"></i>
+                                <i class="fa fa-info fa-2x fa-inverse"></i>
                             </div>
                             <div class="modal-content text-center mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                                 <h3 class="text-lg font-medium text-gray-900">Editar Linea</h3>

@@ -30,7 +30,7 @@
                     <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pd-4">
                         <div class="modal-wrapper-flex sm:flex sm:item-start">
                             <div class="modal-icon mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-500 sm:mx-0 sm:h-10 sm:w-10">
-                                <i class="fa fa-chart-area fa-2x fa-inverse"></i>
+                                <i class="fa fa-info fa-2x fa-inverse"></i>
                             </div>
                             <div class="modal-content text-center mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                                 <h3 class="text-lg font-medium text-gray-900">Editar ¿Qué hacemos en Tecnoparque?</h3>
@@ -60,7 +60,7 @@
                                             </div>
                                             <div class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                                 <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-green-500 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Guardar Cambios</button>
-                                                <a href="{{ route('info.index') }}" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-red-400 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancelar</a>
+                                                <a href="{{ route('infoAdmin.index') }}" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-red-400 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancelar</a>
                                             </div>
                                         </div>
                                     </form>

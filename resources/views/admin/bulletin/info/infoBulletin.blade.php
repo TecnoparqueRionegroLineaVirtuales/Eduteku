@@ -45,7 +45,7 @@
                   </div>
               @endif
                 <div class="pt-10 py-10 px-10">
-                    <button id="openModal" class="inline-flex items-center bg-green-500 border-0 py-1 px-3 focus:outline-none hover:bg-green-500 text-white rounded text-base mt-4 md:mt-0">Agregar Boletin</button>
+                    <button id="openModal" class="inline-flex items-center bg-green-500 border-0 py-1 px-3 focus:outline-none hover:bg-green-500 text-white rounded text-base mt-4 md:mt-0">Agregar información Boletin</button>
                 </div>
                 <div class="flex flex-wrap w-full py-20 px-12 lg:px-24 shadow-xl mb-24">
                         <!--tablet-->
@@ -79,9 +79,9 @@
                                             <form action="{{ route('multimedia.destroy', $multimedias->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <input type="hidden" name="type" value="infoEDT">
+                                                <input type="hidden" name="type" value="infoBulletin">
                                                 <button class="bg-red-400 text-white p-2 rounded" onclick="confirmarBorrado({{ $multimedias->id }})"><i class="fa fa-trash"></i></button>
-                                                <a href="{{ route('edtInfoAdmin.edit', $multimedias->id) }}" class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-pen"></i></a>
+                                                <a href="{{ route('bulletinInfoAdmin.edit', $multimedias->id) }}" class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-pen"></i></a>
                                             </form>
                                         </td>
                                     </tr>
@@ -104,11 +104,11 @@
                                 <div id="modal-container" class="modal-container inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all mt-12 sm:align-middle sm:max-w-lg w-full">
                                     <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pd-4">
                                         <div class="modal-wrapper-flex sm:flex sm:item-start">
-                                            <div class="modal-icon mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-500 sm:mx-0 sm:h-10 sm:w-10"><i class="fa fa-chart-area fa-2x fa-inverse"></i></div>
+                                            <div class="modal-icon mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-500 sm:mx-0 sm:h-10 sm:w-10"><i class="fa fa-book fa-2x fa-inverse"></i></div>
                                             <div class="modal-content text-center mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                                                 <h3 class="text-lg font-medium text-gray-900">Agregar Boletin</h3>
                                                 <div class="modal-text">
-                                                <form action="{{ route('edtInfoAdmin.store') }}" method="post" enctype="multipart/form-data">
+                                                <form action="{{ route('bulletinInfoAdmin.store') }}" method="post" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
                                                         <div class="-mx-3 md:flex mb-6">

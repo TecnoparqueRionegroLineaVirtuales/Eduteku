@@ -20,6 +20,7 @@ use App\Http\Controllers\EdtAdminController;
 use App\Http\Controllers\LinesController;
 use App\Http\Controllers\EdtAdminInfoController;
 use App\Http\Controllers\BulletinAdminInfoController;
+use App\Http\Controllers\BulletinAdminController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
@@ -58,4 +59,6 @@ Route::middleware([
     Route::resource('edtInfoAdmin', EdtAdminInfoController::class);
     Route::get('panelEdt', [EdtAdminController::class, 'panel'])->name('panelEdt');
     Route::resource('bulletinInfoAdmin', BulletinAdminInfoController::class);
+    Route::resource('bulletinAdmin', BulletinAdminController::class);
+    Route::get('panelBulletin', [BulletinAdminInfoController::class, 'panel'])->name('panelBulletin');
 });

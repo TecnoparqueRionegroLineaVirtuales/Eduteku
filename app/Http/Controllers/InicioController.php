@@ -12,9 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class InicioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $multimedia = Multimedia::with('category')->where('category_id', 1)->paginate(3);
@@ -25,17 +23,7 @@ class InicioController extends Controller
 
         return view('admin.home.home', compact('multimedia', 'status', 'category'));
     }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+  
     public function store(Request $request)
     {
         $datosValidados = $request->validate([
@@ -48,7 +36,6 @@ class InicioController extends Controller
         
         $userId = Auth::id();
         
-
         if ($request->hasFile('url')) {
             
             $archivo = $request->file('url');
@@ -69,7 +56,7 @@ class InicioController extends Controller
                 $multimedia->category_id = '1';
                 $multimedia->save();
 
-                return redirect()->route('home.index')->with('success', 'Archivo creado correctamente.');
+                return redirect()->route('home.index')->with('success', 'Inicio creado correctamente.');
             } catch (\Exception $e) {
 
             
@@ -79,10 +66,6 @@ class InicioController extends Controller
 
         return back()->withErrors(['error' => 'Error al subir el archivo.']);
     }
-
-    /**
-     * Display the specified resource.
-     */
     
     public function edit($id)
     {
@@ -91,9 +74,6 @@ class InicioController extends Controller
         return view('admin.home.edit', compact('multimedias'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -120,7 +100,7 @@ class InicioController extends Controller
 
         $multimedia->save();
 
-        return redirect()->route('home.index')->with('success', 'Multimedia actualizado correctamente.');
+        return redirect()->route('home.index')->with('success', 'Inicio actualizado correctamente.');
     }
 
 }

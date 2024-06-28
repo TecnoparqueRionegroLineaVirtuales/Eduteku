@@ -23,7 +23,7 @@
             <div id="main" class="main-content mt-12 md:mt-2 pb-24 md:pb-5">
                 <div class="bg-gray-100 pt-3">
                     <div class="rounded-tl-3xl bg-gradient-to-r from-gray-100 to-green-500 p-4 shadow text-2xl text-current">
-                        <h1 class="font-bold pl-2">EDT informacón</h1>
+                        <h1 class="font-bold pl-2">EDT información</h1>
                     </div>
                 </div>
                 @if (session('success'))
@@ -104,7 +104,7 @@
                                 <div id="modal-container" class="modal-container inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all mt-12 sm:align-middle sm:max-w-lg w-full">
                                     <div class="modal-wrapper bg-white px-4 pt-5 pb-4 sm:p-6 sm:pd-4">
                                         <div class="modal-wrapper-flex sm:flex sm:item-start">
-                                            <div class="modal-icon mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-500 sm:mx-0 sm:h-10 sm:w-10"><i class="fa fa-chart-area fa-2x fa-inverse"></i></div>
+                                            <div class="modal-icon mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-500 sm:mx-0 sm:h-10 sm:w-10"><i class="fa fa-play fa-2x fa-inverse"></i></div>
                                             <div class="modal-content text-center mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                                                 <h3 class="text-lg font-medium text-gray-900">Agregar EDT informacón</h3>
                                                 <div class="modal-text">
