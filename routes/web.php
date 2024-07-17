@@ -37,6 +37,10 @@ Route::get('ruta', function () {
     return view('users.ruta');
 });
 
+Route::get('successCases', function () {
+    return view('users.successCases');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
