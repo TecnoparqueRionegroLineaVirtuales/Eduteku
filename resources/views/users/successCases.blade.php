@@ -23,13 +23,13 @@
               </div>
               <div class="p-4 md:w-1/3">
                 <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                  <iframe class="lg:h-48 md:h-36 w-full" src="https://www.youtube.com/embed/OhZWLoGE8hQ?list=PLnM1DCskDFaOHy86ZS0IRuzNVboKQHhB4" title="Andrius Bikes 2022 // Tecnoparque Rionegro" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ asset('storage/img/memoria.jpg') }}" alt="blog">
                   <div class="p-6">
                     <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">Jose Lopez</h2>
                     <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Memoria todo color</h1>
                     <p class="leading-relaxed mb-3">La corporacion  </p>
                     <div class="flex items-center flex-wrap">
-                      <a class="text-[#39A900] inline-flex items-center md:mb-2 lg:mb-0">Ver video
+                      <a href="https://memoria.ingharoldmarin.online/" class="text-[#39A900] inline-flex items-center md:mb-2 lg:mb-0">Ir a la pagina
                         <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M5 12h14"></path>
                           <path d="M12 5l7 7-7 7"></path>
