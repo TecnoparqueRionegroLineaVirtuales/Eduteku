@@ -33,6 +33,12 @@
                         <i class="fa fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-current md:text-current block md:inline-block">Boletin</span>
                     </a>
                 </li>
+
+                <li class="mr-3 flex-1">
+                    <a href="{{ route('surveyQuestions') }}" class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
+                        <i class="fa fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-current md:text-current block md:inline-block">Questionario</span>
+                    </a>
+                </li>
                 <li class="mr-3 flex-1">
                     <a href="{{ route ('user.index') }}" class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
                         <i class="fas fa-users pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-current md:text-current block md:inline-block">Usuarios</span>

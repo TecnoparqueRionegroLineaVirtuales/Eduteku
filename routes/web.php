@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChallengeTypeController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\MultimediaController;
 use App\Http\Controllers\IndexController;
@@ -65,6 +66,7 @@ Route::middleware([
     Route::resource('bulletinInfoAdmin', BulletinAdminInfoController::class);
     Route::resource('bulletinAdmin', BulletinAdminController::class);
     Route::get('panelBulletin', [BulletinAdminInfoController::class, 'panel'])->name('panelBulletin');
+    Route::get('surveyQuestions', [ChallengeTypeController::class, 'details'])->name('surveyQuestions');
     Route::post('/users/{user}/change-role', [UserController::class, 'changeRole'])->name('user.changeRole');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
