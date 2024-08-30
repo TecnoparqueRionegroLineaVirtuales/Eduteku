@@ -28,6 +28,15 @@
                     </div>
                 </div>
             <h1>content here...</h1>
+            <select>
+              @foreach ($surveyTypes as $surveyType)
+                <option value="{{$surveyType->name}}">
+                  {{$surveyType->name}}
+                </option>
+
+              @endforeach
+
+            </select>
           </div>
         </section>
       </div>
