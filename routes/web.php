@@ -66,7 +66,8 @@ Route::middleware([
     Route::resource('bulletinInfoAdmin', BulletinAdminInfoController::class);
     Route::resource('bulletinAdmin', BulletinAdminController::class);
     Route::get('panelBulletin', [BulletinAdminInfoController::class, 'panel'])->name('panelBulletin');
-    Route::get('surveyQuestions', [ChallengeTypeController::class, 'details'])->name('surveyQuestions');
+    Route::get('surveyTypes', [ChallengeTypeController::class, 'index'])->name('surveyType');
+    Route::get('surveyTypes/{challengeType}/questions', [ChallengeTypeController::class, 'details'])->name('surveyQuestions');
     Route::post('/users/{user}/change-role', [UserController::class, 'changeRole'])->name('user.changeRole');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
