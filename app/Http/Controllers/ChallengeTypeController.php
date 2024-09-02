@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ChallengeType;
+use App\Models\QuestionType;
 use Illuminate\Http\Request;
+use App\Models\ChallengeType;
 
 class ChallengeTypeController extends Controller
 {
@@ -22,9 +23,9 @@ class ChallengeTypeController extends Controller
 
     public function details(ChallengeType $challengeType)
     {
-
+        $questionTypes = QuestionType::all();
         $challengeType->load('questions.questionType');
-        return view('admin.openInnovation.survey.survey', compact('challengeType'));
+        return view('admin.openInnovation.survey.survey', compact('challengeType', 'questionTypes'));
     }
 
 
