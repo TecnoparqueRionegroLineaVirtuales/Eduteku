@@ -14,7 +14,7 @@
     @vite('resources/css/app.css')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"
         integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 </head>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal mt-12">
@@ -32,7 +32,8 @@
                     </div>
                     {{-- success/error messages --}}
                     @if (session('success'))
-                        <div id="flash-sucess" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                        <div id="flash-sucess"
+                            class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
                             role="alert">
                             <strong class="font-bold">¡Éxito!</strong>
                             <span class="block sm:inline">{{ session('success') }}</span>
@@ -46,7 +47,7 @@
                             </span>
                         </div>
                     @endif
-                    @if($errors->any())
+                    @if ($errors->any())
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
                             role="alert">
                             <strong class="font-bold">¡Error!</strong>
@@ -63,10 +64,11 @@
                             </span>
                         </div>
                     @endif
+
                     <div class="pt-10 py-10 px-10">
                         <button id="openModal"
                             class="inline-flex items-center bg-green-500 border-0 py-1 px-3 focus:outline-none hover:bg-green-500 text-white rounded text-base mt-4 md:mt-0">
-                            Agregar Inicio</button>
+                            Agregar Pregunta</button>
                     </div>
                     <div class="overflow-hidden px-4 sm:px-12">
                         <table class="min-w-full text-center text-sm font-light text-surface">
@@ -80,13 +82,25 @@
                             <tbody>
                                 @foreach ($challengeType->questions as $question)
                                     <tr>
-                                        <td> {{ $question->content }} </td>
-                                        <td class="hidden sm:block"> {{ $question->questionType->name }} </td>
+                                        <td class="whitespace px-6 py-4"> {{ $question->content }} </td>
+                                        <td class="hidden sm:block whitespace-nowrap px-6 py-4 mt-2">
+                                            {{ $question->questionType->name }} </td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            <a href="{{ route('surveyQuestions', $question->id) }}"
-                                                class="bg-gray-400 text-white p-2 rounded">
-                                                <i class="fa fa-pen"></i>
-                                            </a>
+                                            <form id="deleteForm_{{ $question->id }}"
+                                                action="{{ route('challengeQuestions.destroy', $question->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="bg-red-400 text-white p-2 rounded"
+                                                    onclick="confirmarBorrado({{ $question->id }})">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                                {{-- TODO: edit not implemented yet --}}
+                                                {{--                                                 <a href="{{ route('surveyQuestions', $question->id) }}"
+                                                    class="bg-gray-400 text-white p-2 rounded">
+                                                    <i class="fa fa-pen"></i>
+                                                </a> --}}
+                                            </form>
                                         </td>
 
                                     </tr>
@@ -115,7 +129,7 @@
                                                     <label
                                                         class="uppercase tracking-wide text-black text-xs font-bold mb-2"
                                                         for="question-type">
-                                                        Typo de pregunta:
+                                                        Tipo de pregunta:
                                                     </label>
                                                     <select name="question-type" id="question-typpe">
                                                         @foreach ($questionTypes as $questionType)
@@ -132,10 +146,11 @@
                                                         for="question-content">
                                                         Enunciado de la pregunta:
                                                     </label>
-                                                    <input
+                                                    <textarea
                                                         class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3"
                                                         id="question-content" type="text" name="question-content"
                                                         placeholder="Enunciado">
+                                                    </textarea>
                                                 </div>
                                                 <div
                                                     class="modal-actions bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -166,13 +181,21 @@
             document.getElementById('modal-component-container').classList.add('hidden');
         });
 
-
-        //TODO: Hide the message(success/error) after some seconds..
-        if (document.getElementById('flash-sucess')){
-            setTimeout(function(){
-                console.log('fired hide');
-                document.getElementById('flash-success').classList.add('hidden');
-            }, 3000);
+        // Button has to be of type "button" to work (it prevents the default submit action)
+        // so we fire the form's submit event from this function
+        function confirmarBorrado(id) {
+            if (confirm("¿Estás seguro de que quieres borrar este dato?") == true) {
+                document.getElementById('deleteForm_' + id).submit();
+            }
+            return false;
         }
+
+        // TODO: hide flash message after some seconds (flash-success/error)
+        /*         if (document.getElementById('flash-sucess')) {
+                    setTimeout(function() {
+                        console.log('fired hide');
+                        document.getElementById('flash-success').classList.add('hidden');
+                    }, 3000);
+                } */
     </script>
 </body>

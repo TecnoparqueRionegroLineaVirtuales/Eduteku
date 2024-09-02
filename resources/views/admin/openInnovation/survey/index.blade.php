@@ -45,7 +45,7 @@
                                 @foreach ($surveyTypes as $surveyType)
                                     <tr>
                                         <td> {{ $surveyType->name }} </td>
-                                        <td class="hidden sm:block"> {{ $surveyType->questions_count }} </td>
+                                        <td class="hidden sm:block  whitespace-nowrap px-6 py-4 mt-2"> {{ $surveyType->questions_count }} </td>
                                         <td class="whitespace-nowrap px-6 py-4">
                                             <a href="{{ route('surveyQuestions', $surveyType->id) }}" class="bg-gray-400 text-white p-2 rounded">
                                                 <i class="fa fa-pen"></i>
