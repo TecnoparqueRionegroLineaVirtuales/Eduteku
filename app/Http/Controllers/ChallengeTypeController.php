@@ -18,7 +18,7 @@ class ChallengeTypeController extends Controller
     }
 
     /**
-     * Show the questions for the current ChallengeType
+     * Show the questions for the current ChallengeType (create question with modal)
      */
 
     public function details(ChallengeType $challengeType)

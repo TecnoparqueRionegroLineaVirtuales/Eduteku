@@ -28,7 +28,29 @@ class ChallengeAnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate image file if present...
+        $validatedInput = $request->validate([
+            'challenge-id' => 'required|numeric',
+            'challenge-question-id' => 'required|numeric',
+            'answer-content' => 'required|string|max:500',
+            'image' => ['sometimes', 'required', File::image()->max('15mb')],
+        ]);
+
+        if ($request->hasFile('image')) {
+            $archivo = $request->file('image');
+            $extension = $archivo->getClientOriginalExtension();
+            $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
+            try {
+                $rutaArchivo = $archivo->storeAs('public/img', $nombreArchivo);
+                $multimedia->url = 'storage/img/' . $nombreArchivo;
+                // TODO: continue here...
+
+            } catch (\Exception $e) {
+
+                return back()->withErrors(['error' => $e->getMessage()]);
+            }
+        }
+
     }
 
     /**
