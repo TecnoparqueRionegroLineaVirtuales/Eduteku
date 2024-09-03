@@ -62,4 +62,25 @@ class ChallengeController extends Controller
     {
         //
     }
+
+
+    /**
+     * Store the answers for the challenge
+     */
+    public function storeAnswers(Request $request, Challenge $challenge)
+    {
+        dd($request->all());
+
+        //validate image file if present...
+        $validatedInput = $request->validate([
+            'challenge-id' => 'required|numeric',
+            'question.*'
+            'question-.*.-answer' => 'required|numeric',
+            'answer-content' => 'required|string|max:500',
+            'image' => ['sometimes', 'required', File::image()->max('15mb')],
+        ]);
+
+        $challenge->answers()->create($request->all());
+        return response()->json(['status' => 'success']);
+    }
 }

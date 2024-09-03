@@ -72,6 +72,8 @@ Route::middleware([
     Route::get('surveyTypes', [ChallengeTypeController::class, 'index'])->name('surveyType');
     Route::get('surveyTypes/{challengeType}/questions', [ChallengeTypeController::class, 'details'])->name('surveyQuestions');
     Route::resource('challengeQuestions', ChallengeQuestionController::class);
+    // This route has to be placed before the Route::resource('challenges'...) definition
+    Route::post('challenges/{challenge}/answers', [ChallengeController::class, 'storeAnswers'])->name('challenge.answers');
     Route::post('/users/{user}/change-role', [UserController::class, 'changeRole'])->name('user.changeRole');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });

@@ -34,7 +34,8 @@ class ChallengeTypeController extends Controller
     public function showQuestions(ChallengeType $challengeType)
     {
         $challengeType->load('questions');
-        return view('users.openInnovation.answerSurvey', compact('challengeType'));
+        $challenge = Challenge::find(1);
+        return view('users.openInnovation.answerSurvey', compact('challengeType', 'challenge'));
     }
 
 
