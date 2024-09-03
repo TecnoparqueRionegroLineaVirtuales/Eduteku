@@ -43,6 +43,8 @@ Route::get('successCases', function () {
     return view('users.successCases');
 });
 
+Route::get('openInnovation/{challengeType}', [ChallengeTypeController::class, 'showQuestions'])->name('openInnovation');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

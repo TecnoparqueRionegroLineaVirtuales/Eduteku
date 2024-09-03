@@ -18,7 +18,7 @@ class ChallengeTypeController extends Controller
     }
 
     /**
-     * Show the questions for the current ChallengeType (create question with modal)
+     * Show the editable list of questions for the current ChallengeType (create question with modal)
      */
 
     public function details(ChallengeType $challengeType)
@@ -26,6 +26,15 @@ class ChallengeTypeController extends Controller
         $questionTypes = QuestionType::all();
         $challengeType->load('questions.questionType');
         return view('admin.openInnovation.survey.survey', compact('challengeType', 'questionTypes'));
+    }
+
+    /**
+     * Show the list of questions for the current ChallengType to answer
+     */
+    public function showQuestions(ChallengeType $challengeType)
+    {
+        $challengeType->load('questions');
+        return view('users.openInnovation.answerSurvey', compact('challengeType'));
     }
 
 
