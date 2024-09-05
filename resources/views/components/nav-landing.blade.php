@@ -111,9 +111,9 @@
                         </button>
                         <!-- Dropdown menu -->
                         <ul id="dropdown-innovacion" class="hidden py-2 space-y-2">
-                            <li><a href="#"
+                            <li><a href="{{ url('bootcampClient') }}"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                                    Inscribir Reto
+                                    Bootcamps
                                 </a>
                             </li>
                             <li><a href="#"
@@ -257,9 +257,9 @@
                 <div id="dropdownInnovacion"
                     class="absolute z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
-                        <li><a href="#"
+                        <li><a href="{{ url('bootcampClient') }}"
                                 class="block py-2 px-2 text-sm text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#39A900] dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                                Inscribir Reto</a>
+                                Bootcamp</a>
                             </li>
                         <li><a href="#"
                                 class="block py-2 px-2 text-sm text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#39A900] dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
