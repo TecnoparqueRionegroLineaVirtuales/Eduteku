@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class infoController extends Controller
+class InfoController extends Controller
 {
     public function panel()
     {
@@ -36,18 +36,18 @@ class infoController extends Controller
         ]);
         $link = 'N/A';
         $linkSave = Str::after($link, 'https://youtu.be/');
-        
+
         $userId = Auth::id();
-        
+
 
         if ($request->hasFile('url')) {
-            
+
             $archivo = $request->file('url');
             $extension = $archivo->getClientOriginalExtension();
             $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
 
             try {
-                
+
                 $rutaArchivo = $archivo->storeAs('public/img', $nombreArchivo);
 
                 $multimedia = new Multimedia();
@@ -63,7 +63,7 @@ class infoController extends Controller
                 return redirect()->route('infoAdmin.index')->with('success', 'Archivo creado correctamente.');
             } catch (\Exception $e) {
 
-            
+
                 return back()->withErrors(['error' => $e->getMessage()]);
             }
         }
@@ -99,7 +99,7 @@ class infoController extends Controller
             $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
             $rutaArchivo = $archivo->storeAs('public/img', $nombreArchivo);
             $multimedia->url = 'storage/img/' . $nombreArchivo;
-    
+
             if ($multimedia->url) {
                 Storage::delete($multimedia->url);
             }
