@@ -21,6 +21,7 @@ use App\Http\Controllers\LinesController;
 use App\Http\Controllers\EdtAdminInfoController;
 use App\Http\Controllers\BulletinAdminInfoController;
 use App\Http\Controllers\BulletinAdminController;
+use App\Http\Controllers\bootcampController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
@@ -29,6 +30,8 @@ Route::resource('info', QuehacetpController::class);
 Route::resource('edt', EdtController::class);
 Route::resource('bulletin', BulletinController::class);
 Route::resource('messagesclient', MessagesclientController::class);
+Route::get('bootcampClient', [bootcampController::class, 'clientBootcamp'])->name('bootcampClient');
+Route::get('bootcampClient/{id}', [bootcampController::class, 'show'])->name('bootcampClient.show');
 
 Route::get('teku', function () {
     return view('users.appTeku');
@@ -67,4 +70,21 @@ Route::middleware([
     Route::get('panelBulletin', [BulletinAdminInfoController::class, 'panel'])->name('panelBulletin');
     Route::post('/users/{user}/change-role', [UserController::class, 'changeRole'])->name('user.changeRole');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/bootcamp', [bootcampController::class, 'index'])->name('bootcamp.index');
+    Route::get('/bootcamp/category', [bootcampController::class, 'bootcampCategory'])->name('bootcampCategory');
+    Route::get('/bootcamp/sponsor', [bootcampController::class, 'bootcampSponsor'])->name('bootcampSponsor');
+    Route::post('/sponsor/store', [bootcampController::class, 'storeSponsor'])->name('sponsor.store');
+    Route::delete('/sponsor/destroy/{sponsor}', [bootcampController::class, 'destroySponsor'])->name('sponsor.destroy');
+    Route::get('/sponsor/{id}/edit', [bootcampController::class, 'editSponsor'])->name('sponsor.edit');
+    Route::put('/sponsor/{id}', [bootcampController::class, 'updateSponsor'])->name('sponsor.update');
+
+    Route::post('/bootcamp/store', [bootcampController::class, 'store'])->name('bootcamp.store');
+    Route::delete('/bootcamp/destroy/{category}', [bootcampController::class, 'destroy'])->name('bootcamp.destroy');
+    Route::get('/bootcamp/{id}/edit', [bootcampController::class, 'edit'])->name('bootcamp.edit');
+    Route::put('/bootcamp/{id}', [bootcampController::class, 'update'])->name('bootcamp.update');
+    Route::get('/bootcampLanding', [bootcampController::class, 'bootcamp'])->name('bootcampLanding');
+    Route::post('/bootcampLanding/store', [bootcampController::class, 'storebootcamp'])->name('bootcampLanding.store');
+    Route::delete('/bootcampLanding/destroy/{bootcamp}', [bootcampController::class, 'destroybootcamp'])->name('bootcampLanding.destroy');
+    Route::get('/bootcampLanding/{id}/edit', [bootcampController::class, 'editbootcamp'])->name('bootcampLanding.edit');
+    Route::put('/bootcampLanding/{id}', [bootcampController::class, 'updatebootcamp'])->name('bootcampLanding.update');
 });
