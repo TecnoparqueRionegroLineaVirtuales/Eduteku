@@ -1,6 +1,5 @@
 <nav class=" fixed top-0 left-0 right-0 z-50 dark:bg-gray-900">
-    <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4 ">
-
+    <div class="max-w-screen-xl flex items-center justify-between mx-auto p-3 ">
 
         <!-- nav lateral-desplegable -->
         <div id="drawer-navigation"
@@ -21,8 +20,56 @@
             </button>
             <div class="py-4 overflow-y-auto">
                 <ul class="space-y-2 font-medium">
-                    <!-- Tecnoparque -->
+
+                    <!-- Configuración-->
                     @role('admin')
+                    <li id="dropdownTecnoparquButton" data-toggle-menu="dropdown-Configuración" type="button"
+                        class="relative">
+                        <button type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-tecnoparque" data-collapse-toggle="dropdown-tecnoparque">
+                            <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Configuración</span>
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d=" m1
+                                  1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <ul id="dropdown-Configuración" class="hidden py-2 space-y-2 ml-9">
+                            <li class=" flex-1">
+                                <a href="{{ route('category.index') }}"
+                                    class=" block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                    <i class="fa fa-layer-group pr-0 md:pr-3"></i><span
+                                    class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current  md:inline-block">Categorías</span>
+                                </a>
+                            </li>
+                            <li class="flex-1">
+                                <a href="{{ route('state.index') }}"
+                                    class=" block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                    <i class="fas fa-toggle-on pr-0 md:pr-3"></i><span
+                                    class="ml-4 pb-1 md:pb-0  md:text-base text-current md:text-current  md:inline-block">Estados</span>
+                                </a>
+                            </li>
+                            <li class=" flex-1">
+                                <a href="{{ route('user.index') }}"
+                                    class=" block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                    <i class="fas fa-users pr-0 md:pr-3"></i><span
+                                    class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Usuarios</span>
+                                </a>
+                            </li>
+                            <li class="flex-1">
+                                <a href="{{ route('messages.index') }}"
+                                    class=" block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                    <i class="fa fa-envelope pr-0 md:pr-3"></i><span
+                                    class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Mensajes</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Tecnoparque -->
                     <li id="dropdownTecnoparquButton" data-toggle-menu="dropdown-Tecnoparque" type="button"
                         class="relative">
                         <button type="button"
@@ -38,65 +85,97 @@
                         </button>
                         <!-- Dropdown menu -->
                         <ul id="dropdown-Tecnoparque" class="hidden py-2 space-y-2 ml-9">
-                                <li class=" flex-1">
-                                    <a href="{{ route('category.index') }}"
-                                        class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
-                                        <i class="fa fa-layer-group pr-0 md:pr-3"></i><span
-                                        class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current  md:inline-block">Categorías</span>
-                                    </a>
-                                </li>
-                                <li class="flex-1">
-                                    <a href="{{ route('state.index') }}"
-                                        class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
-                                        <i class="fas fa-toggle-on pr-0 md:pr-3"></i><span
-                                        class="ml-4 pb-1 md:pb-0  md:text-base text-current md:text-current  md:inline-block">Estados</span>
-                                    </a>
-                                </li>
-                                <li class=" flex-1">
-                                    <a href="{{ route('home.index') }}"
-                                        class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
-                                        <i class="fa fa-home pr-0 md:pr-3"></i><span
-                                        class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current  md:inline-block">Inicio</span>
-                                    </a>
-                                </li>
-                                <li class="ml-2 flex-1">
-                                    <a href="{{ route('panelInfo') }}"
-                                        class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
-                                        <i class="fa fa-info pr-0 md:pr-3"></i><span
-                                        class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current  md:inline-block">Info</span>
-                                    </a>
-                                </li>
-                                <li class=" flex-1">
-                                    <a href="{{ route('panelEdt') }}"
-                                        class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
-                                        <i class="fa fa-play pr-0 md:pr-3"></i><span
-                                        class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">EDT</span>
-                                    </a>
-                                </li>
-                                <li class=" flex-1">
-                                    <a href="{{ route('panelBulletin') }}"
-                                        class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
-                                        <i class="fa fa-book pr-0 md:pr-3"></i><span
-                                        class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Boletin</span>
-                                    </a>
-                                </li>
-                                <li class=" flex-1">
-                                    <a href="{{ route('user.index') }}"
-                                        class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
-                                        <i class="fas fa-users pr-0 md:pr-3"></i><span
-                                        class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Usuarios</span>
-                                    </a>
-                                </li>
-                                <li class="flex-1">
-                                    <a href="{{ route('messages.index') }}"
-                                        class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
-                                        <i class="fa fa-envelope pr-0 md:pr-3"></i><span
-                                        class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current  md:inline-block">Mensajes</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <p class="mt-4 border-t-2 border-gray-300"></p>
+                            <li class=" flex-1">
+                                <a href="{{ route('home.index') }}"
+                                    class=" block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                    <i class="fa fa-home pr-0 md:pr-3"></i><span
+                                    class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current  md:inline-block">Inicio</span>
+                                </a>
+                            </li>
+                            <li class="ml-2 flex-1">
+                                <a href="{{ route('panelInfo') }}"
+                                    class=" block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                    <i class="fa fa-info pr-0 md:pr-3"></i><span
+                                    class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current  md:inline-block">Info</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Difución -->
+                    <li id="dropdownTecnoparquButton" data-toggle-menu="dropdown-Difución" type="button"
+                        class="relative">
+                        <button type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-tecnoparque" data-collapse-toggle="dropdown-tecnoparque">
+                            <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Difución</span>
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d=" m1
+                                  1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <ul id="dropdown-Difución" class="hidden py-2 space-y-2 ml-9">
+                            <li class=" flex-1">
+                                <a href="{{ route('panelEdt') }}"
+                                    class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                    <i class="fa fa-play pr-0 md:pr-3"></i><span
+                                    class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">EDT</span>
+                                </a>
+                            </li>
+                            <li class=" flex-1">
+                                <a href="{{ route('panelBulletin') }}"
+                                    class=" block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                    <i class="fa fa-book pr-0 md:pr-3"></i><span
+                                    class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Boletin</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- innovación abierta -->
+                    <li id="dropdownTecnoparquButton" data-toggle-menu="dropdown-innovación-abierta" type="button"
+                        class="relative">
+                        <button type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-tecnoparque" data-collapse-toggle="dropdown-tecnoparque">
+                            <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">innovación abierta</span>
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d=" m1
+                                  1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <ul id="dropdown-innovación-abierta" class="hidden py-2 space-y-2 ml-9">
+                            <li class=" flex-1">
+                                <a href="#"
+                                    class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                    <i class="fas fa-users pr-0 md:pr-3"></i><span
+                                    class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Retos</span>
+                                </a>
+                            </li>
+                            <li class="flex-1">
+                                <a href="#"
+                                    class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                    <i class="fa fa-envelope pr-0 md:pr-3"></i><span
+                                    class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Formulario</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="flex-1">
+                        <a href="#"
+                            class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500">
+                            <i class="fa fa-envelope pr-0 md:pr-3"></i><span
+                            class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Formulario</span>
+                        </a>
+                    </li>
+
+                    <p class="mt-4 border-t-2 border-gray-300"></p>
                         <li class="px-2 ">
                             <a href="{{ route('index.index') }}">
                                 <button
@@ -172,23 +251,23 @@
                     @endrole
 
                     @role('user')
-                    <li class="mr-3 flex-1">
+                    <li class="mr-3 m-3">
                         <a href="{{ route('messages.index') }}"
-                            class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
+                            class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
                             <i class="fa fa-heart pr-0 md:pr-3"></i><span
-                                class="pb-1 md:pb-0 text-xs md:text-base text-current md:text-current block md:inline-block">
+                                class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">
                                 Mis like
                             </span>
                         </a>
                     </li>
-                    <li class="mr-3 flex-1">
-                        <form action="https://moodle.eduteku.com/test/index.php" method="post">
+                    <li class="mr-3 m-3">
+                        <form action="https://moodle.eduteku.com/test/index.php" method="post" class="dark:text-white hover:text-green-500">
                             <input type="hidden" value="{{ $email }}" name="email">
                             <input type="hidden" value="{{ $password }}" name="password">
                             <button type="submit" id="loginbtn">
                                 <i class="fa fa-chalkboard-teacher pr-0 md:pr-3"></i>
                                 <span
-                                    class="pb-1 md:pb-0 text-xs md:text-base text-current md:text-current block md:inline-block">
+                                    class=" pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">
                                     Realizar cursos
                                 </span>
                             </button>

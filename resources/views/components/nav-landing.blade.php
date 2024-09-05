@@ -309,36 +309,48 @@
 </nav>
 <div class="mt-30"></div>
 <script>
+// Activa y desactiva el <!-- Dropdown menu top -->
+function closeAllDropdowns() {
+    document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
+        menu.classList.add('hidden');
+    });
+}
 
-//activa y desactiva el <!-- Dropdown menu top -->
-    function closeAllDropdowns() {
-        document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
-            menu.classList.add('hidden');
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownButtons = document.querySelectorAll('[data-dropdown-toggle]');
+
+    dropdownButtons.forEach(function(button) {
+        button.addEventListener('mouseover', function() {
+            const dropdownId = this.getAttribute('data-dropdown-toggle');
+            const dropdownMenu = document.getElementById(dropdownId);
+
+            if (dropdownMenu.classList.contains('hidden')) {
+                closeAllDropdowns();
+                dropdownMenu.classList.remove('hidden');
+            }
         });
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-        const dropdownButtons = document.querySelectorAll('[data-dropdown-toggle]');
 
-        dropdownButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                const dropdownId = this.getAttribute('data-dropdown-toggle');
-                const dropdownMenu = document.getElementById(dropdownId);
+        button.addEventListener('mouseout', function() {
+            const dropdownId = this.getAttribute('data-dropdown-toggle');
+            const dropdownMenu = document.getElementById(dropdownId);
 
-                if (dropdownMenu.classList.contains('hidden')) {
-                    closeAllDropdowns();
-                    dropdownMenu.classList.remove('hidden');
-                } else {
+            // Esto asegura que el menú se ocultará solo si el mouse no está sobre el menú
+            setTimeout(() => {
+                if (!dropdownMenu.matches(':hover') && !button.matches(':hover')) {
                     dropdownMenu.classList.add('hidden');
                 }
-            });
+            }, 40); // Tiempo de espera opcional para evitar el cierre inmediato si el mouse se mueve rápidamente
         });
     });
 
-    document.addEventListener('click', function(event) {
+    // Se asegura de que los menús desplegables se cierren si el mouse sale del área del menú
+    document.addEventListener('mouseover', function(event) {
         if (!event.target.closest('[data-dropdown-toggle]') && !event.target.closest('.dropdown-menu')) {
             closeAllDropdowns();
         }
     });
+});
+
 
  //activa y desactiva el <!-- Dropdown menu lateral -->
     document.addEventListener('DOMContentLoaded', function () {
