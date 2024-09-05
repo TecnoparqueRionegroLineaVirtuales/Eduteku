@@ -13,7 +13,7 @@
 </head>
 <body>
     @include('components.nav-landing')
-    <section class="text-gray-600 body-font">
+    <section class="text-gray-600 p-10 body-font">
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-col text-center w-full mb-20">
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Bootcamps y retos de innovación</h1>
@@ -33,7 +33,7 @@
                                     <h1 class="title-font text-lg font-medium text-gray-900 mb-3">{{ $bootcamp->name }}</h1>
                                     <p class="leading-relaxed mb-3">{!! Str::limit(strip_tags($bootcamp->description), 100, '...') !!}</p>
                                     <div class="flex items-center flex-wrap ">
-                                    <a href="{{ route('bootcampClient.show', $bootcamp->id) }}" class="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">Más detalles
+                                    <a href="{{ route('bootcampClient.show', $bootcamp->id) }}" class="text-green-500 inline-flex items-center md:mb-2 lg:mb-0">Más detalles
                                         <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path d="M5 12h14"></path>
                                             <path d="M12 5l7 7-7 7"></path>
