@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('sponsor', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 200);
-            $table->string('img_url', 300);
+            $table->string('name', 100);
+            $table->string('description', 300)->nullable(); // Permitir nulos en la columna 'description'
+            $table->string('img_url', 300)->nullable(); // También puedes permitir nulos en la columna 'img_url' si es necesario
             $table->timestamps();
         });
     }

@@ -45,6 +45,14 @@
                                               </div>
                                           </div>
                                       </div>
+                                      <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+                                          <div class="-mx-3 md:flex mb-6">
+                                              <div class="md:w-full px-3">
+                                                  <label for="name" class="uppercase tracking-wide text-black text-xs font-bold mb-2">Descripción</label>
+                                                  <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="description" type="text" name="description" value="{{ $sponsor->description }}" required>
+                                              </div>
+                                          </div>
+                                      </div>
                                       <div class="-mx-3 md:flex mb-6">
                                           <div class="md:w-full px-3">
                                               <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="img_url">Imagen:</label>

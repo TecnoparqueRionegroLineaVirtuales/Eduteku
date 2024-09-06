@@ -67,6 +67,7 @@
                                         <tr class="border-b border-neutral-200">
                                             <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $sponsors->id }}</td>
                                             <td class="whitespace-nowrap px-6 py-4 w-1/4">{{ $sponsors->name }}</td>
+                                            <td class="whitespace-nowrap px-6 py-4 w-1/4">{{ $sponsors->description }}</td>
                                             <td class="whitespace-nowrap px-6 py-4 w-1/4">
                                                 @if ($sponsors->img_url)
                                                     <img src="{{ asset('storage/img/'.$sponsors->img_url) }}" alt="{{ $sponsors->name }}" class="w-20 h-20 object-cover">
@@ -113,6 +114,14 @@
                                                                 Nombre
                                                               </label>
                                                             <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="application-link" type="text" name="name" placeholder="Nombre">
+                                                          </div>
+                                                        </div>
+                                                        <div class="-mx-3 md:flex mb-6">
+                                                          <div class="md:w-full px-3">
+                                                              <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
+                                                                Descripción
+                                                              </label>
+                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="application-link" type="text" name="description" placeholder="Descripción">
                                                           </div>
                                                         </div>
                                                         <div class="-mx-3 md:flex mb-6">
