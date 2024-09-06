@@ -69,7 +69,7 @@ class bootcampController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:2000',
+            'description' => 'string|max:2000',
             'img_url' => 'nullable|image',
             'file' => 'nullable|mimes:pdf',
             'url_course' => 'required|string',
@@ -204,13 +204,15 @@ class bootcampController extends Controller
     public function storeSponsor(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:70',
+            'description' => 'nullable|string|max:255', // Permitir que sea opcional
             'img_url' => 'nullable|image',
         ]);
 
-        $sponsor = new sponsor();
+        $sponsor = new Sponsor();
         $sponsor->name = $request->name;
-
+        $sponsor->description = $request->description; // Puede ser nulo
+        
         if ($request->hasFile('img_url')) {
             $file = $request->file('img_url');
             $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -219,8 +221,10 @@ class bootcampController extends Controller
         }
 
         $sponsor->save();
-        return redirect()->route('bootcampSponsor')->with('success', 'Instituciones creado exitosamente.');
+
+        return redirect()->route('bootcampSponsor')->with('success', 'Institución creada exitosamente.');
     }
+
 
     public function destroySponsor(sponsor $sponsor)
     {
@@ -240,6 +244,7 @@ class bootcampController extends Controller
         
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'description' => 'string|max:255',
             'img_url' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -247,7 +252,8 @@ class bootcampController extends Controller
 
         
         $sponsor->name = $request->input('name');
-       
+        $sponsor->description = $request->description;
+
         if ($request->hasFile('img_url')) {
             if ($sponsor->img_url && Storage::exists('public/img/' . $sponsor->img_url)) {
                 Storage::delete('public/img/' . $sponsor->img_url);
