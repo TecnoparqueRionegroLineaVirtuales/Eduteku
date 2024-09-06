@@ -10,7 +10,7 @@ class sponsor extends Model
     use HasFactory;
 
     protected $table = 'sponsor';
-    protected $fillable = ['name', 'img_url'];
+    protected $fillable = ['name', 'description', 'img_url'];
 
     public function bootcamps()
     {
