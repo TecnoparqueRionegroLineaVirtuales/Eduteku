@@ -43,6 +43,12 @@
                         <i class="fa fa-envelope pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-current md:text-current block md:inline-block">Mensajes</span>
                     </a>
                 </li>
+                <li class="mr-3 flex-1">
+                    <a href="{{ route('challenge') }}"
+                    class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
+                        <i class="fa fa-flag pr-0 md:pr-3"></i><span class="pb-1 md::pb-0 text-xs md:text-base text-current md:text-current block md:inline-block">Retos</span>   
+                    </a>
+                </li>
                 @endrole
                 @role('user')
                 <li class="mr-3 flex-1">

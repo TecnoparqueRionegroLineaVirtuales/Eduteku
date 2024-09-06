@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             StateSeeder::class,
             ChallengeSeeder::class,
+            TagsSeeder::class,
         ]);
     }
 }

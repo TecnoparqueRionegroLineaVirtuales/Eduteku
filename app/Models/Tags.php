@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use phpseclib3\Crypt\ChaCha20;
 
-class Challenge extends Model
+class Tags extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'img_url'];
-
     //Relación muchos a muchos
-    public function tags() : BelongsToMany
+    public function challenges() : BelongsToMany
     {
-        return $this->belongsToMany(Tags::class);
+        return $this->belongsToMany(Challenge::class);
     }
 }

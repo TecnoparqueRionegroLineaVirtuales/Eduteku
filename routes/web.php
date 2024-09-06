@@ -21,6 +21,7 @@ use App\Http\Controllers\LinesController;
 use App\Http\Controllers\EdtAdminInfoController;
 use App\Http\Controllers\BulletinAdminInfoController;
 use App\Http\Controllers\BulletinAdminController;
+use App\Http\Controllers\ChallengeController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
@@ -67,4 +68,5 @@ Route::middleware([
     Route::get('panelBulletin', [BulletinAdminInfoController::class, 'panel'])->name('panelBulletin');
     Route::post('/users/{user}/change-role', [UserController::class, 'changeRole'])->name('user.changeRole');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
 });
