@@ -22,6 +22,7 @@ use App\Http\Controllers\EdtAdminInfoController;
 use App\Http\Controllers\BulletinAdminInfoController;
 use App\Http\Controllers\BulletinAdminController;
 use App\Http\Controllers\bootcampController;
+use App\Http\Controllers\ChallengeController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
@@ -87,4 +88,5 @@ Route::middleware([
     Route::delete('/bootcampLanding/destroy/{bootcamp}', [bootcampController::class, 'destroybootcamp'])->name('bootcampLanding.destroy');
     Route::get('/bootcampLanding/{id}/edit', [bootcampController::class, 'editbootcamp'])->name('bootcampLanding.edit');
     Route::put('/bootcampLanding/{id}', [bootcampController::class, 'updatebootcamp'])->name('bootcampLanding.update');
+    Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
 });
