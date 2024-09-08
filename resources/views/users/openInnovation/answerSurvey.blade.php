@@ -20,6 +20,14 @@ and we fill this form (answering the challenge questions) --}}
   <section class="text-gray-600 body-font">
     <div class="container mx-auto flex px-5 py-24 flex-col items-center">
       <h2>Por favor responda el siguiente formulario:</h2>
+      @if($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">¡Error!</strong>
+          @foreach ($errors->all() as $error)
+            <span class="block sm:inline">{{ $error }}</span>
+          @endforeach
+        </div>
+      @endif
 
       <form action="{{ route('challenge.answers', $challenge->id) }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -28,10 +36,14 @@ and we fill this form (answering the challenge questions) --}}
             {{-- TODO: check if using enums instead of strings is better (would also be called from the migration/seeder?) --}}
             {{-- <div class="flex flex-col grow"> --}}
               <label for="questions[{{ $question->id }}]" class="text-gray-700 dark:text-gray-400">{{ $question->content }}</label>
-              @if($question->questionType->name == App\Enums\QuestionTypeEnum::TEXT->value)
-                <textarea id="questions[{{ $question->id }}]" name="question-{{ $question->id }}" rows="3" class="w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-300"></textarea>
+              @if(
+                $question->questionType->name == App\Enums\QuestionTypeEnum::TEXT->value ||
+                $question->questionType->name == App\Enums\QuestionTypeEnum::URL->value ||
+                $question->questionType->name == App\Enums\QuestionTypeEnum::VIDEO->value
+                )
+                <textarea id="questions[{{ $question->id }}]" name="questions[{{ $question->id }}]" rows="3" class="w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-300"></textarea>
               @elseif ($question->questionType->name == App\Enums\QuestionTypeEnum::IMAGE->value)
-                <input type="file" id="question[{{ $question->id }}]" name="question-{{ $question->id }}"
+                <input type="file" id="files[{{ $question->id }}]" name="files[{{ $question->id }}]"
                   class="w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-300">
               @endif
                 {{-- <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="url" name="url" type="file" placeholder="Nombre"> --}}

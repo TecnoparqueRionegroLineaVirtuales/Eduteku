@@ -21,11 +21,6 @@ class ChallengeSeeder extends Seeder
         foreach(QuestionTypeEnum::cases() as $questionType){
             $questionTypes[] = ['name' => $questionType->value];
         }
-/*         $questionTypes = [
-            ['name' => 'text'],
-            ['name' => 'image'],
-            ['name' => 'video'],
-        ]; */
         QuestionType::insert($questionTypes);
 
         $challengeTypes = [

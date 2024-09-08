@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Challenge;
 use App\Models\QuestionType;
 use Illuminate\Http\Request;
 use App\Models\ChallengeType;

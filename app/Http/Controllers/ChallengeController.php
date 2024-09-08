@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Challenge;
 use Illuminate\Http\Request;
+use App\Models\ChallengeType;
+use App\Enums\QuestionTypeEnum;
+use Illuminate\Validation\Rules\File;
 
 class ChallengeController extends Controller
 {
@@ -69,18 +72,18 @@ class ChallengeController extends Controller
      */
     public function storeAnswers(Request $request, Challenge $challenge)
     {
-        dd($request->all());
+        // get the questions (and question type) for the challenge type...
+        $challengeType = ChallengeType::find($challenge->challenge_type_id)->with('questions.questionType')->first();
+        $questions = $challengeType->questions;
 
-        //validate image file if present...
+        // Same validation rules for text, url, or video questions
         $validatedInput = $request->validate([
-            'challenge-id' => 'required|numeric',
-            'question.*'
-            'question-.*.-answer' => 'required|numeric',
-            'answer-content' => 'required|string|max:500',
-            'image' => ['sometimes', 'required', File::image()->max('15mb')],
+            'questions.*' => 'required|string|max:5',
+            'files.*' => ['required', File::image()->max('15mb')],
         ]);
 
-        $challenge->answers()->create($request->all());
+        //TODO: save questions, save image and url for img questions
+
         return response()->json(['status' => 'success']);
     }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EdtAdminController;
 use App\Http\Controllers\LikeUserController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\QuehacetpController;
 use App\Http\Controllers\MultimediaController;
