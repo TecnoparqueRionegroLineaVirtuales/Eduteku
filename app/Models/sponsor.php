@@ -17,4 +17,5 @@ class sponsor extends Model
         return $this->belongsToMany(Bootcamp::class, 'bootcamp_sponsor', 'id_sponsor', 'id_bootcamp');
     }
 
+
 }

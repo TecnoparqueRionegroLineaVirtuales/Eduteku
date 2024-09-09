@@ -57,13 +57,13 @@
                                       <div class="-mx-3 md:flex mb-6">
                                           <div class="md:w-full px-3">
                                               <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="img_url">Imagen:</label>
-                                              <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="img_url" type="file" name="img_url">
+                                              <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" accept="image/*" id="img_url" type="file" name="img_url">
                                           </div>
                                       </div>
                                       <div class="-mx-3 md:flex mb-6">
                                           <div class="md:w-full px-3">
                                               <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="file">Términos de referencia:</label>
-                                              <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="file" type="file" name="file">
+                                              <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" accept=".pdf" id="file" type="file" name="file">
                                           </div>
                                       </div>
                                       <div class="-mx-3 md:flex mb-6">

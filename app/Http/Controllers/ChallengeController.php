@@ -64,4 +64,13 @@ class ChallengeController extends Controller
     {
         //
     }
+
+    public function indexClient($id)
+    {
+ 
+    $challenge = Challenge::findOrFail($id);
+
+    return view('users.viewChallenge', compact('challenge'));
+    }
+
 }

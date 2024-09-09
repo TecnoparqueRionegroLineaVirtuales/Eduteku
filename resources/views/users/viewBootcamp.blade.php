@@ -10,10 +10,13 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <body>
     @include('components.nav-landing')
-
     <!-- Sección Superior: Imagen, Título, Descripción -->
     <section class="text-gray-600 p-10 body-font">
         <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
@@ -28,7 +31,77 @@
             </div>
         </div>
     </section>
-    
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="flex w-full mb-20 flex-wrap">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 lg:w-1/3 lg:mb-0 mb-4">Descubre Nuestro Bootcamp</h1>
+                <p class="lg:pl-6 lg:w-2/3 mx-auto leading-relaxed text-base">
+                    Nuestro bootcamp está diseñado para proporcionarte habilidades prácticas y conocimientos actualizados que te prepararán para los retos. A través de videos y recursos visuales, podrás explorar en detalle los contenidos del programa, conocer a los instructores y obtener una visión clara de lo que te espera.
+                </p>
+            </div>
+            <!-- Swiper -->
+            <div class="relative w-full h-80">
+                <div class="swiper-container w-full h-full">
+                    <div class="swiper-wrapper">
+                        @foreach($resources as $resource)
+                            <div class="swiper-slide flex items-center justify-center bg-gray-200">
+                                @if(Str::endsWith($resource->url_img, ['.jpg', '.jpeg', '.png', '.webp']))
+                                    <img alt="gallery" class="object-cover w-full h-full" src="{{ asset('storage/bootcamp_resources/' . $resource->url_img) }}">
+                                @elseif(Str::endsWith($resource->url_img, '.mp4'))
+                                    <video class="object-cover w-full h-full" controls>
+                                        <source src="{{ asset('storage/bootcamp_resources/' . $resource->url_img) }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination absolute bottom-4 left-0 right-0 flex justify-center"></div>
+                    <!-- Add Navigation -->
+                    <div class="swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 text-white bg-gray-700 p-2 rounded-full cursor-pointer">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14"></path>
+                        </svg>
+                    </div>
+                    <div class="swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 text-white bg-gray-700 p-2 rounded-full cursor-pointer">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="bg-gray-100 py-12 mt-16">
+        <h2 class="text-2xl font-bold mb-4 text-center">Retos relacionados</h2>
+        <div class="container mx-auto px-5">
+            <div class="flex flex-wrap -m-4">
+                @foreach($challenges as $challenge)
+                    <div class="p-4 w-full sm:w-1/2 md:w-1/3">
+                        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                            <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ asset('storage/img/'.$challenge->img_url) }}" alt="bootcamp">
+                            <div class="p-6">
+                                <h1 class="title-font text-lg font-medium text-gray-900 mb-3">{{ $challenge->name }}</h1>
+                                <p class="leading-relaxed mb-3">{{ Str::limit(strip_tags($challenge->description), 100, '...') }}</p>
+                                <div class="flex items-center flex-wrap">
+                                    <a href="{{ route('viewChallenge', $challenge->id) }}" class="text-green-500 inline-flex items-center md:mb-2 lg:mb-0">Más detalles
+                                        <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M5 12h14"></path>
+                                            <path d="M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
     <!-- Sección Inferior: Instituciones, Criterios y Curso -->
     <section class="bg-gray-100 py-12 mt-16">
         <div class="container mx-auto">
@@ -47,7 +120,6 @@
                     @endif
                 @endforeach
             </div>
-
             <!-- Sección de más aliados -->
             <h2 class="text-2xl font-bold mt-16 mb-4 text-center">Más Aliados</h2>
             <div class="flex flex-wrap justify-center gap-8">
@@ -76,7 +148,6 @@
                         </a>
                     @endif
                 </div>
-
                 <!-- Curso -->
                 <div class="text-center lg:w-1/2">
                     <h2 class="text-2xl font-bold mb-6">Curso</h2>
@@ -90,5 +161,33 @@
             </div>
         </div>
     </section>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 40,
+                },
+            },
+        });
+    </script>
 </body>
 </html>
