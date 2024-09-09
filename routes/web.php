@@ -22,6 +22,7 @@ use App\Http\Controllers\EdtAdminInfoController;
 use App\Http\Controllers\BulletinAdminInfoController;
 use App\Http\Controllers\BulletinAdminController;
 use App\Http\Controllers\bootcampController;
+use App\Http\Controllers\ChallengeController;
 use App\Models\Category;
 
 Route::resource('index', IndexController::class);
@@ -87,4 +88,17 @@ Route::middleware([
     Route::delete('/bootcampLanding/destroy/{bootcamp}', [bootcampController::class, 'destroybootcamp'])->name('bootcampLanding.destroy');
     Route::get('/bootcampLanding/{id}/edit', [bootcampController::class, 'editbootcamp'])->name('bootcampLanding.edit');
     Route::put('/bootcampLanding/{id}', [bootcampController::class, 'updatebootcamp'])->name('bootcampLanding.update');
+    Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
+    Route::get('/viewChallenge/{id}', [ChallengeController::class, 'indexClient'])->name('viewChallenge');
+
+    Route::get('bootcamps/{bootcampId}/resources/create', [bootcampController::class, 'createResourceBootcamp'])->name('bootcamp_resources.create');
+    Route::post('bootcamps/{bootcampId}/resources', [bootcampController::class, 'storeResourceBootcamp'])->name('bootcamp_resources.store');
+
+    Route::get('/bootcamp/{id}/edit-resources', [BootcampController::class, 'editResourceBootcamp'])
+    ->name('bootcamp.editResources');
+
+    // Ruta para actualizar los recursos del bootcamp en la base de datos
+    Route::put('/bootcamp/{id}/update-resources', [BootcampController::class, 'updateResourceBootcamp'])
+        ->name('bootcamp_resources.update');
+
 });
