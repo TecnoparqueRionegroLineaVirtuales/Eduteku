@@ -15,7 +15,9 @@ class ChallengeController extends Controller
      */
     public function index()
     {
-        //
+        $challenges = Challenge::all();
+
+        return view('admin.challenge.challenge', compact('challenges'));
     }
 
     /**
@@ -101,4 +103,10 @@ class ChallengeController extends Controller
 
         return back()->with('success', 'Formulario completado correctamente.');
     }
+    public function indexClient($id)
+    {
+        $challenge = Challenge::findOrFail($id);
+        return view('users.viewChallenge', compact('challenge'));
+    }
+
 }
