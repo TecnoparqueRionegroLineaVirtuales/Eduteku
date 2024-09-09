@@ -76,14 +76,29 @@ class ChallengeController extends Controller
         $challengeType = ChallengeType::find($challenge->challenge_type_id)->with('questions.questionType')->first();
         $questions = $challengeType->questions;
 
+        // TODO: required validation for images not working...
         // Same validation rules for text, url, or video questions
         $validatedInput = $request->validate([
-            'questions.*' => 'required|string|max:5',
-            'files.*' => ['required', File::image()->max('15mb')],
+            'questions.*' => 'required|string|max:500',
+            'images.*' => ['required', File::image()->max('15mb')],
         ]);
 
-        //TODO: save questions, save image and url for img questions
+        // TODO: rollback if any question cannot be saved?
+        $files = $request->file('images');
+        foreach($questions as $question) {
+            if($question->questionType->name == QuestionTypeEnum::TEXT->value ||
+                $question->questionType->name == QuestionTypeEnum::URL->value ||
+                $question->questionType->name == QuestionTypeEnum::VIDEO->value) {
+                $question->answer = $validatedInput['questions'][$question->id];
+                ChallengeAnswerController::store($question, $challenge->id);
+            }elseif($question->questionType->name == QuestionTypeEnum::IMAGE->value) {
+                if($files && isset($files[$question->id])) {
+                    $file = $files[$question->id];
+                    ChallengeAnswerController::storeImageAnswer($question, $challenge->id, $file);
+                }
+            }
+        }
 
-        return response()->json(['status' => 'success']);
+        return back()->with('success', 'Formulario completado correctamente.');
     }
 }
