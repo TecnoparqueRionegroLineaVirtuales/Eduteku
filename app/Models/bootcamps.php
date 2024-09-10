@@ -22,4 +22,9 @@ class bootcamps extends Model
         return $this->belongsTo(ChallengeFilterCategory::class, 'id_challenge_filter_category');
     }
 
+    public function challenge()
+    {
+        return $this->hasMany(Challenge::class);
+    }
+
 }
