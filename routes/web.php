@@ -101,4 +101,6 @@ Route::middleware([
     Route::put('/bootcamp/{id}/update-resources', [BootcampController::class, 'updateResourceBootcamp'])
         ->name('bootcamp_resources.update');
 
+    Route::get('/bootcamp_participation/{id}', [BootcampController::class, 'bootcampParticipation'])->name('bootcamp_participation');
+    Route::post('/bootcamp_participation/{bootcamp}', [bootcampController::class, 'bootcampParticipationStore'])->name('bootcamp_participation.store');
 });

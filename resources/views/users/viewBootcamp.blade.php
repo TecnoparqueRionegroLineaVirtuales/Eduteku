@@ -20,8 +20,8 @@
     <!-- Sección Superior: Imagen, Título, Descripción -->
     <section class="text-gray-600 p-10 body-font">
         <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-            <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
-                <img class="object-cover object-center rounded" alt="hero" src="{{ asset('storage/img/'.$bootcamp->img_url) }}">
+            <div class="lg:max-w-2xl md:max-w-lg lg:w-full md:w-1/2 w-full mb-10 md:mb-0">
+                <img class="object-cover object-center rounded-lg w-full h-80 md:h-auto" alt="hero" src="{{ asset('storage/img/'.$bootcamp->img_url) }}">
             </div>
             <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
                 <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{{ $bootcamp->name }}</h1>
@@ -31,7 +31,8 @@
             </div>
         </div>
     </section>
-    <section class="text-gray-600 body-font">
+
+    <section class="text-gray-600 bg-gray-100 body-font">
         <div class="container px-5 py-24 mx-auto">
             <div class="flex w-full mb-20 flex-wrap">
                 <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 lg:w-1/3 lg:mb-0 mb-4">Descubre Nuestro Bootcamp</h1>
@@ -40,20 +41,20 @@
                 </p>
             </div>
             <!-- Swiper -->
-            <div class="relative w-full h-80">
-                <div class="swiper-container w-full h-full">
+            <div class="relative w-full max-w-full overflow-hidden">
+                <div class="swiper-container w-full">
                     <div class="swiper-wrapper">
                         @foreach($resources as $resource)
-                            <div class="swiper-slide flex items-center justify-center bg-gray-200">
-                                @if(Str::endsWith($resource->url_img, ['.jpg', '.jpeg', '.png', '.webp']))
-                                    <img alt="gallery" class="object-cover w-full h-full" src="{{ asset('storage/bootcamp_resources/' . $resource->url_img) }}">
-                                @elseif(Str::endsWith($resource->url_img, '.mp4'))
-                                    <video class="object-cover w-full h-full" controls>
-                                        <source src="{{ asset('storage/bootcamp_resources/' . $resource->url_img) }}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                @endif
-                            </div>
+                        <div class="swiper-slide flex items-center justify-center bg-gray-200">
+                            @if(Str::endsWith($resource->url_img, ['.jpg', '.jpeg', '.png', '.webp']))
+                                <img alt="gallery" class="object-cover w-full h-full max-h-80" src="{{ asset('storage/bootcamp_resources/' . $resource->url_img) }}">
+                            @elseif(Str::endsWith($resource->url_img, '.mp4'))
+                                <video class="object-cover w-full h-full max-h-80" controls>
+                                    <source src="{{ asset('storage/bootcamp_resources/' . $resource->url_img) }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            @endif
+                        </div>
                         @endforeach
                     </div>
                     <!-- Add Pagination -->
@@ -74,9 +75,15 @@
                 </div>
             </div>
 
+            <div class="flex justify-center py-20">
+                <a href="{{ route('bootcamp_participation', $bootcamp->id ) }}" class="bg-[#39A900] text-white py-4 px-12 rounded-lg focus:outline-none hover:bg-[#00314D] transition duration-300 text-lg">
+                    Quiero participar de este Bootcamp
+                </a>
+            </div>
         </div>
     </section>
-    <section class="bg-gray-100 py-12 mt-16">
+
+    <section class="text-gray-600 p-10 body-font">
         <h2 class="text-2xl font-bold mb-4 text-center">Retos relacionados</h2>
         <div class="container mx-auto px-5">
             <div class="flex flex-wrap -m-4">
@@ -102,9 +109,8 @@
             </div>
         </div>
     </section>
-    <!-- Sección Inferior: Instituciones, Criterios y Curso -->
-    <section class="bg-gray-100 py-12 mt-16">
-        <div class="container mx-auto">
+    <section class="bg-gray-100 py-12">
+    <div class="container mx-auto">
             <!-- Patrocinadores -->
             <h2 class="text-2xl font-bold mb-4 text-center">Instituciones participantes</h2>
             <div class="flex flex-wrap justify-center gap-8">
@@ -134,60 +140,55 @@
                     @endif
                 @endforeach
             </div>
-    </section>  
+    </section>
     <section class="text-gray-600 p-10 body-font">
-            <!-- Sección combinada de Criterios de Aceptación y Curso -->
-            <div class="flex flex-col lg:flex-row justify-center items-center mt-16 gap-8">
-                <!-- Criterios de Aceptación -->
-                <div class="text-center lg:w-1/2">
-                    <h2 class="text-2xl font-bold mb-6">Criterios de Aceptación</h2>
-                    @if($bootcamp->file)
-                        <a href="{{ asset('storage/pdf/'.$bootcamp->file) }}" download class="text-indigo-500 hover:underline">
-                            <img src="{{ asset('storage/img/iconoPDF.png') }}" class="h-8 w-auto inline-block">
-                            Descargar PDF
-                        </a>
-                    @endif
-                </div>
-                <!-- Curso -->
-                <div class="text-center lg:w-1/2">
-                    <h2 class="text-2xl font-bold mb-6">Curso</h2>
-                    @if($bootcamp->url_course)
-                        <a href="{{ $bootcamp->url_course }}" class="text-indigo-500 hover:underline">
-                            <img src="{{ asset('storage/img/course.png') }}" class="h-8 w-auto inline-block">
-                            Ir al curso relacionado.
-                        </a>
-                    @endif
-                </div>
+        <!-- Sección combinada de Criterios de Aceptación y Curso -->
+        <div class="flex flex-col lg:flex-row justify-center items-center mt-8 gap-8">
+            <!-- Tarjeta de Criterios de Aceptación -->
+            <div class="bg-gray-200 shadow-lg rounded-lg p-6 lg:w-1/2 text-center">
+                <h2 class="text-2xl font-bold mb-4">Criterios de Aceptación</h2>
+                @if($bootcamp->file)
+                    <a href="{{ asset('storage/pdf/'.$bootcamp->file) }}" download class="text-indigo-500 hover:underline flex items-center justify-center gap-2">
+                        <img src="{{ asset('storage/img/iconoPDF.png') }}" class="h-8 w-auto">
+                        Descargar PDF
+                    </a>
+                @endif
+            </div>
+            <!-- Tarjeta de Curso -->
+            <div class="bg-gray-200 shadow-lg rounded-lg p-6 lg:w-1/2 text-center">
+                <h2 class="text-2xl font-bold mb-4">Curso</h2>
+                @if($bootcamp->url_course)
+                    <a href="{{ $bootcamp->url_course }}" class="text-indigo-500 hover:underline flex items-center justify-center gap-2">
+                        <img src="{{ asset('storage/img/course.png') }}" class="h-8 w-auto">
+                        Ir al curso relacionado.
+                    </a>
+                @endif
             </div>
         </div>
     </section>
     <script>
-        var swiper = new Swiper('.swiper-container', {
+        const swiper = new Swiper('.swiper-container', {
             slidesPerView: 1,
             spaceBetween: 10,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
             },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
             breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                },
+                
                 768: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
+                    slidesPerView: 2,
                 },
                 1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 40,
+                    slidesPerView: 3,
                 },
             },
         });
+
     </script>
 </body>
 </html>

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('bootcamp_resourse', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('bootcamp_id');
-            $table->foreign('bootcamp_id')->references('id')->on('bootcamp')->onDelete('cascade');;
+            $table->foreign('bootcamp_id')->references('id')->on('bootcamp')->onDelete('cascade');
             $table->unsignedBigInteger('resourse_id');
-            $table->foreign('resourse_id')->references('id')->on('resourse_bootcamp')->onDelete('cascade');;
+            $table->foreign('resourse_id')->references('id')->on('resourse_bootcamp')->onDelete('cascade');
             $table->timestamps();
         });
     }

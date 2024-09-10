@@ -9,6 +9,7 @@ use App\Models\bootcamps;
 use App\Models\sponsor;
 use App\Models\Challenge;
 use App\Models\resourceBootcamp;
+use App\Models\userInfo;
 
 class bootcampController extends Controller
 {
@@ -339,4 +340,45 @@ class bootcampController extends Controller
 
         return redirect()->route('bootcampSponsor')->with('success', 'Instituciones actualizado con éxito');
     }
+
+    public function bootcampParticipation($id){
+        $bootcamp = bootcamps::findOrFail($id);
+        $userId = auth()->id();
+    
+        $userInfo = userInfo::where('bootcamp_id', $id)
+            ->where('user_id', $userId)
+            ->first();
+    
+        $isRegistered = $userInfo && $userInfo->state_id == 1;
+    
+        return view('users.formBootcamp', compact('bootcamp', 'isRegistered'));
+    }
+
+    public function bootcampParticipationStore(Request $request, $bootcampId) {
+        $request->validate([
+            'phone' => 'required|string|max:20',
+            'profile' => 'required|string|max:50',
+            'mode' => 'required|string|max:60',
+            'commitment' => 'required|string|max:5',
+        ]);
+    
+        if ($request->commitment == 'Si') {
+            $userId = auth()->id();
+            $userInfo = new userInfo();
+            $userInfo->user_id = $userId;
+            $userInfo->phone = $request->phone;
+            $userInfo->profile = $request->profile;
+            $userInfo->mode = $request->mode;
+            $userInfo->commitment = $request->commitment;
+            $userInfo->bootcamp_id = $bootcampId;
+            $userInfo->state_id = 1;
+            $userInfo->challenge_state_id = 2;
+            $userInfo->save();
+    
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['error' => true]);
+        }
+    }
+    
 }

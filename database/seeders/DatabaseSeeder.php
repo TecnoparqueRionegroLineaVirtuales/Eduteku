@@ -22,6 +22,10 @@ class DatabaseSeeder extends Seeder
             StateSeeder::class,
             ChallengeSeeder::class,
             TagsSeeder::class,
+            ChallengeFilterCategorySeeder::class,
+            BootcampSeeder::class,
+            SponsorSeeder::class,
+            BootcampSponsorSeeder::class,
         ]);
     }
 }
