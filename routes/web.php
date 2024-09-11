@@ -23,9 +23,12 @@ use App\Http\Controllers\BulletinAdminInfoController;
 use App\Http\Controllers\BulletinAdminController;
 use App\Http\Controllers\bootcampController;
 use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\TagsController;
 use App\Models\Category;
+use App\Models\Challenge;
 use App\Http\Controllers\ChallengeTypeController;
 use App\Http\Controllers\ChallengeQuestionController;
+
 
 Route::resource('index', IndexController::class);
 Route::get('/', [IndexController::class, 'index']);
@@ -97,6 +100,11 @@ Route::middleware([
     Route::delete('/bootcampLanding/destroy/{bootcamp}', [bootcampController::class, 'destroybootcamp'])->name('bootcampLanding.destroy');
     Route::get('/bootcampLanding/{id}/edit', [bootcampController::class, 'editbootcamp'])->name('bootcampLanding.edit');
     Route::put('/bootcampLanding/{id}', [bootcampController::class, 'updatebootcamp'])->name('bootcampLanding.update');
+
+    // Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
+    // Route::post('/challenge/create', [ChallengeController::class, 'store']);
+    Route::resource('challenge', ChallengeController::class);
+    Route::get('/tags', [TagsController::class, 'getTags']);
     Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
     Route::get('/viewChallenge/{id}', [ChallengeController::class, 'indexClient'])->name('viewChallenge');
 
