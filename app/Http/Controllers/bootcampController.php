@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\challenge_filter_category;
 use App\Models\bootcamps;
 use App\Models\sponsor;
-
+use App\Models\Challenge;
+use App\Models\resourceBootcamp;
 
 class bootcampController extends Controller
 {
@@ -104,10 +105,73 @@ class bootcampController extends Controller
             $bootcamp->sponsors()->sync($request->sponsors);
         }
     
-        return redirect()->route('bootcampLanding')->with('success', 'Bootcamp creado exitosamente.');
+        return redirect()->route('bootcamp_resources.create', ['bootcampId' => $bootcamp->id])
+                     ->with('success', 'Bootcamp creado exitosamente. Ahora puede agregar recursos.');
+    }
+
+    public function createResourceBootcamp($bootcampId)
+    {
+        return view('admin.bootcamp.bootcampLanding.bootcampResource', compact('bootcampId'));
+    }
+
+    public function editResourceBootcamp($id)
+    {
+        $bootcamp = bootcamps::findOrFail($id);
+        return view('admin.bootcamp.bootcampLanding.editResource', compact('bootcamp'));
     }
     
+    public function updateResourceBootcamp(Request $request, $id)
+    {
+        $request->validate([
+            'files.*' => 'required|file|max:50000', // Validar archivos
+        ]);
 
+        $bootcamp = bootcamps::findOrFail($id);
+
+        // Crear una lista de IDs de recursos para asociar
+        $fileIds = [];
+
+        foreach ($request->file('files') as $file) {
+            $filename = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/bootcamp_resources', $filename);
+
+            $resource = ResourceBootcamp::create([
+                'url_img' => $filename,
+            ]);
+
+            $fileIds[] = $resource->id;
+        }
+
+        // Asociar los recursos con el bootcamp
+        $bootcamp->resources()->sync($fileIds);
+
+        return redirect()->route('bootcamp.index', $id)->with('success', 'Archivos subidos exitosamente.');
+    }
+
+    public function storeResourceBootcamp(Request $request, $bootcampId){
+
+        $request->validate([
+            'files.*' => 'required|file|max:50000',
+        ]);
+
+        $fileIds = [];
+        foreach ($request->file('files') as $file) {
+            $filename = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/bootcamp_resources', $filename);
+
+            $resource = resourceBootcamp::create([
+                'url_img' => $filename,
+            ]);
+
+            $fileIds[] = $resource->id;
+        }
+
+
+        bootcamps::find($bootcampId)->resources()->attach($fileIds);
+
+        return redirect()->route('bootcamp.index', $bootcampId)->with('success', 'Archivos subidos exitosamente.');
+
+    }
 
 
     public function destroybootcamp(bootcamps $bootcamp)
@@ -170,12 +234,13 @@ class bootcampController extends Controller
 
         $bootcamp->save();
 
-        // Sincronizar los sponsors con el bootcamp actualizado
         if ($request->has('sponsors')) {
             $bootcamp->sponsors()->sync($request->sponsors);
         }
 
-        return redirect()->route('bootcampLanding')->with('success', 'Bootcamp actualizado con éxito');
+
+
+        return redirect()->route('bootcamp.editResources', $id)->with('success', 'Bootcamp actualizado con éxito');
     }
 
 
@@ -189,10 +254,15 @@ class bootcampController extends Controller
     public function show($id)
     {
         $bootcamp = bootcamps::findOrFail($id);
-        $sponsors = $bootcamp->sponsors; // Asegúrate de que esta relación esté definida en tu modelo
+        $sponsors = $bootcamp->sponsors;
+        $challenges = Challenge::all();
 
-        return view('users.viewBootcamp', compact('bootcamp', 'sponsors'));
+        // Obtener los recursos asociados al bootcamp
+        $resources = $bootcamp->resources;
+
+        return view('users.viewBootcamp', compact('bootcamp', 'sponsors', 'challenges', 'resources'));
     }
+
 
 
     public function bootcampSponsor()

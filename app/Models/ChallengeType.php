@@ -10,4 +10,9 @@ class ChallengeType extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function questions()
+    {
+        return $this->hasMany(ChallengeQuestion::class);
+    }
 }

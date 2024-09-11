@@ -119,7 +119,7 @@
                                                               <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
                                                                 Descripcion
                                                               </label>
-                                                              <textarea name="description" id="description" rows="4"></textarea>
+                                                              <textarea name="description" rows="4"></textarea>
                                                           </div>
                                                         </div>
                                                         <div class="-mx-3 md:flex mb-6">
@@ -127,7 +127,7 @@
                                                               <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
                                                                 Imagen
                                                               </label>
-                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="application-link" type="file" name="img_url" placeholder="Description">
+                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="application-link" type="file" accept="image/*" name="img_url" placeholder="Description">
                                                           </div>
                                                         </div>
                                                         <div class="-mx-3 md:flex mb-6">
@@ -135,7 +135,7 @@
                                                               <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
                                                                 Terminos de referencia
                                                               </label>
-                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="application-link" type="file" name="file" placeholder="Description">
+                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" accept=".pdf" id="application-link" type="file" name="file" placeholder="Description">
                                                           </div>
                                                         </div>
                                                         <div class="-mx-3 md:flex mb-6">

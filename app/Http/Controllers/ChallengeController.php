@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ChallengeType;
+use App\Enums\QuestionTypeEnum;
+use Illuminate\Validation\Rules\File;
 
 class ChallengeController extends Controller
 {
@@ -200,4 +203,46 @@ class ChallengeController extends Controller
         $challenge->delete();
         return redirect()->route('challenge.index')->with('success', 'Reto eliminado correctamente.');
     }
+
+
+    /**
+     * Store the answers for the challenge
+     */
+    public function storeAnswers(Request $request, Challenge $challenge)
+    {
+        // get the questions (and question type) for the challenge type...
+        $challengeType = ChallengeType::find($challenge->challenge_type_id)->with('questions.questionType')->first();
+        $questions = $challengeType->questions;
+
+        // TODO: required validation for images not working...
+        // Same validation rules for text, url, or video questions
+        $validatedInput = $request->validate([
+            'questions.*' => 'required|string|max:500',
+            'images.*' => ['required', File::image()->max('15mb')],
+        ]);
+
+        // TODO: rollback if any question cannot be saved?
+        $files = $request->file('images');
+        foreach($questions as $question) {
+            if($question->questionType->name == QuestionTypeEnum::TEXT->value ||
+                $question->questionType->name == QuestionTypeEnum::URL->value ||
+                $question->questionType->name == QuestionTypeEnum::VIDEO->value) {
+                $question->answer = $validatedInput['questions'][$question->id];
+                ChallengeAnswerController::store($question, $challenge->id);
+            }elseif($question->questionType->name == QuestionTypeEnum::IMAGE->value) {
+                if($files && isset($files[$question->id])) {
+                    $file = $files[$question->id];
+                    ChallengeAnswerController::storeImageAnswer($question, $challenge->id, $file);
+                }
+            }
+        }
+
+        return back()->with('success', 'Formulario completado correctamente.');
+    }
+    public function indexClient($id)
+    {
+        $challenge = Challenge::findOrFail($id);
+        return view('users.viewChallenge', compact('challenge'));
+    }
+
 }

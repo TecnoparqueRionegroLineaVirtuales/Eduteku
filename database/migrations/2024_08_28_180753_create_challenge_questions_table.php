@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('challenge_type_id');
             $table->unsignedBigInteger('question_type_id');
-            $table->string('content');
+            $table->string('content', 500);
             $table->timestamps();
 
             $table->foreign('challenge_type_id')->references('id')->on('challenge_types')
