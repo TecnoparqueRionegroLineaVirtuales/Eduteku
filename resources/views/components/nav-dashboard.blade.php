@@ -153,7 +153,7 @@
                         <!-- Dropdown menu -->
                         <ul id="dropdown-innovación-abierta" class="hidden py-2 space-y-2 ml-9">
                             <li class=" flex-1">
-                                <a href="{{ route('challenge.index') }}"
+                                <a href="{{ route('challenge') }}"
                                     class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
                                     <i class="fas fa-users pr-0 md:pr-3"></i><span
                                     class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Retos</span>

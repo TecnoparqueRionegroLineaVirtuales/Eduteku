@@ -31,9 +31,9 @@ class ChallengeSeeder extends Seeder
 
         //TODO: keep in sync when merging the challenge creation fork
         $challenges = [
-            ['challenge_type_id' => 1, 'name' => 'reto 1', 'description' => 'some description...', 'img_url' => 'img_url'],
-            ['challenge_type_id' => 1, 'name' => 'reto 2', 'description' => 'other description...', 'img_url' => 'img_url2'],
-            ['challenge_type_id' => 1, 'name' => 'reto 3', 'description' => 'third description...', 'img_url' => 'img_url3'],
+            ['bootcamp_id' => 1,'challenge_type_id' => 1, 'name' => 'reto 1', 'description' => 'some description...', 'img_url' => 'img_url'],
+            ['bootcamp_id' => 1,'challenge_type_id' => 1, 'name' => 'reto 2', 'description' => 'other description...', 'img_url' => 'img_url2'],
+            ['bootcamp_id' => 1,'challenge_type_id' => 1, 'name' => 'reto 3', 'description' => 'third description...', 'img_url' => 'img_url3'],
         ];
         Challenge::insert($challenges);
 

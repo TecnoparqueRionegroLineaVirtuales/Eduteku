@@ -118,4 +118,11 @@ Route::middleware([
     Route::put('/bootcamp/{id}/update-resources', [BootcampController::class, 'updateResourceBootcamp'])
         ->name('bootcamp_resources.update');
 
+    Route::get('/bootcamp_participation/{id}', [BootcampController::class, 'bootcampParticipation'])->name('bootcamp_participation');
+    Route::post('/bootcamp_participation/{bootcamp}', [bootcampController::class, 'bootcampParticipationStore'])->name('bootcamp_participation.store');
+    Route::get('/bootcamp_participation_admin', [BootcampController::class, 'bootcampParticipationindex'])->name('bootcamp_participation_admin.index');
+    Route::put('/bootcamp_participation_admin/{id}/toggle-challenge-state', [BootcampController::class, 'toggleChallengeState'])->name('bootcamp_participation_admin.toggleChallengeState');
+    Route::get('/challenges/{id}/solve', [ChallengeController::class, 'solve'])->name('challenge.solve');
+    Route::get('/challenges/{id}/form', [ChallengeController::class, 'showForm'])->name('challenge.form');
+
 });

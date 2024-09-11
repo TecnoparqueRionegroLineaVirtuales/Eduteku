@@ -30,11 +30,10 @@
                 <h1 class="title-font text-3xl md:text-4xl mb-4 font-medium text-gray-900">{{ $challenge->name }}</h1>
                 <p class="mb-8 leading-relaxed text-gray-700 text-justify">{!! $challenge->description !!}</p>
                 
-                <!-- Botón para solucionar el reto -->
                 <div class="flex justify-center py-10 md:justify-start">
-                    <a href="" class="bg-[#39A900] text-white py-2 px-6 rounded-lg focus:outline-none hover:bg-[#00314D] transition duration-300">
+                    <button id="solveChallengeBtn" class="bg-[#39A900] text-white py-2 px-6 rounded-lg focus:outline-none hover:bg-[#00314D] transition duration-300">
                         Quiero solucionar este reto
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -60,5 +59,33 @@
             </div>
         </div>
     </section>
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <h2 class="text-xl font-bold mb-4">Acceso denegado</h2>
+            <p>Aun no lo han habilitado para ser solucionador de este reto.</p>
+            <button id="closeModal" class="mt-4 bg-gray-700 text-white px-4 py-2 rounded">Cerrar</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('solveChallengeBtn').addEventListener('click', function () {
+            const challengeId = {{ $challenge->id }};
+            
+            fetch(`/challenges/${challengeId}/solve`)
+                .then(response => {
+                    if (response.status === 403) {
+                        // Mostrar el modal si el estado es 2
+                        document.getElementById('modal').classList.remove('hidden');
+                    } else {
+                        // Redirigir al formulario de preguntas si el estado es 1
+                        window.location.href = `/challenges/${challengeId}/form`;
+                    }
+                });
+        });
+
+        // Cerrar el modal
+        document.getElementById('closeModal').addEventListener('click', function () {
+            document.getElementById('modal').classList.add('hidden');
+        });
+    </script>
 </body>
 </html>
