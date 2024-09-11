@@ -19,13 +19,14 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
             AdminUserSeeder::class,
-            StateSeeder::class,
-            ChallengeSeeder::class,
-            TagsSeeder::class,
-            ChallengeFilterCategorySeeder::class,
-            BootcampSeeder::class,
+            StateSeeder::class,             
+            ChallengeFilterCategorySeeder::class,           
             SponsorSeeder::class,
-            BootcampSponsorSeeder::class,
+            BootcampSeeder::class,
+            BootcampSponsorSeeder::class,            
+            TagsSeeder::class,
+            ChallengeSeeder::class,
+
         ]);
     }
 }
