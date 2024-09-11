@@ -46,17 +46,18 @@ class ChallengeController extends Controller
     public function store(Request $request)
     {
         try {
-            // Validar Datos
             $request->validate([
                 'name' => 'required|string|max:255',
                 'description' => 'required|string|max:400',
                 'url' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
                 'bootcamp_id' => 'required',
                 'tags' => 'nullable|array',
+                'tags.*'=>'string',
                 'links' => 'nullable|array',
                 'links.*' => 'url'
             ]);
 
+            
 
             $challenge = new Challenge();
             $challenge->challenge_type_id = 1;
@@ -75,11 +76,19 @@ class ChallengeController extends Controller
             $challenge->save();
 
             // Guardar la relación de las etiquetas
-            if ($request->has('tags')) {
-                $tags = array_filter($request->input('tags', []), function ($value) {
+            if ($request->has('tags') && is_array($request->input('tags'))) {
+                // Obtener el texto de tags (el primer elemento del array)
+                $tagsText = $request->input('tags')[0];
+                
+                // Convertir el texto en un array de IDs
+                $tagsArray = array_map('trim', explode(',', $tagsText));
+                
+                // Filtrar los tags para asegurarse de que sean numéricos y no vacíos
+                $tags = array_filter($tagsArray, function ($value) {
                     return !empty($value) && is_numeric($value);
                 });
 
+                // Sincronizar los tags con el challenge
                 $challenge->tags()->sync($tags);
             }
 
@@ -207,7 +216,7 @@ class ChallengeController extends Controller
     public function destroy(Challenge $challenge)
     {
         $challenge->delete();
-        return redirect()->route('challenge.index')->with('success', 'Reto eliminado correctamente.');
+        return redirect()->back()->with('success', 'Reto eliminado correctamente.');
     }
 
 

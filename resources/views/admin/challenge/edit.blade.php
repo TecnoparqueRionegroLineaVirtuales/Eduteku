@@ -175,12 +175,12 @@
                                                     class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-green-500 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                                                     <i class="fa fa-pen"></i>Actualizar
                                                 </button>
-                                                <a href="{{ route('challenge.index') }}">
+                                                <!-- <a href="">
                                                     <button type="button" id="closeModal"
                                                         class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-red-400 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                                                         Cancelar
                                                     </button>
-                                                </a>
+                                                </a> -->
                                             </div>
                                         </div>
                                     </form>
