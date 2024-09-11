@@ -100,12 +100,14 @@ Route::middleware([
     Route::delete('/bootcampLanding/destroy/{bootcamp}', [bootcampController::class, 'destroybootcamp'])->name('bootcampLanding.destroy');
     Route::get('/bootcampLanding/{id}/edit', [bootcampController::class, 'editbootcamp'])->name('bootcampLanding.edit');
     Route::put('/bootcampLanding/{id}', [bootcampController::class, 'updatebootcamp'])->name('bootcampLanding.update');
+    Route::get('/bootcamp/showChallengeSurvey', [bootcampController::class, 'showChallengeSurvey'])->name('bootcamp.challengeSurvey');
 
     // Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
     // Route::post('/challenge/create', [ChallengeController::class, 'store']);
+    Route::get('challenge/dashboard', [ChallengeController::class, 'dashboard'])->name('challenge.dashboard');
     Route::resource('challenge', ChallengeController::class);
     Route::get('/tags', [TagsController::class, 'getTags']);
-    Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
+    // Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
     Route::get('/viewChallenge/{id}', [ChallengeController::class, 'indexClient'])->name('viewChallenge');
 
     Route::get('bootcamps/{bootcampId}/resources/create', [bootcampController::class, 'createResourceBootcamp'])->name('bootcamp_resources.create');

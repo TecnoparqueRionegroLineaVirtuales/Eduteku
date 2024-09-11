@@ -59,7 +59,7 @@
                                     class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Usuarios</span>
                                 </a>
                             </li>
-                            
+
                             <li class="flex-1">
                                 <a href="{{ route('messages.index') }}"
                                     class=" block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
@@ -153,7 +153,7 @@
                         <!-- Dropdown menu -->
                         <ul id="dropdown-innovación-abierta" class="hidden py-2 space-y-2 ml-9">
                             <li class=" flex-1">
-                                <a href="{{ route('challenge') }}"
+                                <a href="{{ route('challenge.dashboard') }}"
                                     class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
                                     <i class="fas fa-users pr-0 md:pr-3"></i><span
                                     class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Retos</span>
@@ -255,7 +255,7 @@
                             </a>
                         </li>
                         <li class=" flex-1">
-                            <a href="{{ route('challenge.store') }}"
+                            <a href="{{ route('challenge.dashboard') }}"
                                 class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
                                 <i class="fas fa-users pr-0 md:pr-3"></i><span
                                 class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Retos</span>
