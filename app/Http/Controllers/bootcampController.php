@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\sponsor;
+use App\Models\userInfo;
+use App\Models\bootcamps;
+use App\Models\Challenge;
+use App\Models\QuestionType;
 use Illuminate\Http\Request;
+use App\Models\resourceBootcamp;
 use Illuminate\Support\Facades\Storage;
 use App\Models\challenge_filter_category;
-use App\Models\bootcamps;
-use App\Models\sponsor;
-use App\Models\Challenge;
-use App\Models\resourceBootcamp;
-use App\Models\userInfo;
 
 class bootcampController extends Controller
 {
@@ -79,33 +80,33 @@ class bootcampController extends Controller
             'sponsors' => 'nullable|array',
             'sponsors.*' => 'exists:sponsor,id'
         ]);
-    
+
         $bootcamp = new bootcamps();
         $bootcamp->name = $request->name;
         $bootcamp->description = $request->description;
         $bootcamp->url_course = $request->url_course;
         $bootcamp->id_challenge_filter_category = $request->id_challenge_filter_category;
-    
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/pdf', $filename);
             $bootcamp->file = $filename;
         }
-    
+
         if ($request->hasFile('img_url')) {
             $file = $request->file('img_url');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/img', $filename);
             $bootcamp->img_url = $filename;
         }
-    
+
         $bootcamp->save();
-    
+
         if ($request->has('sponsors')) {
             $bootcamp->sponsors()->sync($request->sponsors);
         }
-    
+
         return redirect()->route('bootcamp_resources.create', ['bootcampId' => $bootcamp->id])
                      ->with('success', 'Bootcamp creado exitosamente. Ahora puede agregar recursos.');
     }
@@ -120,7 +121,7 @@ class bootcampController extends Controller
         $bootcamp = bootcamps::findOrFail($id);
         return view('admin.bootcamp.bootcampLanding.editResource', compact('bootcamp'));
     }
-    
+
     public function updateResourceBootcamp(Request $request, $id)
     {
         $request->validate([
@@ -283,7 +284,7 @@ class bootcampController extends Controller
         $sponsor = new Sponsor();
         $sponsor->name = $request->name;
         $sponsor->description = $request->description; // Puede ser nulo
-        
+
         if ($request->hasFile('img_url')) {
             $file = $request->file('img_url');
             $filename = time() . '.' . $file->getClientOriginalExtension();
@@ -312,7 +313,7 @@ class bootcampController extends Controller
 
     public function updateSponsor(Request $request, $id)
     {
-        
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'string|max:255',
@@ -321,7 +322,7 @@ class bootcampController extends Controller
 
         $sponsor = sponsor::findOrFail($id);
 
-        
+
         $sponsor->name = $request->input('name');
         $sponsor->description = $request->description;
 
@@ -344,13 +345,13 @@ class bootcampController extends Controller
     public function bootcampParticipation($id){
         $bootcamp = bootcamps::findOrFail($id);
         $userId = auth()->id();
-    
+
         $userInfo = userInfo::where('bootcamp_id', $id)
             ->where('user_id', $userId)
             ->first();
-    
+
         $isRegistered = $userInfo && $userInfo->state_id == 1;
-    
+
         return view('users.formBootcamp', compact('bootcamp', 'isRegistered'));
     }
 
@@ -361,7 +362,7 @@ class bootcampController extends Controller
             'mode' => 'required|string|max:60',
             'commitment' => 'required|string|max:5',
         ]);
-    
+
         if ($request->commitment == 'Si') {
             $userId = auth()->id();
             $userInfo = new userInfo();
@@ -374,7 +375,7 @@ class bootcampController extends Controller
             $userInfo->state_id = 1;
             $userInfo->challenge_state_id = 2;
             $userInfo->save();
-    
+
             return response()->json(['success' => true]);
         } else {
             return response()->json(['error' => true]);
@@ -391,7 +392,7 @@ class bootcampController extends Controller
     {
 
         $userInfo = userInfo::findOrFail($id);
-        
+
 
         if ($userInfo->challenge_state_id == 1) {
             $userInfo->challenge_state_id = 2;
@@ -403,5 +404,17 @@ class bootcampController extends Controller
         return redirect()->back()->with('success', 'Estado de solucionador de retos actualizado correctamente.');
     }
 
-    
+
+
+    /**
+     * Show the editable list of questions for the current Bootcamp (create question with modal)
+     */
+    public Function showChallengeSurvey(bootcamps $bootcamp){
+        $questionTypes = QuestionType::all();
+        $bootcamp->load('questions.questionType');
+        return view('admin.bootcamp.challengeSurvey.survey', compact('bootcamp', 'questionTypes'));
+
+    }
+
+
 }
