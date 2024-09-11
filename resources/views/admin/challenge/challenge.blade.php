@@ -279,6 +279,7 @@
 
             // Mostrar las etiquetas seleccionadas con un botón para eliminarlas
             function renderSelectedTags(tagName, tagId) {
+                console.log('ADDING TAGS', tagId);
                 var tagItem = document.createElement('div');
                 tagItem.classList.add('tag-item', 'flex', 'items-center', 'mb-2');
                 tagItem.setAttribute('data-id', tagId);
@@ -305,9 +306,14 @@
                 var hiddenInput = document.createElement('input');
                 hiddenInput.type = 'hidden';
                 hiddenInput.name = 'tags[]';
-                hiddenInput.value = tagId;
+                hiddenInput.value = tagId;  // Aquí asegúrate de que este valor se está enviando correctamente
                 document.querySelector('form').appendChild(hiddenInput);
+                var listTags = document.getElementById('selected-tags');
+                console.log('AQUI', listTags);
+                listTags.value = selectedTags;
             }
+
+           
         });
 
         // Sección links dinamicos
