@@ -11,8 +11,9 @@ class ChallengeType extends Model
 
     protected $fillable = ['name'];
 
-    public function questions()
+    // questions moved to bootcamp
+/*     public function questions()
     {
         return $this->hasMany(ChallengeQuestion::class);
-    }
+    } */
 }

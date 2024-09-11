@@ -27,7 +27,7 @@
                     <div class="bg-gray-100 pt-3">
                         <div
                             class="rounded-tl-3xl bg-gradient-to-r from-gray-100 to-green-500 p-4 shadow text-2xl text-current">
-                            <h1 class="font-bold pl-2">Formulario {{ $challengeType->name }}</h1>
+                            <h1 class="font-bold pl-2">Formulario {{ $bootcamp->name }}</h1>
                         </div>
                     </div>
                     {{-- success/error messages --}}
@@ -80,7 +80,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($challengeType->questions as $question)
+                                @foreach ($bootcamp->questions as $question)
                                     <tr>
                                         <td class="whitespace px-6 py-4"> {{ $question->content }} </td>
                                         <td class="hidden sm:block whitespace-nowrap px-6 py-4 mt-2">
@@ -123,8 +123,9 @@
                                             <form action="{{ route('challengeQuestions.store') }}" method="post"
                                                 enctype="multipart/form-data">
                                                 @csrf
+                                                {{-- TODO: update this to use the bootcamp id --}}
                                                 <input name="challenge-type" type="hidden"
-                                                    value={{ $challengeType->id }}>
+                                                    value={{ $bootcamp->id }}>
                                                 <div class="md:w-full px-3">
                                                     <label
                                                         class="uppercase tracking-wide text-black text-xs font-bold mb-2"

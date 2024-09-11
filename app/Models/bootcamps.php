@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ChallengeQuestion;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class bootcamps extends Model
 {
@@ -18,8 +19,8 @@ class bootcamps extends Model
         'file',
         'url_course',
         'id_challenge_filter_category',
-        
-        
+
+
     ];
 
     public function resources()
@@ -39,6 +40,11 @@ class bootcamps extends Model
     public function challenge()
     {
         return $this->hasMany(Challenge::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(ChallengeQuestion::class, 'bootcamp_id', 'id');
     }
 
 }

@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('challenge_questions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('challenge_type_id');
+            $table->unsignedBigInteger('bootcamp_id');
             $table->unsignedBigInteger('question_type_id');
             $table->string('content', 500);
             $table->timestamps();
 
-            $table->foreign('challenge_type_id')->references('id')->on('challenge_types')
+            $table->foreign('bootcamp_id')->references('id')->on('bootcamp')
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
             $table->foreign('question_type_id')->references('id')->on('question_types')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');

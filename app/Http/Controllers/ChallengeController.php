@@ -16,6 +16,11 @@ use Illuminate\Validation\Rules\File;
 
 class ChallengeController extends Controller
 {
+
+    public function dashboard(){
+        return view('admin.challenge.panelChallenge');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -259,9 +264,12 @@ class ChallengeController extends Controller
         return redirect()->route('challenge.form', ['id' => $id]);
     }
 
+    // Show the from to answer the bootcamp challenge survey
     public function showForm($id)
     {
         $challenge = Challenge::findOrFail($id);
-        return view('users.challenge', compact('challenge'));
+        $challenge->bootcamp->load('questions');
+        // $challenge->bootcamp->load('questions');
+        return view('users.openInnovation.answerSurvey', compact('challenge'));
     }
 }

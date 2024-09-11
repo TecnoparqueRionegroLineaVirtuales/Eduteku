@@ -31,7 +31,7 @@ and we fill this form (answering the challenge questions) --}}
 
       <form action="{{ route('challenge.answers', $challenge->id) }}" method="post" enctype="multipart/form-data">
         @csrf
-        @foreach($challengeType->questions as $question)
+        @foreach($challenge->bootcamp->questions as $question)
           <div class="w-full my-4">
             {{-- TODO: check if using enums instead of strings is better (would also be called from the migration/seeder?) --}}
             {{-- <div class="flex flex-col grow"> --}}

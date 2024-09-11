@@ -32,5 +32,12 @@ class AdminUserSeeder extends Seeder
             'password' => bcrypt('asd123')
         ]);
         $normalUser->assignRole($role2);
+        $normalUser2 = User::create([
+            'name' => 'User',
+            'last_name' => 'normal2',
+            'email' => 'user2@test.com',
+            'password' => bcrypt('asd123')
+        ]);
+        $normalUser->assignRole($role2);
     }
 }
