@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ChallengeType extends Model
+class Links extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['url', 'challenge_id'];
 
-    public function questions()
+    public function Challenge()
     {
-        return $this->hasMany(ChallengeQuestion::class);
+        return $this->belongsTo(Challenge::class);
     }
 }
