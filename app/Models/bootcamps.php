@@ -36,5 +36,9 @@ class bootcamps extends Model
     {
         return $this->hasMany(userInfo::class, 'bootcamp_id', 'id');
     }
+    public function challenge()
+    {
+        return $this->hasMany(Challenge::class);
+    }
 
 }

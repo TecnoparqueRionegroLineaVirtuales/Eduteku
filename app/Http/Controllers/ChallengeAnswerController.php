@@ -24,11 +24,38 @@ class ChallengeAnswerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a text answer (questionType: text, video, urls)
      */
-    public function store(Request $request)
+    public static function store($question, $challenge_id)
     {
-        //
+        $answer = new ChallengeAnswer();
+        $answer->challenge_id = $challenge_id;
+        $answer->challenge_question_id = $question->id;
+        $answer->content = $question->answer;
+        $answer->save();
+        return true;
+    }
+
+    /**
+     *  Store an image answer (questionType: image)
+     */
+    public static function storeImageAnswer($question, $challenge_id, $file)
+    {
+        $answer = new ChallengeAnswer();
+        $answer->challenge_id = $challenge_id;
+        $answer->challenge_question_id = $question->id;
+
+        // using default laravel store method (generates a unique id as filename)
+        try {
+            $folderPath = 'public/img/challenges/' . $challenge_id;
+            $path = $file->store($folderPath);
+            $answer->content = $path;
+            $answer->save();
+            return true;
+        } catch (\Exception $e) {
+            Log::error('Error storing file:' . $e->getMessage());
+            return false;
+        }
     }
 
     /**

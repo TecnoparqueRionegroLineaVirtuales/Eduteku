@@ -28,6 +28,19 @@ class ChallengeQuestionController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedInput = $request->validate([
+            'challenge-type' => 'required|numeric',
+            'question-type' => 'required|numeric',
+            'question-content' => 'required|string|max:500',
+        ]);
+        $question = new ChallengeQuestion();
+        $question->challenge_type_id = $validatedInput['challenge-type'];
+        $question->question_type_id = $validatedInput['question-type'];
+        $question->content = $validatedInput['question-content'];
+        $question->save();
+
+        return redirect()->back()->with('success', 'Pregunta creada correctamente.');
+
         //
     }
 
@@ -60,6 +73,10 @@ class ChallengeQuestionController extends Controller
      */
     public function destroy(ChallengeQuestion $challengeQuestion)
     {
+
+        $challengeQuestion->delete();
+
+        return redirect()->back()->with('success', 'Pregunta eliminada correctamente.');
         //
     }
 }
