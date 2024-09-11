@@ -74,7 +74,8 @@
                     </div>
                 </div>
             </div>
-
+        </section>
+        <section class="text-gray-600 bg-gray-100 body-font">
             <div class="flex justify-center py-20">
                 <a href="{{ route('bootcamp_participation', $bootcamp->id ) }}" class="bg-[#39A900] text-white py-4 px-12 rounded-lg focus:outline-none hover:bg-[#00314D] transition duration-300 text-lg">
                     Quiero participar de este Bootcamp
@@ -82,7 +83,6 @@
             </div>
         </div>
     </section>
-
     <section class="text-gray-600 p-10 body-font">
         <h2 class="text-2xl font-bold mb-4 text-center">Retos relacionados</h2>
         <div class="container mx-auto px-5">
@@ -110,36 +110,36 @@
         </div>
     </section>
     <section class="bg-gray-100 py-12">
-    <div class="container mx-auto">
-            <!-- Patrocinadores -->
-            <h2 class="text-2xl font-bold mb-4 text-center">Instituciones participantes</h2>
-            <div class="flex flex-wrap justify-center gap-8">
-                @foreach($sponsors as $sponsor)
-                    @if($sponsor->description)
-                        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 flex items-center justify-center">
-                            <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-between mx-auto max-w-xs h-full">
-                                <img class="h-32 w-auto object-contain mb-4" src="{{ asset('storage/img/'.$sponsor->img_url) }}" alt="{{ $sponsor->name }}">
-                                <h3 class="text-lg font-semibold text-center">{{ $sponsor->name }}</h3>
-                                <p class="text-sm text-gray-500 mt-2 text-center">{{ $sponsor->description }}</p>
+        <div class="container mx-auto">
+                <!-- Patrocinadores -->
+                <h2 class="text-2xl font-bold mb-4 text-center">Instituciones participantes</h2>
+                <div class="flex flex-wrap justify-center gap-8">
+                    @foreach($sponsors as $sponsor)
+                        @if($sponsor->description)
+                            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 flex items-center justify-center">
+                                <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center justify-between mx-auto max-w-xs h-full">
+                                    <img class="h-32 w-auto object-contain mb-4" src="{{ asset('storage/img/'.$sponsor->img_url) }}" alt="{{ $sponsor->name }}">
+                                    <h3 class="text-lg font-semibold text-center">{{ $sponsor->name }}</h3>
+                                    <p class="text-sm text-gray-500 mt-2 text-center">{{ $sponsor->description }}</p>
+                                </div>
                             </div>
-                        </div>
-                    @endif
-                @endforeach
-            </div>
-            <!-- Sección de más aliados -->
-            <h2 class="text-2xl font-bold mt-16 mb-4 text-center">Más Aliados</h2>
-            <div class="flex flex-wrap justify-center gap-8">
-                @foreach($sponsors as $sponsor)
-                    @if(!$sponsor->description)
-                        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 xl:w-1/8 flex items-center justify-center">
-                            <div class="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center justify-center mx-auto max-w-xs h-full">
-                                <img class="h-20 w-auto object-contain mb-2" src="{{ asset('storage/img/'.$sponsor->img_url) }}" alt="{{ $sponsor->name }}">
-                                <h3 class="text-sm font-semibold text-center">{{ $sponsor->name }}</h3>
+                        @endif
+                    @endforeach
+                </div>
+                <!-- Sección de más aliados -->
+                <h2 class="text-2xl font-bold mt-16 mb-4 text-center">Más Aliados</h2>
+                <div class="flex flex-wrap justify-center gap-8">
+                    @foreach($sponsors as $sponsor)
+                        @if(!$sponsor->description)
+                            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/6 xl:w-1/8 flex items-center justify-center">
+                                <div class="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center justify-center mx-auto max-w-xs h-full">
+                                    <img class="h-20 w-auto object-contain mb-2" src="{{ asset('storage/img/'.$sponsor->img_url) }}" alt="{{ $sponsor->name }}">
+                                    <h3 class="text-sm font-semibold text-center">{{ $sponsor->name }}</h3>
+                                </div>
                             </div>
-                        </div>
-                    @endif
-                @endforeach
-            </div>
+                        @endif
+                    @endforeach
+                </div>
     </section>
     <section class="text-gray-600 p-10 body-font">
         <!-- Sección combinada de Criterios de Aceptación y Curso -->

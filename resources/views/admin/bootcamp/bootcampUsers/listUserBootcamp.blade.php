@@ -48,27 +48,41 @@
                                   </thead>
                                   <tbody>
                                     @foreach ($bootcamps as $bootcamp)
-                                    <tr class="border-b border-neutral-200">
-                                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $bootcamp->id }}</td>
-                                        <td class="whitespace-nowrap px-6 py-4 w-1/4">{{ $bootcamp->name }}</td>
-                                        <td class="whitespace-nowrap px-6 py-4 w-1/4">{!! Str::limit($bootcamp->description, 50) !!}</td>
-                                        <td class="whitespace-nowrap px-6 py-4 w-1/4">{{ $bootcamp->id_challenge_filter_category }}</td>
-                                        <td class="whitespace-nowrap px-6 py-4">
-                                        <form action="{{ route('bootcampLanding.destroy', $bootcamp->id) }}" method="POST" id="deleteForm_{{ $bootcamp->id }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="bg-red-400 text-white p-2 rounded" onclick="return confirm('¿Estás seguro de que deseas eliminar esta categoría?');"><i class="fa fa-trash"></i></button>
-                                            <a href="{{ route('bootcampLanding.edit', $bootcamp->id) }}" class="bg-gray-400 text-white p-2 rounded"><i class="fa fa-pen"></i></a>
-                                        </form>
-                                        </td>
-                                    </tr>
+                                        @foreach ($bootcamp->userInfo as $userInfo)
+                                            <tr class="border-b border-neutral-200">
+                                                <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $userInfo->user->id }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">{{ $userInfo->user->name }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">{{ $userInfo->user->last_name }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">{{ $userInfo->phone }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">{{ $userInfo->profile }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">{{ $userInfo->mode }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">{{ $bootcamp->name }}</td>
+                                                <td class="whitespace-nowrap px-6 py-4">
+                                                <form action="{{ route('bootcamp_participation_admin.toggleChallengeState', $userInfo->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+
+                                                    @if ($userInfo->challenge_state_id == 1)
+                                                        <button type="submit" class="bg-red-400 text-white p-2 rounded">
+                                                            Deshabilitar Solucionador
+                                                        </button>
+                                                    @else
+                                                        <button type="submit" class="bg-green-400 text-white p-2 rounded">
+                                                            Habilitar Solucionador
+                                                        </button>
+                                                    @endif
+                                                </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     @endforeach
                                 </tbody>
+
                               </table>
                               <!-- Enlaces de paginación -->
-                              <div class="mt-4">
-                                
-                            </div>
+                                <div class="mt-4">
+                                    {{ $bootcamps->links() }}
+                                </div>
                                 </div>
                               </div>
                             </div>

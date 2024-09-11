@@ -380,5 +380,28 @@ class bootcampController extends Controller
             return response()->json(['error' => true]);
         }
     }
+
+    public function bootcampParticipationindex()
+    {
+        $bootcamps = bootcamps::with('userInfo.user')->paginate(10);
+        return view('admin.bootcamp.bootcampUsers.listUserBootcamp', compact('bootcamps'));
+    }
+
+    public function toggleChallengeState($id)
+    {
+
+        $userInfo = userInfo::findOrFail($id);
+        
+
+        if ($userInfo->challenge_state_id == 1) {
+            $userInfo->challenge_state_id = 2;
+        } else {
+            $userInfo->challenge_state_id = 1;
+        }
+        $userInfo->save();
+
+        return redirect()->back()->with('success', 'Estado de solucionador de retos actualizado correctamente.');
+    }
+
     
 }

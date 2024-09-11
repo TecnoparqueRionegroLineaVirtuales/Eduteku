@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Challenge;
+use App\Models\userInfo;
 use Illuminate\Http\Request;
 
 class ChallengeController extends Controller
@@ -73,4 +74,22 @@ class ChallengeController extends Controller
     return view('users.viewChallenge', compact('challenge'));
     }
 
+    public function solve($id)
+    {
+        $user = auth()->user();
+
+        $userInfo = userInfo::where('user_id', $user->id)->first();
+
+        if (!$userInfo || $userInfo->challenge_state_id == 2) {
+            return response()->json(['status' => 'disabled'], 403);
+        }
+
+        return redirect()->route('challenge.form', ['id' => $id]);
+    }
+
+    public function showForm($id)
+    {
+        $challenge = Challenge::findOrFail($id);
+        return view('users.challenge', compact('challenge'));
+    }
 }
