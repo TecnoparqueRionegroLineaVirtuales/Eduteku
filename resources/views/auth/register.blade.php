@@ -22,6 +22,23 @@
             </div>
 
             <div class="mt-4">
+                <x-label for="phone" value="{{ __('Telefono') }}" />
+                <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" autocomplete="family-name" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="profile" value="{{ __('Perfil') }}" />
+                <select id="profile" class="block mt-1 w-full" name="profile">
+                    <option value="" disabled selected>Selecciona tu perfil</option>
+                    <option value="Empresario">Empresario</option>
+                    <option value="Emprendedores">Emprendedor</option>
+                    <option value="Estudiante">Estudiante</option>
+                    <option value="Aprendiz">Aprendiz</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="mt-4">
                 <x-label for="email" value="{{ __('Correo') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             </div>

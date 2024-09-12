@@ -11,7 +11,7 @@ class Challenge extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'img_url'];
+    protected $fillable = ['bootcamp_id ', 'name', 'description', 'img_url'];
 
     //Relación muchos a muchos
     public function tags()
@@ -26,6 +26,6 @@ class Challenge extends Model
 
     public function bootcamp()
     {
-        return $this->belongsTo(bootcamps::class);
+        return $this->belongsTo(bootcamps::class, 'bootcamp_id');
     }
 }

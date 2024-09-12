@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('last_name')->after('name');
+            $table->string('phone')->after('last_name');
+            $table->string('profile')->after('phone');
         });
     }
 
@@ -23,6 +25,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('last_name');
+            $table->dropColumn('phone');
+            $table->dropColumn('profile');
         });
     }
 };

@@ -19,12 +19,11 @@
 </head>
 <body>
     @include('components.nav-landing')
-
     <!-- Sección Superior: Imagen, Título, Descripción -->
     <section class="text-gray-600 p-10 body-font mt-24"> <!-- Añadido mt-24 para margen superior -->
         <div class="container mx-auto flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 w-full mb-8 md:mb-0">
-                <img class="object-cover object-center rounded-lg shadow-lg" alt="hero" src="{{ asset('storage/img/'.$challenge->img_url) }}">
+                <img class="object-cover object-center rounded-lg shadow-lg" alt="hero" src="{{ asset('storage/img/challenge/'.$challenge->img_url) }}">
             </div>
             <div class="md:w-1/2 w-full md:pl-16 flex flex-col items-start text-center md:text-left">
                 <h1 class="title-font text-3xl md:text-4xl mb-4 font-medium text-gray-900">{{ $challenge->name }}</h1>
@@ -73,19 +72,19 @@
             fetch(`/challenges/${challengeId}/solve`)
                 .then(response => {
                     if (response.status === 403) {
-                        // Mostrar el modal si el estado es 2
                         document.getElementById('modal').classList.remove('hidden');
+                    } else if (response.status === 404) {
+                        alert('El reto no se encontró.');
                     } else {
-                        // Redirigir al formulario de preguntas si el estado es 1
                         window.location.href = `/challenges/${challengeId}/form`;
                     }
                 });
         });
 
-        // Cerrar el modal
         document.getElementById('closeModal').addEventListener('click', function () {
             document.getElementById('modal').classList.add('hidden');
         });
     </script>
+
 </body>
 </html>

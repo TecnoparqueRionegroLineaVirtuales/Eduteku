@@ -39,7 +39,7 @@ class bootcamps extends Model
     }
     public function challenge()
     {
-        return $this->hasMany(Challenge::class);
+        return $this->hasMany(Challenge::class, 'bootcamp_id', 'id');
     }
 
     public function questions()

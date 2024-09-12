@@ -74,6 +74,7 @@ class bootcampController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'string|max:2000',
             'img_url' => 'nullable|image',
+            'video_url' => 'nullable',
             'file' => 'nullable|mimes:pdf',
             'url_course' => 'required|string',
             'id_challenge_filter_category' => 'required|exists:challenge_filter_category,id',
@@ -99,6 +100,13 @@ class bootcampController extends Controller
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/img', $filename);
             $bootcamp->img_url = $filename;
+        }
+
+        if ($request->hasFile('video_url')) {
+            $file = $request->file('video_url');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/img', $filename);
+            $bootcamp->video_url = $filename;
         }
 
         $bootcamp->save();
@@ -198,6 +206,7 @@ class bootcampController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
             'img_url' => 'nullable|image',
+            'video_url' => 'nullable',
             'file' => 'nullable|mimes:pdf',
             'url_course' => 'required|string',
             'id_challenge_filter_category' => 'required|exists:challenge_filter_category,id',
@@ -221,6 +230,17 @@ class bootcampController extends Controller
             $filename = time() . '-' . $file->getClientOriginalName();
             $path = $file->storeAs('public/img', $filename);
             $bootcamp->img_url = $filename;
+        }
+
+        if ($request->hasFile('video_url')) {
+            if ($bootcamp->video_url && Storage::exists('public/img/' . $bootcamp->video_url)) {
+                Storage::delete('public/img/' . $bootcamp->video_url);
+            }
+
+            $file = $request->file('video_url');
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $path = $file->storeAs('public/img', $filename);
+            $bootcamp->video_url = $filename;
         }
 
         if ($request->hasFile('file')) {
@@ -256,16 +276,12 @@ class bootcampController extends Controller
     public function show($id)
     {
         $bootcamp = bootcamps::findOrFail($id);
-        $sponsors = $bootcamp->sponsors;
-        $challenges = Challenge::all();
-
-        // Obtener los recursos asociados al bootcamp
-        $resources = $bootcamp->resources;
+        $sponsors = $bootcamp->sponsors ?? collect();
+        $challenges = $bootcamp->challenge; 
+        $resources = $bootcamp->resources ?? collect();
 
         return view('users.viewBootcamp', compact('bootcamp', 'sponsors', 'challenges', 'resources'));
     }
-
-
 
     public function bootcampSponsor()
     {
@@ -357,9 +373,6 @@ class bootcampController extends Controller
 
     public function bootcampParticipationStore(Request $request, $bootcampId) {
         $request->validate([
-            'phone' => 'required|string|max:20',
-            'profile' => 'required|string|max:50',
-            'mode' => 'required|string|max:60',
             'commitment' => 'required|string|max:5',
         ]);
 

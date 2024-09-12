@@ -127,15 +127,23 @@
                                                               <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
                                                                 Imagen
                                                               </label>
-                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="application-link" type="file" accept="image/*" name="img_url" placeholder="Description">
+                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="application-link" type="file" accept="image/*" name="img_url" placeholder="Imagen">
                                                           </div>
                                                         </div>
                                                         <div class="-mx-3 md:flex mb-6">
                                                           <div class="md:w-full px-3">
                                                               <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
-                                                                Terminos de referencia
+                                                                Video
                                                               </label>
-                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" accept=".pdf" id="application-link" type="file" name="file" placeholder="Description">
+                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="application-link" type="file" accept="video/*" name="video_url" placeholder="Video">
+                                                          </div>
+                                                        </div>
+                                                        <div class="-mx-3 md:flex mb-6">
+                                                          <div class="md:w-full px-3">
+                                                              <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
+                                                                Criterios de aceptación
+                                                              </label>
+                                                            <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" accept=".pdf" id="application-link" type="file" name="file" placeholder="PDF">
                                                           </div>
                                                         </div>
                                                         <div class="-mx-3 md:flex mb-6">

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('challenge_id');
             $table->unsignedBigInteger('tags_id');
-            $table->foreign('challenge_id')->references('id')->on('challenges');
+            $table->foreign('challenge_id')->references('id')->on('challenges')->onDelete('cascade');
             $table->foreign('tags_id')->references('id')->on('tags');
             $table->timestamps();
         });

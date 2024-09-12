@@ -264,8 +264,17 @@ class ChallengeController extends Controller
     {
         $user = auth()->user();
 
-        $userInfo = userInfo::where('user_id', $user->id)->first();
+        // Verifica si el reto existe
+        $challenge = Challenge::find($id);
 
+        if (!$challenge) {
+            return response()->json(['status' => 'not_found'], 404);
+        }
+
+        // Obtiene la información del usuario
+        $userInfo = userInfo::where('user_id', $user->id)->where('bootcamp_id', $challenge->bootcamp_id)->first();
+
+        // Verifica si el usuario tiene acceso
         if (!$userInfo || $userInfo->challenge_state_id == 2) {
             return response()->json(['status' => 'disabled'], 403);
         }

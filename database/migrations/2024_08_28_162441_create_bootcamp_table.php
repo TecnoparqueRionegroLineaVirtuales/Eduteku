@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('description', 2000);
             $table->string('img_url', 300);
+            $table->string('video_url', 300);
             $table->string('file', 300);
             $table->string('url_course', 300);
             $table->unsignedBigInteger('id_challenge_filter_category');
