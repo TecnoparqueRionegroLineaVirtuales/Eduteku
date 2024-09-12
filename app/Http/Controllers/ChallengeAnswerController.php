@@ -26,10 +26,11 @@ class ChallengeAnswerController extends Controller
     /**
      * Store a text answer (questionType: text, video, urls)
      */
-    public static function store($question, $challenge_id)
+    public static function store($question, $challenge_id, $user_id)
     {
         $answer = new ChallengeAnswer();
         $answer->challenge_id = $challenge_id;
+        $answer->user_id = $user_id;
         $answer->challenge_question_id = $question->id;
         $answer->content = $question->answer;
         $answer->save();
@@ -39,10 +40,11 @@ class ChallengeAnswerController extends Controller
     /**
      *  Store an image answer (questionType: image)
      */
-    public static function storeImageAnswer($question, $challenge_id, $file)
+    public static function storeImageAnswer($question, $challenge_id, $user_id, $file)
     {
         $answer = new ChallengeAnswer();
         $answer->challenge_id = $challenge_id;
+        $answer->user_id = $user_id;
         $answer->challenge_question_id = $question->id;
 
         // using default laravel store method (generates a unique id as filename)

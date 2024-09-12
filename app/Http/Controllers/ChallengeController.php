@@ -229,13 +229,16 @@ class ChallengeController extends Controller
 
 
     /**
-     * Store the answers for the challenge
+     * Store the survey answers for the challenge
      */
     public function storeAnswers(Request $request, Challenge $challenge)
     {
-        // get the questions (and question type) for the challenge type...
-        $challengeType = ChallengeType::find($challenge->challenge_type_id)->with('questions.questionType')->first();
-        $questions = $challengeType->questions;
+        // get the questions (and question type) for the bootcamp
+        // get the logged in user
+        $user = auth()->user();
+
+        $bootcamp = bootcamps::find($challenge->bootcamp_id)->with('questions.questionType')->first();
+        $questions = $bootcamp->questions;
 
         // TODO: required validation for images not working...
         // Same validation rules for text, url, or video questions
@@ -253,17 +256,18 @@ class ChallengeController extends Controller
                 $question->questionType->name == QuestionTypeEnum::VIDEO->value
             ) {
                 $question->answer = $validatedInput['questions'][$question->id];
-                ChallengeAnswerController::store($question, $challenge->id);
-            } elseif ($question->questionType->name == QuestionTypeEnum::IMAGE->value) {
-                if ($files && isset($files[$question->id])) {
+                ChallengeAnswerController::store($question, $challenge->id, $user->id);
+            }elseif($question->questionType->name == QuestionTypeEnum::IMAGE->value) {
+                if($files && isset($files[$question->id])) {
                     $file = $files[$question->id];
-                    ChallengeAnswerController::storeImageAnswer($question, $challenge->id, $file);
+                    ChallengeAnswerController::storeImageAnswer($question, $challenge->id, $user->id, $file);
                 }
             }
         }
 
         return back()->with('success', 'Formulario completado correctamente.');
     }
+
     public function indexClient($id)
     {
         $challenge = Challenge::findOrFail($id);
@@ -284,9 +288,9 @@ class ChallengeController extends Controller
     }
 
     // Show the from to answer the bootcamp challenge survey
-    public function showForm($id)
+    public function showChallengeSurvey($challenge_id)
     {
-        $challenge = Challenge::findOrFail($id);
+        $challenge = Challenge::findOrFail($challenge_id);
         $challenge->bootcamp->load('questions');
         // $challenge->bootcamp->load('questions');
         return view('users.openInnovation.answerSurvey', compact('challenge'));

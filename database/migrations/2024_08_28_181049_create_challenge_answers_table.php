@@ -14,11 +14,15 @@ return new class extends Migration
         Schema::create('challenge_answers', function (Blueprint $table) {
 
             $table->unsignedBigInteger('challenge_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('challenge_question_id');
             $table->string('content', 500);
             $table->timestamps();
 
             $table->foreign('challenge_id')->references('id')->on('challenges')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreign('challenge_question_id')->references('id')->on('challenge_questions')
