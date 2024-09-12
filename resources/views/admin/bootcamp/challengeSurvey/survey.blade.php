@@ -124,7 +124,7 @@
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 {{-- TODO: update this to use the bootcamp id --}}
-                                                <input name="challenge-type" type="hidden"
+                                                <input name="bootcamp-id" type="hidden"
                                                     value={{ $bootcamp->id }}>
                                                 <div class="md:w-full px-3">
                                                     <label

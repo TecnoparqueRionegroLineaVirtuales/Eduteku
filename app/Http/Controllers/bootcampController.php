@@ -417,12 +417,10 @@ class bootcampController extends Controller
         return redirect()->back()->with('success', 'Estado de solucionador de retos actualizado correctamente.');
     }
 
-
-
     /**
      * Show the editable list of questions for the current Bootcamp (create question with modal)
      */
-    public Function showChallengeSurvey(bootcamps $bootcamp){
+    public function showChallengeSurvey(bootcamps $bootcamp){
         $questionTypes = QuestionType::all();
         $bootcamp->load('questions.questionType');
         return view('admin.bootcamp.challengeSurvey.survey', compact('bootcamp', 'questionTypes'));
