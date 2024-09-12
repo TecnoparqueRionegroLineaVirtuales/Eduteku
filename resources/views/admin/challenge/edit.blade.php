@@ -124,8 +124,7 @@
                                                             name="tags[]" id="tags" multiple
                                                             aria-label="Selecciona las Etiquetas">
                                                             @foreach ($tags as $tag)
-                                                                <option value="{{ $tag->id }}"
-                                                                    @if (in_array($tag->id, $challengeTags)) selected @endif>
+                                                                <option value="{{ $tag->id }}">
                                                                     {{ $tag->name }}
                                                                 </option>
                                                             @endforeach
@@ -142,13 +141,6 @@
                                                         <input type="hidden" id="selected-tags" name="tags[]">
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                @if (count($challengeTags) > 0)
-                                                    <h1>Hay conexiones</h1>
-                                                @else
-                                                    <h1>No hay nada</h1>
-                                                @endif
                                             </div>
                                             <div class="mb-4">
                                                 <div class="links-container">
@@ -175,12 +167,12 @@
                                                     class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-green-500 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                                                     <i class="fa fa-pen"></i>Actualizar
                                                 </button>
-                                                <!-- <a href="">
+                                                <a href="{{ route('challenge.index') }}">
                                                     <button type="button" id="closeModal"
                                                         class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-red-400 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                                                         Cancelar
                                                     </button>
-                                                </a> -->
+                                                </a>
                                             </div>
                                         </div>
                                     </form>
@@ -192,24 +184,51 @@
             </div>
         </div>
     </main>
-    <!-- JavaScript para manejo de tags -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var listTags = document.getElementById('selected-tags');
             var tagsContainer = document.querySelector('#tags');
             var selectedTagsList = document.querySelector('#selected-tags-list');
-            var selectedTags = Array.from(tagsContainer.selectedOptions).map(option => option.value);
+            var linksContainer = document.querySelector('.links-container');
+            var addLinkButton = document.querySelector('#add-link-button');
+            var linkCount = document.querySelectorAll('.links-container input').length;
 
+            var challengeTags = @json($challengeTags); // Array de ids de los tags seleccionados
+            var allTags =
+            @json($tags); // Array de objetos con todos los tags traídos de la base de datos
+            var selectedTags = new Set(challengeTags.map(tag => Number(
+            tag))); // Convertir a números si es necesario
+
+            // Precargar las etiquetas ya seleccionadas
+            challengeTags.forEach(function(tagId) {
+                var tag = allTags.find(t => t.id == tagId);
+                if (tag) {
+                    renderSelectedTags(tag.name, tag.id);
+                }
+            });
+
+            // Manejo de selección de tags
             tagsContainer.addEventListener('change', function() {
                 var selectedOptions = Array.from(tagsContainer.selectedOptions);
                 selectedOptions.forEach(option => {
-                    if (!selectedTags.includes(option.value)) {
-                        selectedTags.push(option.value);
-                        renderSelectedTags(option.textContent, option.value);
+                    var tagId = Number(option.value); // Asegurarse de que el ID sea un número
+                    if (!selectedTags.has(tagId)) {
+                        selectedTags.add(tagId);
+                        listTags.value = Array.from(selectedTags).join(
+                        ','); // Convertir Set a cadena
+                        renderSelectedTags(option.textContent, tagId);
                     }
                 });
             });
 
+            // Renderizar etiquetas seleccionadas
             function renderSelectedTags(tagName, tagId) {
+                // Verifica si la etiqueta ya existe en la lista de etiquetas seleccionadas
+                var existingTag = selectedTagsList.querySelector(`.tag-item[data-id="${tagId}"]`);
+                if (existingTag) {
+                    return; // Si la etiqueta ya existe, no hacer nada
+                }
+
                 var tagItem = document.createElement('div');
                 tagItem.classList.add('tag-item', 'flex', 'items-center', 'mb-2');
                 tagItem.setAttribute('data-id', tagId);
@@ -217,44 +236,51 @@
                 var tagLabel = document.createElement('span');
                 tagLabel.textContent = tagName;
                 tagLabel.classList.add('tag-label', 'bg-green-400', 'text-white', 'py-1', 'px-3', 'mr-2',
-                    'rounded');
+                'rounded');
 
                 var removeButton = document.createElement('button');
                 removeButton.textContent = 'Eliminar';
                 removeButton.classList.add('remove-button', 'bg-red-400', 'text-white', 'px-2', 'rounded');
+
+                // Evento de eliminación del tag
                 removeButton.addEventListener('click', function() {
-                    selectedTags = selectedTags.filter(id => id !== tagId);
+                    selectedTags.delete(Number(tagId)); // Asegurarse de eliminar como número
+                    console.log(Array.from(selectedTags)); // Verifica el contenido de selectedTags
                     tagItem.remove();
-                    document.querySelector(`input[name="tags[]"][value="${tagId}"]`).remove();
+                    updateHiddenInputs();
+                    listTags.value = Array.from(selectedTags).join(',');
                 });
 
                 tagItem.appendChild(tagLabel);
                 tagItem.appendChild(removeButton);
                 selectedTagsList.appendChild(tagItem);
 
-                var hiddenInput = document.createElement('input');
-                hiddenInput.type = 'hidden';
-                hiddenInput.name = 'tags[]';
-                hiddenInput.value = tagId;
-                document.querySelector('form').appendChild(hiddenInput);
+                // Actualiza los inputs ocultos
+                updateHiddenInputs();
             }
-        });
 
-        // Sección links dinamicos
-        document.addEventListener('DOMContentLoaded', function() {
-            var linksContainer = document.querySelector('.links-container');
-            var addLinkButton = document.querySelector('#add-link-button');
-            var linkCount = document.querySelectorAll('.links-container input').length;
+            // Actualizar los inputs ocultos del formulario
+            function updateHiddenInputs() {
+                var form = document.querySelector('form');
+                var existingInputs = form.querySelectorAll('input[name="tags[]"]');
+                existingInputs.forEach(input => input.remove()); // Eliminar inputs antiguos
 
-            // Función para agregar un nuevo campo de link
+                selectedTags.forEach(tagId => {
+                    var hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'tags[]';
+                    hiddenInput.value = tagId;
+                    form.appendChild(hiddenInput);
+                });
+            }
+
+            // Manejo de enlaces dinámicos
             addLinkButton.addEventListener('click', function() {
                 linkCount++;
 
-                // Crear un nuevo div que contendrá el input de link y el botón de eliminar
                 var newLinkDiv = document.createElement('div');
                 newLinkDiv.classList.add('mb-1', 'relative');
 
-                // Crear el nuevo campo de input para el link
                 var newLinkInput = document.createElement('input');
                 newLinkInput.type = 'url';
                 newLinkInput.id = `link-${linkCount}`;
@@ -263,7 +289,6 @@
                     'border-gray-200', 'rounded', 'py-3', 'px-4', 'mb-1');
                 newLinkInput.placeholder = `Ingresa un link ${linkCount}`;
 
-                // Crear el botón de eliminar
                 var removeButton = document.createElement('button');
                 removeButton.type = 'button';
                 removeButton.classList.add('absolute', 'top-0', 'right-0', 'bg-red-500', 'text-white',
@@ -273,19 +298,38 @@
                     newLinkDiv.remove();
                 });
 
-                // Añadir el input y el botón al nuevo div
                 newLinkDiv.appendChild(newLinkInput);
                 newLinkDiv.appendChild(removeButton);
-
-                // Añadir el nuevo div al contenedor de links
                 linksContainer.appendChild(newLinkDiv);
             });
 
-            // Manejo de botones de eliminación de links existentes
+            // Manejo de eliminación de enlaces existentes
             linksContainer.addEventListener('click', function(event) {
                 if (event.target.classList.contains('remove-link-button')) {
                     event.target.parentElement.remove();
                 }
+            });
+
+            // Actualización de datos en la base de datos
+            document.querySelector('form').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                fetch('{{ route('challenge.update', $challenge->id) }}', {
+                        method: 'PUT',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Se ha actualizado con éxito: ', data);
+                    })
+                    .catch(error => {
+                        console.error('Error: ', error);
+                    });
             });
         });
     </script>

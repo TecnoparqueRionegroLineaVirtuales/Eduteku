@@ -309,11 +309,8 @@
                 hiddenInput.value = tagId;  // Aquí asegúrate de que este valor se está enviando correctamente
                 document.querySelector('form').appendChild(hiddenInput);
                 var listTags = document.getElementById('selected-tags');
-                console.log('AQUI', listTags);
                 listTags.value = selectedTags;
             }
-
-           
         });
 
         // Sección links dinamicos
