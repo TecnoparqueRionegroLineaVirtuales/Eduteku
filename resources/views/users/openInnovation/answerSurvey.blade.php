@@ -14,9 +14,8 @@
 </head>
 <body>
   @include('components.nav-landing')
-{{--
-we assume there is a challenge created, with its challenge_type.
-and we fill this form (answering the challenge questions) --}}
+
+{{-- TODO: check if the user has already answered the challenge (and show a message) --}}
   <section class="text-gray-600 body-font">
     <div class="container mx-auto flex px-5 py-24 flex-col items-center">
       <h2>Por favor responda el siguiente formulario:</h2>

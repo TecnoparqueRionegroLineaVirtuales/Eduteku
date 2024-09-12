@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ChallengeQuestion;
+use App\Models\bootcamps;
 use Illuminate\Http\Request;
+use App\Models\ChallengeQuestion;
 
 class ChallengeQuestionController extends Controller
 {
+
+    /**
+     * Display a listing of the bootcamps to create a new survey.
+     */
+    public function showBootcampList()
+    {
+        $bootcamps = bootcamps::withCount('questions')->get();
+        return view('admin.bootcamp.challengeSurvey.index', compact('bootcamps'));
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -29,12 +41,12 @@ class ChallengeQuestionController extends Controller
     public function store(Request $request)
     {
         $validatedInput = $request->validate([
-            'challenge-type' => 'required|numeric',
+            'bootcamp-id' => 'required|numeric',
             'question-type' => 'required|numeric',
             'question-content' => 'required|string|max:500',
         ]);
         $question = new ChallengeQuestion();
-        $question->challenge_type_id = $validatedInput['challenge-type'];
+        $question->bootcamp_id = $validatedInput['bootcamp-id'];
         $question->question_type_id = $validatedInput['question-type'];
         $question->content = $validatedInput['question-content'];
         $question->save();

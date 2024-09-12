@@ -91,6 +91,8 @@ Route::middleware([
     Route::get('/sponsor/{id}/edit', [bootcampController::class, 'editSponsor'])->name('sponsor.edit');
     Route::put('/sponsor/{id}', [bootcampController::class, 'updateSponsor'])->name('sponsor.update');
 
+    Route::get('/bootcamp/challengeSurveyList', [ChallengeQuestionController::class, 'showBootcampList'])->name('bootcamp.challengeSurveyList');
+    Route::get('/bootcamp/{bootcamp}/showChallengeSurvey', [bootcampController::class, 'showChallengeSurvey'])->name('bootcamp.challengeSurvey');
     Route::post('/bootcamp/store', [bootcampController::class, 'store'])->name('bootcamp.store');
     Route::delete('/bootcamp/destroy/{category}', [bootcampController::class, 'destroy'])->name('bootcamp.destroy');
     Route::get('/bootcamp/{id}/edit', [bootcampController::class, 'edit'])->name('bootcamp.edit');
@@ -100,7 +102,6 @@ Route::middleware([
     Route::delete('/bootcampLanding/destroy/{bootcamp}', [bootcampController::class, 'destroybootcamp'])->name('bootcampLanding.destroy');
     Route::get('/bootcampLanding/{id}/edit', [bootcampController::class, 'editbootcamp'])->name('bootcampLanding.edit');
     Route::put('/bootcampLanding/{id}', [bootcampController::class, 'updatebootcamp'])->name('bootcampLanding.update');
-    Route::get('/bootcamp/showChallengeSurvey', [bootcampController::class, 'showChallengeSurvey'])->name('bootcamp.challengeSurvey');
 
     // Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
     // Route::post('/challenge/create', [ChallengeController::class, 'store']);
@@ -125,6 +126,6 @@ Route::middleware([
     Route::get('/bootcamp_participation_admin', [BootcampController::class, 'bootcampParticipationindex'])->name('bootcamp_participation_admin.index');
     Route::put('/bootcamp_participation_admin/{id}/toggle-challenge-state', [BootcampController::class, 'toggleChallengeState'])->name('bootcamp_participation_admin.toggleChallengeState');
     Route::get('/challenges/{id}/solve', [ChallengeController::class, 'solve'])->name('challenge.solve');
-    Route::get('/challenges/{id}/form', [ChallengeController::class, 'showForm'])->name('challenge.form');
+    Route::get('/challenges/{id}/form', [ChallengeController::class, 'showChallengeSurvey'])->name('challenge.form');
 
 });

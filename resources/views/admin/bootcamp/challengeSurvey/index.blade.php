@@ -36,18 +36,18 @@
                         <table class="min-w-full text-center text-sm font-light text-surface">
                             <thead class="border-b border-neutral-200 font-medium">
                                 <tr class="border-b border-neutral-200">
-                                    <th scope="col" class="px-6 py-4">Formulario</th>
+                                    <th scope="col" class="px-6 py-4">Formulario (bootcamp)</th>
                                     <th scope="col" class="px-6 py-4 hidden sm:block">N° preguntas</th>
                                     <th scope="col" class="px-6 py-4">Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($surveyTypes as $surveyType)
+                                @foreach ($bootcamps as $bootcamp)
                                     <tr>
-                                        <td> {{ $surveyType->name }} </td>
-                                        <td class="hidden sm:block  whitespace-nowrap px-6 py-4 mt-2"> {{ $surveyType->questions_count }} </td>
+                                        <td> {{ $bootcamp->name }} </td>
+                                        <td class="hidden sm:block  whitespace-nowrap px-6 py-4 mt-2"> {{ $bootcamp->questions_count }} </td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            <a href="{{ route('surveyQuestions', $surveyType->id) }}" class="bg-gray-400 text-white p-2 rounded">
+                                            <a href="{{ route('bootcamp.challengeSurvey', $bootcamp->id) }}" class="bg-gray-400 text-white p-2 rounded">
                                                 <i class="fa fa-pen"></i>
                                             </a>
                                         </td>
