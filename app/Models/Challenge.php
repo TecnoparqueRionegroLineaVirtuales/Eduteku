@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\OpenInnovationLike;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Challenge extends Model
@@ -27,5 +28,10 @@ class Challenge extends Model
     public function bootcamp()
     {
         return $this->belongsTo(bootcamps::class);
+    }
+
+    public function likes(): MorphMany
+    {
+        return $this->morphMany(OpenInnovationLike::class, 'likeable');
     }
 }

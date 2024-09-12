@@ -9,6 +9,8 @@ use App\Models\Challenge;
 use App\Models\QuestionType;
 use Illuminate\Http\Request;
 use App\Models\resourceBootcamp;
+use App\Models\OpenInnovationLike;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\challenge_filter_category;
 
@@ -250,7 +252,14 @@ class bootcampController extends Controller
     {
         $categories = challenge_filter_category::with('bootcamps')->get();
 
-        return view('users.bootcamp', compact('categories'));
+        // get the list of liked bootcamps by the user
+        $likes = [];
+        if(Auth::check()){
+            $likes = OpenInnovationLike::where('user_id', Auth::id())
+                ->where('likeable_type', bootcamps::class)->get()->pluck('likeable_id')->toArray();
+        }
+
+        return view('users.bootcamp', compact('categories', 'likes'));
     }
 
     public function show($id)
@@ -259,10 +268,15 @@ class bootcampController extends Controller
         $sponsors = $bootcamp->sponsors;
         $challenges = Challenge::all();
 
+        $liked_challenges = [];
+        if(Auth::check()){
+            $liked_challenges = OpenInnovationLike::where('user_id', Auth::id())
+                ->where('likeable_type', Challenge::class)->get()->pluck('likeable_id')->toArray();
+        }
         // Obtener los recursos asociados al bootcamp
         $resources = $bootcamp->resources;
 
-        return view('users.viewBootcamp', compact('bootcamp', 'sponsors', 'challenges', 'resources'));
+        return view('users.viewBootcamp', compact('bootcamp', 'sponsors', 'challenges', 'resources', 'liked_challenges'));
     }
 
 

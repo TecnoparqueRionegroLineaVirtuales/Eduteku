@@ -65,6 +65,10 @@ Route::middleware([
     Route::get('/users', [UserController::class, 'index'])->name('user.index');
     Route::get('likeUser', [LikeUserController::class, 'index'])->name('likeUser');
     Route::post('/like/{multimedia}', [LikeController::class, 'toggleLike'])->name('like.toggle');
+    Route::post('bootcampLike/{bootcampId}', [LikeController::class, 'toggleBootcampLike']);
+    // TODO: getting 404 on the request
+    Route::post('challengeLike/{challengeId}', [LikeController::class, 'toggleChallengeLike']);
+
   	Route::post('process-login', [DashboardController::class, 'processLogin'])->name('process-login');
     Route::resource('home', InicioController::class);
     Route::resource('infoAdmin', InfoController::class);
