@@ -17,7 +17,8 @@ use Illuminate\Validation\Rules\File;
 class ChallengeController extends Controller
 {
 
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('admin.challenge.panelChallenge');
     }
 
@@ -52,12 +53,12 @@ class ChallengeController extends Controller
                 'url' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
                 'bootcamp_id' => 'required',
                 'tags' => 'nullable|array',
-                'tags.*'=>'string',
+                'tags.*' => 'string',
                 'links' => 'nullable|array',
                 'links.*' => 'url'
             ]);
 
-            
+
 
             $challenge = new Challenge();
             $challenge->challenge_type_id = 1;
@@ -79,10 +80,10 @@ class ChallengeController extends Controller
             if ($request->has('tags') && is_array($request->input('tags'))) {
                 // Obtener el texto de tags (el primer elemento del array)
                 $tagsText = $request->input('tags')[0];
-                
+
                 // Convertir el texto en un array de IDs
                 $tagsArray = array_map('trim', explode(',', $tagsText));
-                
+
                 // Filtrar los tags para asegurarse de que sean numéricos y no vacíos
                 $tags = array_filter($tagsArray, function ($value) {
                     return !empty($value) && is_numeric($value);
@@ -137,87 +138,94 @@ class ChallengeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Challenge $challenge)
+    public function update(Request $request, $id)
     {
-        DB::transaction(function () use ($request, $challenge) {
-            try {
-                // Validar Datos
-                $request->validate([
-                    'name' => 'required|string|max:255',
-                    'description' => 'required|string|max:400',
-                    'url' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-                    'bootcamp_id' => 'required',
-                    'tags' => 'nullable|array',
-                    'links' => 'nullable|array',
-                    'links.*' => 'url'
-                ]);
+        try {
+            // Validar los datos
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'required|string|max:400',
+                'url' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+                'bootcamp_id' => 'required',
+                'tags' => 'nullable|array',
+                'tags.*' => 'string',
+                'links' => 'nullable|array',
+                'links.*' => 'url'
+            ]);
 
-                // Actualizar datos del challenge
-                $challenge->bootcamp_id = $request->input('bootcamp_id');
-                $challenge->name = $request->input('name');
-                $challenge->description = $request->input('description');
+            // Encontrar el challenge existente
+            $challenge = Challenge::findOrFail($id);
 
-                // Manejo del archivo
-                if ($request->hasFile('url')) {
-                    // Eliminar archivo antiguo si existe
-                    if ($challenge->img_url) {
-                        Storage::delete('public/img/challenge/' . $challenge->img_url);
-                    }
+            // Actualizar los campos del challenge
+            $challenge->bootcamp_id = $request->input('bootcamp_id');
+            $challenge->name = $request->input('name');
+            $challenge->description = $request->input('description');
 
-                    $file = $request->file('url');
-                    $filename = time() . '.' . $file->getClientOriginalExtension();
-                    $file->storeAs('public/img/challenge', $filename);
-                    $challenge->img_url = $filename;
-                }
-
-                $challenge->save();
-
-                // Actualizar las etiquetas
-                if ($request->has('tags')) {
-                    $tags = array_filter($request->input('tags', []), function ($value) {
-                        return !empty($value) && is_numeric($value);
-                    });
-
-                    if (!empty($tags)) {
-                        $challenge->tags()->sync($tags); // Sincronizar etiquetas
-                    } else {
-                        $challenge->tags()->detach(); // Desvincular etiquetas si ninguna está seleccionada
-                    }
-                }
-
-                // Actualizar los enlaces
-                if ($request->has('links')) {
-                    $links = $request->input('links');
-                    // Eliminar enlaces antiguos
-                    $challenge->links()->delete();
-
-                    foreach ($links as $link) {
-                        $challenge->links()->create(['url' => $link]);
-                    }
-                } else {
-                    // Eliminar enlaces si no hay ninguno
-                    $challenge->links()->delete();
-                }
-
-                return redirect()->back()->with('success', 'Reto actualizado exitosamente!');
-            } catch (\Exception $e) {
-                // Registrar el error
-                Log::error('Error al actualizar el reto: ' . $e->getMessage());
-
-                // Mostrar mensaje de error al usuario
-                return redirect()->back()->with('error', 'Ocurrió un error al actualizar el reto. Inténtalo de nuevo.');
+            // Manejo del archivo (solo actualizar si hay un nuevo archivo)
+            if ($request->hasFile('url')) {
+                $file = $request->file('url');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('public/img/challenge', $filename);
+                $challenge->img_url = $filename;
             }
-        });
+
+            $challenge->save();
+
+            // Actualizar la relación de las etiquetas
+            if ($request->has('tags') && is_array($request->input('tags'))) {
+                if (count($request->input('tags')) > 1) {
+                    $tagsText = $request->input('tags')[1];
+                } else {
+                    $tagsText = $request->input('tags')[0];
+                };
+
+                $tagsArray = array_map('trim', explode(',', $tagsText));
+
+                $tags = array_filter($tagsArray, function ($value) {
+                    return !empty($value) && is_numeric($value);
+                });
+
+                // Sincronizar los tags con el challenge
+                $challenge->tags()->sync($tags);
+            }
+
+            // Actualizar los enlaces
+            if ($request->has('links')) {
+                // Eliminar los enlaces existentes
+                $challenge->links()->delete();
+
+                // Añadir los nuevos enlaces
+                $links = $request->input('links');
+                foreach ($links as $link) {
+                    $challenge->links()->create(['url' => $link]);
+                }
+            }
+
+            return redirect()->route('challenge.index')->with('success', 'Reto actualizado exitosamente!');
+        } catch (\Exception $e) {
+            // Registrar el error
+            Log::error('Error al actualizar el reto: ' . $e->getMessage());
+
+            // Mostrar mensaje de error al usuario
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Challenge $challenge)
     {
+        // Eliminar las relaciones en la tabla challenge_tags
+        $challenge->tags()->detach(); // Si estás usando una relación de muchos a muchos
+
+        // Eliminar el reto
         $challenge->delete();
+
         return redirect()->back()->with('success', 'Reto eliminado correctamente.');
     }
+
 
 
     /**
@@ -238,14 +246,16 @@ class ChallengeController extends Controller
 
         // TODO: rollback if any question cannot be saved?
         $files = $request->file('images');
-        foreach($questions as $question) {
-            if($question->questionType->name == QuestionTypeEnum::TEXT->value ||
+        foreach ($questions as $question) {
+            if (
+                $question->questionType->name == QuestionTypeEnum::TEXT->value ||
                 $question->questionType->name == QuestionTypeEnum::URL->value ||
-                $question->questionType->name == QuestionTypeEnum::VIDEO->value) {
+                $question->questionType->name == QuestionTypeEnum::VIDEO->value
+            ) {
                 $question->answer = $validatedInput['questions'][$question->id];
                 ChallengeAnswerController::store($question, $challenge->id);
-            }elseif($question->questionType->name == QuestionTypeEnum::IMAGE->value) {
-                if($files && isset($files[$question->id])) {
+            } elseif ($question->questionType->name == QuestionTypeEnum::IMAGE->value) {
+                if ($files && isset($files[$question->id])) {
                     $file = $files[$question->id];
                     ChallengeAnswerController::storeImageAnswer($question, $challenge->id, $file);
                 }
