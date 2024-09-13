@@ -28,4 +28,8 @@ class Challenge extends Model
     {
         return $this->belongsTo(bootcamps::class, 'bootcamp_id');
     }
+    public function resources()
+    {
+        return $this->belongsToMany(resourceBootcamp::class, 'challenge_resourse', 'challenge_id', 'resourse_id');
+    }
 }

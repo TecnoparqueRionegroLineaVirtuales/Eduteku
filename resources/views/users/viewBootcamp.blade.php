@@ -97,7 +97,21 @@
                         @foreach($challenges as $challenge)
                             <div class="p-4 w-full sm:w-1/2 md:w-1/3">
                                 <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                                    <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ asset('storage/img/challenge/'.$challenge->img_url) }}" alt="bootcamp">
+                                    @php
+                                        $fileExtension = pathinfo($challenge->img_url, PATHINFO_EXTENSION);
+                                    @endphp
+
+                                    @if (in_array($fileExtension, ['jpg', 'jpeg', 'png']))
+                                        <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ asset('storage/img/challenge/'.$challenge->img_url) }}" alt="{{ $challenge->name }}">
+                                    @elseif (in_array($fileExtension, ['mp4', 'mov', 'avi']))
+                                        <video class="lg:h-48 md:h-36 w-full object-cover object-center" controls>
+                                            <source src="{{ asset('storage/img/challenge/'.$challenge->img_url) }}" type="video/{{ $fileExtension }}">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    @else
+                                        <p class="lg:h-48 md:h-36 w-full object-cover object-center">Unsupported file type</p>
+                                    @endif
+
                                     <div class="p-6">
                                         <h1 class="title-font text-lg font-medium text-gray-900 mb-3">{{ $challenge->name }}</h1>
                                         <p class="leading-relaxed mb-3">{{ Str::limit(strip_tags($challenge->description), 100, '...') }}</p>
@@ -120,10 +134,11 @@
             </div>
         </section>
 
+
     <section class="bg-gray-100 py-12">
     <div class="container mx-auto">
             <!-- Patrocinadores -->
-            <h2 class="text-2xl font-bold mb-4 text-center">Instituciones participantes</h2>
+            <h2 class="text-2xl font-bold mb-4 text-center">Instituciones que lideran</h2>
             <div class="flex flex-wrap justify-center gap-8">
                 @foreach($sponsors as $sponsor)
                     @if($sponsor->description)

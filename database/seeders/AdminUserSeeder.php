@@ -20,6 +20,8 @@ class AdminUserSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'last_name' => 'Admin',
+            'phone' => '0000000000',
+            'profile' => 'admin',
             'email' => 'admineduteku@gmail.com',
             'password' => bcrypt('12345678')
         ]);
@@ -28,6 +30,8 @@ class AdminUserSeeder extends Seeder
         $normalUser = User::create([
             'name' => 'User',
             'last_name' => 'normal',
+            'phone' => '0000000000',
+            'profile' => 'user',
             'email' => 'user@test.com',
             'password' => bcrypt('asd123')
         ]);
@@ -35,6 +39,8 @@ class AdminUserSeeder extends Seeder
         $normalUser2 = User::create([
             'name' => 'User',
             'last_name' => 'normal2',
+            'phone' => '0000000000',
+            'profile' => 'user2',
             'email' => 'user2@test.com',
             'password' => bcrypt('asd123')
         ]);

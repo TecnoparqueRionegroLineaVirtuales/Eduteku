@@ -6,6 +6,7 @@ use App\Models\bootcamps;
 use App\Models\Challenge;
 use App\Models\userInfo;
 use App\Models\Tags;
+use App\Models\resourceBootcamp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -49,8 +50,8 @@ class ChallengeController extends Controller
         try {
             $request->validate([
                 'name' => 'required|string|max:255',
-                'description' => 'required|string|max:400',
-                'url' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+                'description' => 'required',
+                'url' => 'nullable|file',
                 'bootcamp_id' => 'required',
                 'tags' => 'nullable|array',
                 'tags.*' => 'string',
@@ -101,7 +102,8 @@ class ChallengeController extends Controller
                 }
             }
 
-            return redirect()->back()->with('success', 'Reto guardado exitosamente!');
+            return redirect()->route('challenge_resources.create', ['challengeId' => $challenge->id])
+                     ->with('success', 'Bootcamp creado exitosamente. Ahora puede agregar recursos.');
         } catch (\Exception $e) {
             // Registrar el error
             Log::error('Error al guardar el reto: ' . $e->getMessage());
@@ -133,22 +135,77 @@ class ChallengeController extends Controller
         return view('admin.challenge.edit', compact('bootcamps', 'challenge', 'tags', 'challengeTags', 'links'));
     }
 
+    public function storeResourceChallenge(Request $request, $challengeId)
+    {
+        $request->validate([
+            'files.*' => 'required|file|max:50000',
+        ]);
 
+        $fileIds = [];
+        foreach ($request->file('files') as $file) {
+            $filename = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/challenge_resources', $filename);
 
+            $resource = resourceBootcamp::create([
+                'url_img' => $filename,
+            ]);
+
+            $fileIds[] = $resource->id;
+        }
+
+        Challenge::find($challengeId)->resources()->attach($fileIds);
+
+        return redirect()->route('challenge.index', $challengeId)->with('success', 'Archivos subidos exitosamente.');
+    }
+
+    public function createResourceChallenge($challengeId)
+    {
+        return view('admin.challenge.challengeResource', compact('challengeId'));
+    }
+
+    public function editResourceChallenge($id)
+    {
+        $challenge = Challenge::findOrFail($id);
+        return view('admin.challenge.editeChallegeResource', compact('challenge'));
+    }
+
+    public function updateResourceChallenge(Request $request, $id)
+    {
+        $request->validate([
+            'files.*' => 'nullable|file|max:50000',
+        ]);
+
+        $challenge = Challenge::findOrFail($id);
+
+        $fileIds = [];
+
+        foreach ($request->file('files') as $file) {
+            $filename = time() . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/challenge_resources', $filename);
+
+            $resource = ResourceBootcamp::create([
+                'url_img' => $filename,
+            ]);
+
+            $fileIds[] = $resource->id;
+        }
+
+        $challenge->resources()->sync($fileIds);
+
+        return redirect()->route('challenge.index', $id)->with('success', 'Archivos subidos exitosamente.');
+    }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
         try {
-            // Validar los datos
+
             $request->validate([
                 'name' => 'required|string|max:255',
-                'description' => 'required|string|max:400',
-                'url' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+                'description' => 'required',
+                'url' => 'nullable|file',
                 'bootcamp_id' => 'required',
-                'tags' => 'nullable|array',
-                'tags.*' => 'string',
                 'links' => 'nullable|array',
                 'links.*' => 'url'
             ]);
@@ -201,7 +258,7 @@ class ChallengeController extends Controller
                 }
             }
 
-            return redirect()->route('challenge.index')->with('success', 'Reto actualizado exitosamente!');
+            return redirect()->route('challenge.editResources', $challenge->id)->with('success', 'Reto actualizado exitosamente!');
         } catch (\Exception $e) {
             // Registrar el error
             Log::error('Error al actualizar el reto: ' . $e->getMessage());
@@ -270,8 +327,9 @@ class ChallengeController extends Controller
 
     public function indexClient($id)
     {
-        $challenge = Challenge::findOrFail($id);
-        return view('users.viewChallenge', compact('challenge'));
+        $challenge = Challenge::with('links')->findOrFail($id);
+        $resources = $challenge->resources ?? collect();
+        return view('users.viewChallenge', compact('challenge', 'resources'));
     }
 
     public function solve($id)
