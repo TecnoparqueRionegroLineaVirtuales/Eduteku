@@ -61,8 +61,16 @@
                                           </div>
                                       </div>
                                       <div class="-mx-3 md:flex mb-6">
+                                            <div class="md:w-full px-3">
+                                                <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="application-link">
+                                                    Video:
+                                                </label>
+                                                <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" id="application-link" type="file" accept="video/*" name="video_url" placeholder="Video">
+                                            </div>
+                                        </div>
+                                      <div class="-mx-3 md:flex mb-6">
                                           <div class="md:w-full px-3">
-                                              <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="file">Términos de referencia:</label>
+                                              <label class="uppercase tracking-wide text-black text-xs font-bold mb-2" for="file">Criterios de aceptación:</label>
                                               <input class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" accept=".pdf" id="file" type="file" name="file">
                                           </div>
                                       </div>

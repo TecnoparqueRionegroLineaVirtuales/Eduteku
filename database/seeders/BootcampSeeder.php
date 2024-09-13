@@ -21,6 +21,7 @@ class BootcampSeeder extends Seeder
             en la gestión turística pueden llevar a consecuencias negativas, tales como la degradación ambiental, la pérdida de 
             identidad cultural y la exclusión social.',
             'img_url' => 'memoria.jpg',
+            'video_url' => '1725901654-66df2b56da12b.mp4',
             'file' => '1725632664.pdf',
             'url_course' => 'URL curso',
             'id_challenge_filter_category' => '1',
