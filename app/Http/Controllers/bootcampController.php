@@ -9,6 +9,8 @@ use App\Models\Challenge;
 use App\Models\QuestionType;
 use Illuminate\Http\Request;
 use App\Models\resourceBootcamp;
+use App\Models\OpenInnovationLike;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\challenge_filter_category;
 
@@ -270,17 +272,31 @@ class bootcampController extends Controller
     {
         $categories = challenge_filter_category::with('bootcamps')->get();
 
-        return view('users.bootcamp', compact('categories'));
+        // get the list of liked bootcamps by the user
+        $likes = [];
+        if(Auth::check()){
+            $likes = OpenInnovationLike::where('user_id', Auth::id())
+                ->where('likeable_type', bootcamps::class)->get()->pluck('likeable_id')->toArray();
+        }
+
+        return view('users.bootcamp', compact('categories', 'likes'));
     }
 
     public function show($id)
     {
         $bootcamp = bootcamps::findOrFail($id);
+        // Obtener los recursos asociados al bootcamp
         $sponsors = $bootcamp->sponsors ?? collect();
-        $challenges = $bootcamp->challenge; 
+        $challenges = $bootcamp->challenge;
         $resources = $bootcamp->resources ?? collect();
 
-        return view('users.viewBootcamp', compact('bootcamp', 'sponsors', 'challenges', 'resources'));
+        $liked_challenges = [];
+        if(Auth::check()){
+            $liked_challenges = OpenInnovationLike::where('user_id', Auth::id())
+                ->where('likeable_type', Challenge::class)->get()->pluck('likeable_id')->toArray();
+        }
+
+        return view('users.viewBootcamp', compact('bootcamp', 'sponsors', 'challenges', 'resources', 'liked_challenges'));
     }
 
     public function bootcampSponsor()
@@ -340,8 +356,8 @@ class bootcampController extends Controller
 
 
         $sponsor->name = $request->input('name');
-        $sponsor->description = $request->input('description'); 
-        
+        $sponsor->description = $request->input('description');
+
 
         if ($request->hasFile('img_url')) {
             if ($sponsor->img_url && Storage::exists('public/img/' . $sponsor->img_url)) {
@@ -382,11 +398,11 @@ class bootcampController extends Controller
                 $userId = $user->id;
                 $phone = $user->phone;
                 $profile = $user->profile;
-    
+
                 if (!$phone || !$profile) {
                     return response()->json(['error' => 'Información de sesión faltante'], 500);
                 }
-    
+
                 $userInfo = new userInfo();
                 $userInfo->user_id = $userId;
                 $userInfo->phone = $phone;
@@ -397,7 +413,7 @@ class bootcampController extends Controller
                 $userInfo->state_id = 1;
                 $userInfo->challenge_state_id = 1;
                 $userInfo->save();
-    
+
                 return response()->json(['success' => true]);
             } else {
                 return response()->json(['error' => true]);
@@ -406,8 +422,8 @@ class bootcampController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    
-    
+
+
 
     public function bootcampParticipationindex()
     {

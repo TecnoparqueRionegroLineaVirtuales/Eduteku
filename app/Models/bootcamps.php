@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Models\ChallengeQuestion;
+use App\Models\OpenInnovationLike;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class bootcamps extends Model
@@ -45,6 +47,11 @@ class bootcamps extends Model
     public function questions()
     {
         return $this->hasMany(ChallengeQuestion::class, 'bootcamp_id', 'id');
+    }
+
+    public function likes(): MorphMany
+    {
+        return $this->morphMany(OpenInnovationLike::class, 'likeable');
     }
 
 }

@@ -9,6 +9,7 @@
     <title>Bootcamps</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -19,7 +20,7 @@
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Bootcamps y retos de innovación</h1>
                 <p class="mb-8 leading-relaxed text-center">
                     A continuación, encontrarás todos los bootcamps y retos de innovación que están a tu disposición.
-                </p>                
+                </p>
             </div>
             @foreach($categories as $category)
                 <h2 class="text-xl font-bold mb-4">{{ $category->name }}</h2>
@@ -33,12 +34,22 @@
                                     <h1 class="title-font text-lg font-medium text-gray-900 mb-3">{{ $bootcamp->name }}</h1>
                                     <p class="leading-relaxed mb-3">{!! Str::limit(strip_tags($bootcamp->description), 100, '...') !!}</p>
                                     <div class="flex items-center flex-wrap ">
-                                    <a href="{{ route('bootcampClient.show', $bootcamp->id) }}" class="text-green-500 inline-flex items-center md:mb-2 lg:mb-0">Más detalles
-                                        <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M5 12h14"></path>
-                                            <path d="M12 5l7 7-7 7"></path>
-                                        </svg>
-                                    </a>
+                                        <a href="{{ route('bootcampClient.show', $bootcamp->id) }}" class="text-green-500 inline-flex items-center md:mb-2 lg:mb-0">Más detalles
+                                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M5 12h14"></path>
+                                                <path d="M12 5l7 7-7 7"></path>
+                                            </svg>
+                                        </a>
+                                        <div class="w-full flex justify-end px-4 py-2">
+                                            <i
+                                                @class([
+                                                    'like-icon cursor-pointer fa-heart text-xl fa-regular' => true,
+                                                    'fa-solid text-red-500' => in_array($bootcamp->id, $likes),
+                                                    ])
+                                                onclick="toggleLike(this, '{{ $bootcamp->id }}')"
+                                            >
+                                            </i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -48,5 +59,32 @@
             @endforeach
         </div>
     </section>
+    <script>
+        function toggleLike(icon, bootcampId) {
+            fetch(`/bootcampLike/${bootcampId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                icon.classList.toggle('fa-solid', data.liked);
+                icon.classList.toggle('text-red-500', data.liked);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                window.location.href = '/login';
+            });
+        }
+    </script>
 </body>
 </html>

@@ -9,6 +9,7 @@
     <title>Bootcamps</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -122,6 +123,16 @@
                                                     <path d="M12 5l7 7-7 7"></path>
                                                 </svg>
                                             </a>
+                                            <div class="w-full flex justify-end px-4 py-2">
+                                                <i
+                                                    @class([
+                                                        'like-icon cursor-pointer fa-heart text-xl fa-regular' => true,
+                                                        'fa-solid text-red-500' => in_array($challenge->id, $liked_challenges),
+                                                        ])
+                                                    onclick="toggleLike(this, '{{ $challenge->id }}')"
+                                                >
+                                                </i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +219,7 @@
                 prevEl: '.swiper-button-prev',
             },
             breakpoints: {
-                
+
                 768: {
                     slidesPerView: 2,
                 },
@@ -218,6 +229,31 @@
             },
         });
 
+        function toggleLike(icon, challengeId) {
+            fetch(`/challengeLike/${challengeId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                icon.classList.toggle('fa-solid', data.liked);
+                icon.classList.toggle('text-red-500', data.liked);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                window.location.href = '/login';
+            });
+        }
     </script>
 </body>
 </html>

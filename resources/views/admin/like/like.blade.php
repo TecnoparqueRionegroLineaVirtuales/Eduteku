@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">       
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal mt-12">
     @include('components.nav-header-dashboard')
@@ -60,7 +60,7 @@
                 @endforeach
                 </div>
             </div>
-            <div class="bg-white shadow-md rounded-lg p-4">
+            <div class="bg-white shadow-md rounded-lg mb-8 p-4">
             <h2 class="text-2xl font-bold mb-4">Boletines</h2>
             <div class="flex flex-wrap w-full">
                 @foreach ($likes as $like)
@@ -94,7 +94,69 @@
                 @endforeach
             </div>
         </div>
-            @if($likes->isEmpty())
+        <div class="bg-white shadow-md rounded-lg mb-8 p-4">
+            <h2 class="text-2xl font-bold mb-4">Bootcamps</h2>
+            <div class="flex flex-wrap w-full">
+                @foreach ($bootcampLikes as $like)
+                    <div class="p-4 lg:w-1/4 md:w-1/2 w-full">
+                        <div class="h-full flex flex-col items-center text-center border rounded-lg overflow-hidden">
+                            <img alt="team" class="flex-shrink-0 w-full h-56 object-cover object-center mb-4" src="{{ asset($like->likeable->img_url) }}">
+                            <div class="w-full px-4 py-6">
+                                <h2 class="title-font font-medium text-lg text-gray-900">{{ $like->likeable->name }}</h2>
+                                <p class="mb-4">{{ $like->likeable->descripcion }}</p>
+                            </div>
+                            <div class="w-full flex justify-end px-4 py-2">
+                                <i class="like-icon cursor-pointer fa-heart text-xl
+                                    @if(in_array($like->likeable->id, $bootcampLikes->pluck('likeable_id')->toArray()))
+                                        fa-solid text-red-500
+                                    @else
+                                        fa-regular
+                                    @endif"
+                                    onclick="toggleOpenInnovationLike(this, 'bootcamp', '{{ $like->likeable->id }}')">
+                                </i>
+                            </div>
+                            <div class="like-indicator
+                                @if(in_array($like->likeable->id, $bootcampLikes->pluck('likeable_id')->toArray()))
+                                    bg-red-500
+                                @endif
+                            "></div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="bg-white shadow-md rounded-lg mb-8 p-4">
+            <h2 class="text-2xl font-bold mb-4">Retos</h2>
+            <div class="flex flex-wrap w-full">
+                @foreach ($challengeLikes as $like)
+                    <div class="p-4 lg:w-1/4 md:w-1/2 w-full">
+                        <div class="h-full flex flex-col items-center text-center border rounded-lg overflow-hidden">
+                            <img alt="team" class="flex-shrink-0 w-full h-56 object-cover object-center mb-4" src="{{ asset($like->likeable->img_url) }}">
+                            <div class="w-full px-4 py-6">
+                                <h2 class="title-font font-medium text-lg text-gray-900">{{ $like->likeable->name }}</h2>
+                                <p class="mb-4">{{ $like->likeable->descripcion }}</p>
+                            </div>
+                            <div class="w-full flex justify-end px-4 py-2">
+                                <i class="like-icon cursor-pointer fa-heart text-xl
+                                    @if(in_array($like->likeable->id, $challengeLikes->pluck('likeable_id')->toArray()))
+                                        fa-solid text-red-500
+                                    @else
+                                        fa-regular
+                                    @endif"
+                                    onclick="toggleOpenInnovationLike(this, 'challenge', '{{ $like->likeable->id }}')">
+                                </i>
+                            </div>
+                            <div class="like-indicator
+                                @if(in_array($like->likeable->id, $challengeLikes->pluck('likeable_id')->toArray()))
+                                    bg-red-500
+                                @endif
+                            "></div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+            @if($likes->isEmpty() && $bootcampLikes->isEmpty() && $challengeLikes->isEmpty())
                 <p class="text-center w-full">No has dado like a ningún elemento.</p>
             @endif
                 </div>
@@ -131,6 +193,43 @@
             window.location.href = '/login';
         });
     }
+
+    function toggleOpenInnovationLike(icon, likeType, modelId) {
+        let url = '';
+        if (likeType === 'bootcamp') {
+            url = `/bootcampLike/${modelId}`;
+        } else if (likeType === 'challenge') {
+            url = `/challengeLike/${modelId}`;
+        }
+        fetch( url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            icon.classList.toggle('fa-solid', data.liked);
+            icon.classList.toggle('text-red-500', data.liked);
+            const likeIndicator = icon.parentElement.querySelector('.like-indicator');
+            if (likeIndicator) {
+                likeIndicator.classList.toggle('bg-red-500', data.liked);
+            }
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            window.location.href = '/login';
+        });
+    }
+
 </script>
 </body>
 </html>
