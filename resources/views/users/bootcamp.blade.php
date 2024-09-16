@@ -46,7 +46,7 @@
                                                     'like-icon cursor-pointer fa-heart text-xl fa-regular' => true,
                                                     'fa-solid text-red-500' => in_array($bootcamp->id, $likes),
                                                     ])
-                                                onclick="toggleLike('{{ $bootcamp->id }}')"
+                                                onclick="toggleLike(this, '{{ $bootcamp->id }}')"
                                             >
                                             </i>
                                         </div>
@@ -60,8 +60,8 @@
         </div>
     </section>
     <script>
-        function toggleLike(bootcampId) {
-            fetch(`bootcampLike/${bootcampId}`, {
+        function toggleLike(icon, bootcampId) {
+            fetch(`/bootcampLike/${bootcampId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,9 +76,8 @@
                 return response.json();
             })
             .then(data => {
-                const likeIcon = document.querySelector(`i.like-icon`);
-                likeIcon.classList.toggle('fa-solid', data.liked);
-                likeIcon.classList.toggle('text-red-500', data.liked);
+                icon.classList.toggle('fa-solid', data.liked);
+                icon.classList.toggle('text-red-500', data.liked);
                 window.location.reload();
             })
             .catch(error => {

@@ -108,7 +108,7 @@
                                                 'like-icon cursor-pointer fa-heart text-xl fa-regular' => true,
                                                 'fa-solid text-red-500' => in_array($challenge->id, $liked_challenges),
                                                 ])
-                                            onclick="toggleLike('{{ $challenge->id }}')"
+                                            onclick="toggleLike(this, '{{ $challenge->id }}')"
                                         >
                                         </i>
                                     </div>
@@ -200,10 +200,8 @@
             },
         });
 
-        function toggleLike(challengeId) {
-            // TODO: continue here
-            console.log('like clicked', challengeId);
-            fetch(`challengeLike/${challengeId}`, {
+        function toggleLike(icon, challengeId) {
+            fetch(`/challengeLike/${challengeId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -212,22 +210,19 @@
                 body: JSON.stringify({})
             })
             .then(response => {
-                console.log('response received', response);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log('changing DOM');
-                const likeIcon = document.querySelector(`i.like-icon`);
-                likeIcon.classList.toggle('fa-solid', data.liked);
-                likeIcon.classList.toggle('text-red-500', data.liked);
-                // window.location.reload();
+                icon.classList.toggle('fa-solid', data.liked);
+                icon.classList.toggle('text-red-500', data.liked);
+                window.location.reload();
             })
             .catch(error => {
                 console.error('Error:', error);
-                // window.location.href = '/login';
+                window.location.href = '/login';
             });
         }
     </script>
