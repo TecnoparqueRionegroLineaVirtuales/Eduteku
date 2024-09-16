@@ -38,6 +38,7 @@ Route::resource('bulletin', BulletinController::class);
 Route::resource('messagesclient', MessagesclientController::class);
 Route::get('bootcampClient', [bootcampController::class, 'clientBootcamp'])->name('bootcampClient');
 Route::get('bootcampClient/{id}', [bootcampController::class, 'show'])->name('bootcampClient.show');
+Route::get('/viewChallenge/{id}', [ChallengeController::class, 'indexClient'])->name('viewChallenge');
 
 Route::get('teku', function () {
     return view('users.appTeku');
@@ -93,7 +94,6 @@ Route::middleware([
     Route::delete('/sponsor/destroy/{sponsor}', [bootcampController::class, 'destroySponsor'])->name('sponsor.destroy');
     Route::get('/sponsor/{id}/edit', [bootcampController::class, 'editSponsor'])->name('sponsor.edit');
     Route::put('/sponsor/{id}', [bootcampController::class, 'updateSponsor'])->name('sponsor.update');
-
     Route::get('/bootcamp/challengeSurveyList', [ChallengeQuestionController::class, 'showBootcampList'])->name('bootcamp.challengeSurveyList');
     Route::get('/bootcamp/{bootcamp}/showChallengeSurvey', [bootcampController::class, 'showChallengeSurvey'])->name('bootcamp.challengeSurvey');
     Route::post('/bootcamp/store', [bootcampController::class, 'store'])->name('bootcamp.store');
@@ -105,25 +105,25 @@ Route::middleware([
     Route::delete('/bootcampLanding/destroy/{bootcamp}', [bootcampController::class, 'destroybootcamp'])->name('bootcampLanding.destroy');
     Route::get('/bootcampLanding/{id}/edit', [bootcampController::class, 'editbootcamp'])->name('bootcampLanding.edit');
     Route::put('/bootcampLanding/{id}', [bootcampController::class, 'updatebootcamp'])->name('bootcampLanding.update');
-
     // Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
     // Route::post('/challenge/create', [ChallengeController::class, 'store']);
+    Route::get('challenge/{challengeId}/resources/create', [ChallengeController::class, 'createResourceChallenge'])->name('challenge_resources.create');
+    Route::post('challenge/{challengeId}/resources', [ChallengeController::class, 'storeResourceChallenge'])->name('challenge_resources.store');
+
+    Route::get('/challenge/{id}/edit-resources', [ChallengeController::class, 'editResourceChallenge'])
+    ->name('challenge.editResources');
+    Route::put('/challenge/{id}/update-resources', [ChallengeController::class, 'updateResourceChallenge'])
+        ->name('challenge_resources.update');
     Route::get('challenge/dashboard', [ChallengeController::class, 'dashboard'])->name('challenge.dashboard');
     Route::resource('challenge', ChallengeController::class);
     Route::get('/tags', [TagsController::class, 'getTags']);
     // Route::get('/challenge', [ChallengeController::class, 'index'])->name('challenge');
-    Route::get('/viewChallenge/{id}', [ChallengeController::class, 'indexClient'])->name('viewChallenge');
-
     Route::get('bootcamps/{bootcampId}/resources/create', [bootcampController::class, 'createResourceBootcamp'])->name('bootcamp_resources.create');
     Route::post('bootcamps/{bootcampId}/resources', [bootcampController::class, 'storeResourceBootcamp'])->name('bootcamp_resources.store');
-
     Route::get('/bootcamp/{id}/edit-resources', [BootcampController::class, 'editResourceBootcamp'])
     ->name('bootcamp.editResources');
-
-    // Ruta para actualizar los recursos del bootcamp en la base de datos
     Route::put('/bootcamp/{id}/update-resources', [BootcampController::class, 'updateResourceBootcamp'])
         ->name('bootcamp_resources.update');
-
     Route::get('/bootcamp_participation/{id}', [BootcampController::class, 'bootcampParticipation'])->name('bootcamp_participation');
     Route::post('/bootcamp_participation/{bootcamp}', [bootcampController::class, 'bootcampParticipationStore'])->name('bootcamp_participation.store');
     Route::get('/bootcamp_participation_admin', [BootcampController::class, 'bootcampParticipationindex'])->name('bootcamp_participation_admin.index');

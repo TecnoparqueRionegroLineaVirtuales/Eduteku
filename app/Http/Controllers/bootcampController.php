@@ -76,6 +76,7 @@ class bootcampController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'string|max:2000',
             'img_url' => 'nullable|image',
+            'video_url' => 'nullable',
             'file' => 'nullable|mimes:pdf',
             'url_course' => 'required|string',
             'id_challenge_filter_category' => 'required|exists:challenge_filter_category,id',
@@ -101,6 +102,13 @@ class bootcampController extends Controller
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/img', $filename);
             $bootcamp->img_url = $filename;
+        }
+
+        if ($request->hasFile('video_url')) {
+            $file = $request->file('video_url');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/img', $filename);
+            $bootcamp->video_url = $filename;
         }
 
         $bootcamp->save();
@@ -200,6 +208,7 @@ class bootcampController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
             'img_url' => 'nullable|image',
+            'video_url' => 'nullable',
             'file' => 'nullable|mimes:pdf',
             'url_course' => 'required|string',
             'id_challenge_filter_category' => 'required|exists:challenge_filter_category,id',
@@ -223,6 +232,17 @@ class bootcampController extends Controller
             $filename = time() . '-' . $file->getClientOriginalName();
             $path = $file->storeAs('public/img', $filename);
             $bootcamp->img_url = $filename;
+        }
+
+        if ($request->hasFile('video_url')) {
+            if ($bootcamp->video_url && Storage::exists('public/img/' . $bootcamp->video_url)) {
+                Storage::delete('public/img/' . $bootcamp->video_url);
+            }
+
+            $file = $request->file('video_url');
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $path = $file->storeAs('public/img', $filename);
+            $bootcamp->video_url = $filename;
         }
 
         if ($request->hasFile('file')) {
@@ -265,21 +285,19 @@ class bootcampController extends Controller
     public function show($id)
     {
         $bootcamp = bootcamps::findOrFail($id);
-        $sponsors = $bootcamp->sponsors;
-        $challenges = Challenge::all();
+        // Obtener los recursos asociados al bootcamp
+        $sponsors = $bootcamp->sponsors ?? collect();
+        $challenges = $bootcamp->challenge;
+        $resources = $bootcamp->resources ?? collect();
 
         $liked_challenges = [];
         if(Auth::check()){
             $liked_challenges = OpenInnovationLike::where('user_id', Auth::id())
                 ->where('likeable_type', Challenge::class)->get()->pluck('likeable_id')->toArray();
         }
-        // Obtener los recursos asociados al bootcamp
-        $resources = $bootcamp->resources;
 
         return view('users.viewBootcamp', compact('bootcamp', 'sponsors', 'challenges', 'resources', 'liked_challenges'));
     }
-
-
 
     public function bootcampSponsor()
     {
@@ -330,7 +348,7 @@ class bootcampController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'string|max:255',
+            'description' => 'string',
             'img_url' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
 
@@ -338,7 +356,8 @@ class bootcampController extends Controller
 
 
         $sponsor->name = $request->input('name');
-        $sponsor->description = $request->description;
+        $sponsor->description = $request->input('description');
+
 
         if ($request->hasFile('img_url')) {
             if ($sponsor->img_url && Storage::exists('public/img/' . $sponsor->img_url)) {
@@ -370,31 +389,41 @@ class bootcampController extends Controller
     }
 
     public function bootcampParticipationStore(Request $request, $bootcampId) {
-        $request->validate([
-            'phone' => 'required|string|max:20',
-            'profile' => 'required|string|max:50',
-            'mode' => 'required|string|max:60',
-            'commitment' => 'required|string|max:5',
-        ]);
+        try {
+            $request->validate([
+                'commitment' => 'required|string|max:5',
+            ]);
+            $user = auth()->user();
+            if ($request->commitment == 'Si') {
+                $userId = $user->id;
+                $phone = $user->phone;
+                $profile = $user->profile;
 
-        if ($request->commitment == 'Si') {
-            $userId = auth()->id();
-            $userInfo = new userInfo();
-            $userInfo->user_id = $userId;
-            $userInfo->phone = $request->phone;
-            $userInfo->profile = $request->profile;
-            $userInfo->mode = $request->mode;
-            $userInfo->commitment = $request->commitment;
-            $userInfo->bootcamp_id = $bootcampId;
-            $userInfo->state_id = 1;
-            $userInfo->challenge_state_id = 2;
-            $userInfo->save();
+                if (!$phone || !$profile) {
+                    return response()->json(['error' => 'Información de sesión faltante'], 500);
+                }
 
-            return response()->json(['success' => true]);
-        } else {
-            return response()->json(['error' => true]);
+                $userInfo = new userInfo();
+                $userInfo->user_id = $userId;
+                $userInfo->phone = $phone;
+                $userInfo->profile = $profile;
+                $userInfo->mode = 'Quiero asistir a las masterclass y ser solucionador de retos';
+                $userInfo->commitment = $request->commitment;
+                $userInfo->bootcamp_id = $bootcampId;
+                $userInfo->state_id = 1;
+                $userInfo->challenge_state_id = 1;
+                $userInfo->save();
+
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['error' => true]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
 
     public function bootcampParticipationindex()
     {

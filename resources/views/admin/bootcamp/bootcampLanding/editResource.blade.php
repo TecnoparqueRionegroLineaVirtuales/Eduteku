@@ -40,6 +40,9 @@
                                             <input type="file" name="files[]" id="files" accept="image/*,video/*" class="w-full bg-gray-200 text-black border border-gray-200 rounded py-3 px-4 mb-3" multiple required>
                                         </div>
                                         <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-green-500 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"><i class="fa fa-plus"></i> Subir Archivos</button>
+                                        <a href="{{ route('bootcampLanding') }}">
+                                            <button type="button" id="closeModal" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-md px-4 py-2 bg-red-400 font-medium text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">No quiero cambiar imagenes</button>
+                                        </a>
                                     </form>
                                 </div>
                             </div>

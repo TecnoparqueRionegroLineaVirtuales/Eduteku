@@ -23,6 +23,6 @@ class BootcampResource extends Model
 
     public function resource()
     {
-        return $this->belongsTo(besourceBootcamp::class, 'resourse_id');
+        return $this->belongsTo(resourceBootcamp::class, 'resourse_id');
     }
 }

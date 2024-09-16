@@ -32,37 +32,18 @@
             @else
                 <!-- Formulario -->
                 <div class="lg:w-2/6 md:w-1/2 w-full bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto">
-                    <h2 class="text-gray-900 text-xl font-medium title-font mb-5">Datos adicionales</h2>
+                    <h2 class="text-gray-900 text-xl font-medium title-font mb-5">Compromiso del Participante</h2>
                     <form id="bootcampForm" method="post" action="{{ route('bootcamp_participation.store', $bootcamp->id) }}">
                         @csrf
+                        
                         <div class="relative mb-4">
-                            <label for="phone" class="leading-7 text-sm text-gray-600">Número de teléfono</label>
-                            <input type="number" required id="phone" name="phone" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                        </div>
-
-                        <div class="relative mb-4">
-                            <label for="profile" class="leading-7 text-sm text-gray-600">Perfil</label>
-                            <select id="profile" name="profile" required class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                <option value="" disabled selected>Selecciona tu perfil</option>
-                                <option value="Empresario">Empresario</option>
-                                <option value="Emprendedores">Emprendedor</option>
-                                <option value="Estudiante">Estudiante</option>
-                                <option value="Aprendiz">Aprendiz</option>
-                                <option value="Otro">Otro</option>
-                            </select>
-                        </div>
-
-                        <div class="relative mb-4">
-                            <label for="mode" class="leading-7 text-sm text-gray-600">Modo de participación en el bootcamp</label>
-                            <select id="mode" name="mode" required class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                <option value="" disabled selected>Selecciona el modo de participación</option>
-                                <option value="Solo quiero asistir a las masterclass">Solo quiero asistir a las masterclass</option>
-                                <option value="Quiero asistir a las masterclass y ser solucionador de retos">Quiero asistir a las masterclass y ser solucionador de retos</option>
-                            </select>
-                        </div>
-
-                        <div class="relative mb-4">
-                            <p class="leading-7 text-sm text-gray-600 mb-2">¿Te comprometes a participar activamente en todo el bootcamp?</p>
+                            <p class="leading-7 text-sm text-justify text-gray-600 mb-2">
+                                Al postularte en este bootcamp, te comprometes a participar activamente en todas las sesiones, workshops, y actividades que forman parte del programa. Este compromiso incluye asistir puntualmente a las masterclasses, completar las tareas asignadas, y colaborar de manera efectiva en la resolución de los retos que se te presenten.
+                                Ser parte de este bootcamp no solo implica recibir conocimientos, sino también contribuir con tus habilidades y esfuerzo para enfrentar desafíos reales. Como participante, asumirás la responsabilidad de ser un solucionador de retos, aplicando lo aprendido para desarrollar soluciones innovadoras y colaborando con tu equipo para alcanzar los objetivos planteados.
+                            </p>
+                            <p class="leading-7 text-sm text-gray-600 mb-2">
+                                ¿Te comprometes a participar activamente en todo el bootcamp?
+                            </p>
                             <div class="flex items-center space-x-4">
                                 <label class="inline-flex items-center">
                                     <input type="radio" name="commitment" value="Si" required class="form-radio text-indigo-600">
