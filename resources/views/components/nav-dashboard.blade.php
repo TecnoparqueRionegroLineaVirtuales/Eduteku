@@ -197,17 +197,63 @@
                                 </button>
                             </form>
                         </li>
+                        @endrole
+                    @role('user')
+                    <li class="flex-1">
+                        <a href="{{ route('likeUser') }}"
+                            class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-100 dark:text-white hover:text-green-500 hover:border-green-500">
+                            <i class="fa fa-chalkboard-teacher pr-0 md:pr-3"></i><span
+                            class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Mis like</span>
+                        </a>
+                    </li>
+
+                    <li class="flex">
+                        <form action="https://moodle.eduteku.com/test/index.php" method="post" class=" hover:text-green-500">
+                            <input type="hidden" value="{{ $email }}" name="email">
+                            <input type="hidden" value="{{ $password }}" name="password">
+                            <button type="submit" id="loginbtn">
+                                <i class="fa fa-chalkboard-teacher pr-0 md:pr-3"></i>
+                                <span
+                                    class="py-1 md:py-3 pl-1 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">
+                                    Realizar cursos
+                                </span>
+                            </button>
+                        </form>
+                    </li>
+                        <p class="mt-4 border-t-2 border-gray-300"></p>
+                    <li class="px-2 ">
+                        <a href="{{ route('index.index') }}">
+                            <button
+                                class=" text-green-500 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none inline-block py-2 px-4 text-current no-underline hover:text-green-600 text-left md:text-center">
+                                <i class="fas fa-globe fa-fw"></i>
+                                Regresar al portal web
+                            </button>
+                        </a>
+                    </li>
+                    <li class="px-2 ">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button
+                                class=" text-red-500 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none inline-block py-2 px-4 text-current no-underline hover:text-red-600"
+                                type="submit">
+                                <i class="fas fa-sign-out-alt fa-fw "></i>
+                                Cerrar sesión
+                            </button>
+                        </form>
+                    </li>
+                    @endrole
                     </ul>
                 </div>
             </div>
     </nav>
+
 
     <!-- nav lateral-->
     <nav aria-label="alternative nav" class="hidden md:flex">
         <div class="bg-gray-100 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen w-full md:w-48 content-center">
             <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
                 <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
-
+                    @role('admin')
                     <li class="mr-3 m-3">
                         <li class="mr-3 flex-1">
                             <a href="{{ route('category.index') }}" class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 border-gray-100 hover:border-green-500">
@@ -256,7 +302,7 @@
                         </li>
                         <li class=" flex-1">
                             <a href="{{ route('challenge.dashboard') }}"
-                                class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                                class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-black hover:text-green-500 hover:border-green-500">
                                 <i class="fas fa-users pr-0 md:pr-3"></i><span
                                 class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">Retos</span>
                             </a>
@@ -265,8 +311,8 @@
 
                     @role('user')
                     <li class="mr-3 m-3">
-                        <a href="{{ route('messages.index') }}"
-                            class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800 dark:text-white hover:text-green-500 hover:border-green-500">
+                        <a href="{{ route('likeUser') }}"
+                            class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2  dark:border-gray-800dark:text-black hover:text-green-500 hover:border-green-500">
                             <i class="fa fa-heart pr-0 md:pr-3"></i><span
                                 class="ml-4 pb-1 md:pb-0 md:text-base text-current md:text-current md:inline-block">
                                 Mis like
@@ -274,7 +320,7 @@
                         </a>
                     </li>
                     <li class="mr-3 m-3">
-                        <form action="https://moodle.eduteku.com/test/index.php" method="post" class="dark:text-white hover:text-green-500">
+                        <form action="https://moodle.eduteku.com/test/index.php" method="post" class="block py-1 md:py-3 pl-1 align-middle text-current no-underline hover:text-current border-b-2 dark:border-gray-800  dark:text-black hover:text-green-500 hover:border-green-500">
                             <input type="hidden" value="{{ $email }}" name="email">
                             <input type="hidden" value="{{ $password }}" name="password">
                             <button type="submit" id="loginbtn">
@@ -285,28 +331,6 @@
                                 </span>
                             </button>
                         </form>
-                    </li>
-                        <p class="mt-4 border-t-2 border-gray-300"></p>
-                    <li class="px-2 ">
-                        <a href="{{ route('index.index') }}">
-                            <button
-                                class=" text-green-500 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none inline-block py-2 px-4 text-current no-underline hover:text-green-600 text-left md:text-center">
-                                <i class="fas fa-globe fa-fw"></i>
-                                Regresar al portal web
-                            </button>
-                        </a>
-                    </li>
-                    <li class="px-2 ">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button
-                                class=" text-red-500 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none inline-block py-2 px-4 text-current no-underline hover:text-red-600"
-                                type="submit">
-                                <i class="fas fa-sign-out-alt fa-fw "></i>
-                                Cerrar sesión
-                            </button>
-                        </form>
-                    </li>
                     @endrole
                 </ul>
             </div>
