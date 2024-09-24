@@ -110,7 +110,13 @@
                                 <h2 class="title-font font-medium text-lg text-gray-900">{{ $like->likeable->name }}</h2>
                                 <p class="mb-4">{{ $like->likeable->descripcion }}</p>
                             </div>
-                            <div class="w-full flex justify-end px-4 py-2">
+                            <div class="grid grid-cols-2 gap-20 pb-4">
+                                <a href="{{ route('bootcampClient.show', $like->likeable->id) }}" class="text-green-500 inline-flex items-center md:mb-2 lg:mb-0">Más detalles
+                                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14"></path>
+                                        <path d="M12 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
                                 <i class="like-icon cursor-pointer fa-heart text-xl
                                     @if(in_array($like->likeable->id, $bootcampLikes->pluck('likeable_id')->toArray()))
                                         fa-solid text-red-500
@@ -141,7 +147,13 @@
                                 <h2 class="title-font font-medium text-lg text-gray-900">{{ $like->likeable->name }}</h2>
                                 <p class="mb-4">{{ $like->likeable->descripcion }}</p>
                             </div>
-                            <div class="w-full flex justify-end px-4 py-2">
+                            <div class="grid grid-cols-2 gap-20 pb-4">
+                                <a href="{{ route('viewChallenge', $like->likeable->id) }}" class="text-green-500 inline-flex items-center md:mb-2 lg:mb-0">Más detalles
+                                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14"></path>
+                                        <path d="M12 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
                                 <i class="like-icon cursor-pointer fa-heart text-xl
                                     @if(in_array($like->likeable->id, $challengeLikes->pluck('likeable_id')->toArray()))
                                         fa-solid text-red-500

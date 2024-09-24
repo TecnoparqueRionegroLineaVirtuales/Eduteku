@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tags;
+use App\Models\userInfo;
 use App\Models\bootcamps;
 use App\Models\Challenge;
-use App\Models\userInfo;
-use App\Models\Tags;
-use App\Models\resourceBootcamp;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use App\Models\ChallengeType;
 use App\Enums\QuestionTypeEnum;
+use App\Models\ChallengeAnswer;
+use App\Models\resourceBootcamp;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\Storage;
 
 class ChallengeController extends Controller
 {
@@ -357,9 +358,13 @@ class ChallengeController extends Controller
     // Show the from to answer the bootcamp challenge survey
     public function showChallengeSurvey($challenge_id)
     {
+        // Check if the user has already answered the challengeSurvey
+        $user = auth()->user();
+        $challengeAnswer = ChallengeAnswer::where('user_id', $user->id)->where('challenge_id', $challenge_id)->first();
+        $alreadyAnswered = $challengeAnswer ? true : false;
         $challenge = Challenge::findOrFail($challenge_id);
         $challenge->bootcamp->load('questions');
-        // $challenge->bootcamp->load('questions');
-        return view('users.openInnovation.answerSurvey', compact('challenge'));
+        return view('users.openInnovation.answerSurvey', compact('alreadyAnswered', 'challenge'));
+
     }
 }
